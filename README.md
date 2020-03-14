@@ -1,0 +1,2 @@
+# nuxt-admin
+basic template
