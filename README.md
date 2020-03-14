@@ -1,2 +1,3 @@
 # nuxt-admin
-basic template
+basic templat, nuxt js and express project with admin part
+
