@@ -1,26 +1,47 @@
-const Joi = require('joi')
-const crypto = require('crypto')
+const Joi = require('@hapi/joi')
 const mongoose = require('mongoose')
-const jwt = require('jsonwebtoken')
 require('dotenv').config()
-
-//Schema
 const userSchema = new mongoose.Schema({
+    type: {
+        type: String,
+        required: true
+    },
+    surface: {
+        type: String,
+        required: true
+    },
+    pieces: {
+        type: Array,
+        required: true
+    },
+    budjet: {
+        type: String,
+        required: true,
+        minlength: 1,
+        maxlength: 50
+    },
+    nom: {
+        type: String,
+        required: true,
+        minlength: 1,
+        maxlength: 50
+    },
+    phone: {
+        type: String,
+        required: true,
+        minlength: 1,
+        maxlength: 11
+    },
     email: {
         type: String,
-        match: [
-            // eslint-disable-next-line no-useless-escape
-            /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-            'Entrer un email valide'
-        ],
-        required: [true, 'Entrer un E-mail'],
+        required: true,
         minlength: 6,
         maxlength: 255,
         unique: true
     },
     password1: {
         type: String,
-        required: [true, 'Entrer un mot de passe'],
+        required: true,
         select: false,
         minlength: 6,
         maxlength: 255
@@ -32,143 +53,143 @@ const userSchema = new mongoose.Schema({
         select: false,
         maxlength: 255
     },
-    createdAt: String,
-    marqueur: {
-        type: Number,
-        default: 0
-    },
-    marqueurValide: {
-        type: Number,
-        default: 0
-    },
-    articleUtil: {
-        type: Number,
-        default: 0
-    },
-    confirmeEmail: {
-        type: Boolean,
-        default: false
-    },
-    role: {
-        type: String,
-        enum: ['utilisateur', 'membre', 'administrateur'],
-        default: 'utilisateur'
-    },
     resetPasswordToken: String,
     resetPasswordExpire: Date
 })
 
-//methods
-userSchema.methods.generateEmailConfirm = function() {
-    const info = {
-        _id: this._id
-    }
-    const EmailToken = jwt.sign(info, process.env.EMAIL_SECRET, {
-        expiresIn: process.env.JWT_EXPIRE
-    })
-    return EmailToken
-}
-
-userSchema.methods.generateAuthToken = function() {
-    const info = {
-        _id: this._id,
-        email: this.email,
-        role: this.role,
-        marqueur: this.marqueur,
-        articleUtil: this.articleUtil,
-        confirmeEmail: this.confirmeEmail
-    }
-    const token = jwt.sign(info, process.env.JWT_PRIVATE_KEY, {
-        expiresIn: process.env.JWT_EXPIRE
-    })
-    return token
-}
-
-userSchema.methods.getResetPasswordToken = function() {
-    const resetToken = crypto.randomBytes(20).toString('hex')
-    this.resetPasswordToken = crypto
-        .createHash('sha256')
-        .update(resetToken)
-        .digest('hex')
-
-    this.resetPasswordExpire = Date.now() + 10 * 60 * 1000
-    return resetToken
-}
-
-//Creation document Database
 const User = mongoose.model('User', userSchema)
 
 //Validation
 function validateUser(user) {
-    const schema = {
+    const schema = Joi.object({
+        type: Joi.string()
+            .min(1)
+            .max(50)
+            .required()
+            .messages({
+                'string.base': 'Le type doit être une chaine de caractère',
+                'string.empty': 'Entrer un type',
+                'string.min': `Le type doit contenir au moins 1 caractères`,
+                'string.max': 'Le type doit contenir au maximum 50 caractères',
+                'any.required': 'le type est requis'
+            }),
+        surface: Joi.string()
+            .min(1)
+            .max(50)
+            .required()
+            .messages({
+                'string.base': 'La surface doit être une chaine de caractère',
+                'string.empty': 'Entrer une surface',
+                'string.min': `La surface doit contenir au moins 1 caractères`,
+                'string.max':
+                    'La surface doit contenir au maximum 50 caractères',
+                'any.required': 'la surface est requis'
+            }),
+        pieces: Joi.array()
+            .required()
+            .messages({
+                'array.empty': 'Ajouter des pieces',
+                'any.required': 'Il faut ajouter au moins une piece'
+            }),
+        budjet: Joi.string()
+            .min(1)
+            .max(50)
+            .required()
+            .messages({
+                'string.base': 'Le budjet doit être une chaine de caractère',
+                'string.empty': 'Entrer une surface',
+                'string.min': `Le budjet doit contenir au moins 1 caractères`,
+                'string.max':
+                    'Le budjet doit contenir au maximum 50 caractères',
+                'any.required': 'la surface est requis'
+            }),
+        nom: Joi.string()
+            .min(1)
+            .max(50)
+            .required()
+            .messages({
+                'string.base': 'Le nom doit être une chaine de caractère',
+                'string.empty': 'Entrer un un nom',
+                'string.min': `Le nom doit contenir au moins 1 caractères`,
+                'string.max': 'Le nom doit contenir au maximum 50 caractères',
+                'any.required': 'le nom est requis'
+            }),
+        phone: Joi.string()
+            .min(1)
+            .max(20)
+            .required()
+            .messages({
+                'string.base': 'Le phone doit être une chaine de caractère',
+                'string.empty': 'Entrer un un phone',
+                'string.min': `Le phone doit contenir au moins 9 caractères`,
+                'string.max': 'Le phone doit contenir au maximum 11 caractères',
+                'any.required': 'le phone est requis'
+            }),
         email: Joi.string()
             .min(6)
             .max(255)
             .email()
             .required()
-            .error((errors) => {
-                errors.forEach((err) => {
-                    switch (err.type) {
-                        case 'string.base':
-                            err.message = 'Doit etre une chaine de caractères!'
-                            break
-                        case 'string.min':
-                            err.message = `Le mail doit contenir au moins ${err.context.limit} caractères!`
-                            break
-                        case 'string.max':
-                            err.message = `Le mail ne doit pas contenir plus de ${err.context.limit} caractères!`
-                            break
-                        case 'any.email':
-                            err.message = `l'adresse mail n'est pas valide`
-                            break
-                        case 'any.required':
-                            err.message = `Le mail est requis`
-                            break
-                        default:
-                            break
-                    }
-                })
-                return errors
+            .messages({
+                'string.base': 'Le mail doit être une chaine de caractère',
+                'string.empty': 'Entrer un un mail',
+                'string.min': `Le mail doit contenir au moins 2 caractères`,
+                'string.max': 'Le mail doit contenir au maximum 255 caractères',
+                'string.email': 'Le mail doit etre valide',
+                'any.required': 'le mail est requis'
             }),
         password1: Joi.string()
             .min(6)
             .max(255)
             .required()
-            .error((errors) => {
-                errors.forEach((err) => {
-                    switch (err.type) {
-                        case 'string.base':
-                            err.message = 'Doit etre une chaine de caractères!'
-                            break
-                        case 'string.min':
-                            err.message = `Le mot de passe doit contenir au moins ${err.context.limit} caractères!`
-                            break
-                        case 'string.max':
-                            err.message = `Le mot de passe ne doit pas contenir plus de ${err.context.limit} caractères!`
-                            break
-                        case 'any.required':
-                            err.message = `Le mot de passe est requis`
-                            break
-                        default:
-                            break
-                    }
-                })
-                return errors
+            .messages({
+                'string.base':
+                    'Le mot de passe doit être une chaine de caractère',
+                'string.empty': 'Entrer un mot de passe',
+                'string.min': `Le mot de passe doit contenir au moins 6 caractères`,
+                'string.max':
+                    'Le mot de passe doit contenir au maximum 50 caractères',
+                'any.required': 'le mot de passe est requis'
             }),
         password2: Joi.any()
-            .required()
             .valid(Joi.ref('password1'))
-            .options({
-                language: {
-                    any: {
-                        allowOnly: '!! Les mots de passe doivent correspondre!'
-                    }
-                }
-            })
-    }
-    return Joi.validate(user, schema)
+            .required()
+            .messages({ 'any.only': `Les mots de passe doivent correspondre` })
+    })
+    return schema.validate(user)
 }
-
+function validateLogin(user) {
+    const schema = Joi.object({
+        email: Joi.string()
+            .min(6)
+            .max(255)
+            .email()
+            .required()
+            .messages({
+                'string.base': 'Le mail doit être une chaine de caractère',
+                'string.empty': 'Entrer un un mail',
+                'string.min': `Le mail doit contenir au moins 2 caractères`,
+                'string.max': 'Le mail doit contenir au maximum 255 caractères',
+                'string.email': 'Le mail doit etre valide',
+                'any.required': 'le mail est requis'
+            }),
+        password: Joi.string()
+            .min(6)
+            .max(255)
+            .required()
+            .messages({
+                'string.base':
+                    'Le mot de passe doit être une chaine de caractère',
+                'string.empty': 'Entrer un mot de passe',
+                'string.min': `Le mot de passe doit contenir au moins 6 caractères`,
+                'string.max':
+                    'Le mot de passe doit contenir au maximum 50 caractères',
+                'any.required': 'le mot de passe est requis'
+            })
+    })
+    return schema.validate(user)
+}
 exports.validate = validateUser
+exports.validateLogin = validateLogin
 exports.User = User
 exports.userSchema = userSchema

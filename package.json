@@ -12,22 +12,47 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^3.0.0-0",
+    "@nuxtjs/robots": "^2.4.2",
+    "@nuxtjs/sitemap": "^2.0.1",
     "@vue/composition-api": "^0.4.0",
+    "aws-sdk": "^2.641.0",
+    "bcrypt": "^4.0.1",
+    "chart.js": "^2.9.3",
+    "cookie-parser": "^1.4.5",
+    "cookies": "^0.8.0",
+    "crypto": "^1.0.1",
+    "dateformat": "^3.0.3",
+    "dotenv": "^8.2.0",
+    "events": "^3.1.0",
+    "express": "^4.17.1",
+    "glslify": "^7.0.0",
     "gsap": "^3.2.4",
+    "jsonwebtoken": "^8.5.1",
+    "ks-vue-scrollmagic": "^1.0.2",
+    "local-storage": "^2.0.0",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.9.5",
     "node-sass": "^4.13.1",
     "nuxt": "^2.0.0",
-    "sass-loader": "^8.0.2"
+    "redirect-ssl": "^1.4.1",
+    "sass-loader": "^8.0.2",
+    "three": "^0.116.1",
+    "vue-notification": "^1.3.20",
+    "vuetify": "^2.2.18"
   },
   "devDependencies": {
+    "@mdi/font": "^5.0.45",
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
     "babel-eslint": "^10.0.1",
     "eslint": "^6.1.0",
-    "eslint-plugin-nuxt": ">=0.4.2",
     "eslint-config-prettier": "^6.10.0",
+    "eslint-plugin-nuxt": ">=0.4.2",
     "eslint-plugin-prettier": "^3.1.2",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "video.js": "^7.8.2"
   }
 }
