@@ -1,7 +1,5 @@
 <template>
     <div>
-        <div class="preload_img" :data-image="preloadImage"></div>
-        <div class="preload_background"></div>
         <div ref="accueil">
             <Nav />
             <Carousel />
@@ -28,63 +26,8 @@ export default {
         },
         leave(el, done) {
             TweenLite.fromTo(
-                '.series-info',
-                1,
-                {
-                    opacity: '1',
-                    x: 0
-                },
-                {
-                    opacity: '0',
-                    x: 100,
-                    ease: 'sine.Out'
-                }
-            )
-            TweenLite.fromTo(
-                '.slider-nav',
-                1,
-                {
-                    opacity: '1',
-                    x: 0
-                },
-                {
-                    opacity: '0',
-                    x: 50,
-                    ease: 'sine.Out'
-                }
-            )
-            TweenLite.fromTo(
-                '.chevron-down',
-                1,
-                {
-                    opacity: '1',
-                    x: 0
-                },
-                {
-                    opacity: '0',
-                    x: 20,
-                    ease: 'sine.Out',
-                    onComplete: done
-                }
-            )
-            TweenLite.fromTo(
-                '.nav',
-                0.6,
-                {
-                    opacity: '1',
-                    x: 0
-                },
-                {
-                    opacity: '0',
-                    x: 50,
-                    ease: 'sine.Out',
-                    delay: 0.5,
-                    onComplete: done
-                }
-            )
-            TweenLite.fromTo(
                 '.about-issue',
-                1.2,
+                0.6,
                 {
                     opacity: '1'
                 },
@@ -93,28 +36,82 @@ export default {
                     ease: 'linear'
                 }
             )
-            TweenLite.to('.image-mask', 1.2, {
+            TweenLite.fromTo(
+                '.series-info',
+                0.8,
+                {
+                    opacity: '1',
+                    y: 0
+                },
+                {
+                    opacity: '0',
+                    y: 100,
+                    ease: 'sine.Out'
+                }
+            )
+            TweenLite.fromTo(
+                '.slider-nav',
+                0.8,
+                {
+                    opacity: '1',
+                    y: 0
+                },
+                {
+                    opacity: '0',
+                    y: 50,
+                    ease: 'sine.Out'
+                }
+            )
+            TweenLite.fromTo(
+                '.chevron-down',
+                0.8,
+                {
+                    opacity: '1',
+                    y: 0
+                },
+                {
+                    opacity: '0',
+                    y: 20,
+                    ease: 'sine.Out'
+                }
+            )
+            TweenLite.fromTo(
+                '.nav',
+                0.8,
+                {
+                    opacity: '1',
+                    y: 0
+                },
+                {
+                    opacity: '0',
+                    y: 50,
+                    ease: 'sine.Out',
+                    delay: 0.4
+                }
+            )
+            TweenLite.to('.image-mask', 0.5, {
                 visibility: 'visible',
-                scaleX: 1.5,
-                skewX: '-=5',
+                scaleY: 1,
                 ease: 'sine.Out',
-                transformOrigin: '0% 0%'
+                transformOrigin: '-1% -1%'
             })
             TweenLite.to('.image-mask2', 1.2, {
                 visibility: 'visible',
-                scaleX: 1.5,
-                skewX: '-=5',
+                scaleY: 1,
                 ease: 'sine.Out',
-                transformOrigin: '0% 0%',
+                transformOrigin: '-1% -1%',
                 onComplete: done
+            })
+            TweenLite.to('.container2', 1.2, {
+                visibility: 'visible',
+                opacity: 0,
+                ease: 'sine.Out'
             })
         }
     },
     data() {
         return {
-            cursor: '',
-            preloadImage:
-                'https://adeona.s3.eu-west-3.amazonaws.com/Accueil/soleilarbrenoir.jpg'
+            cursor: ''
         }
     },
 
@@ -127,32 +124,18 @@ export default {
     mounted() {
         this.createCursor()
         this.IsWhite()
-        var list = document.querySelector('.preload_img')
-        var url = list.getAttribute('data-image')
-        list.style.backgroundImage = "url('" + url + "')"
 
         function enterPage() {
             TweenLite.fromTo(
-                '.preload_img',
-                0.5,
+                '.about-issue',
+                0.7,
                 {
-                    height: '0vh'
+                    opacity: '0'
                 },
                 {
-                    height: '100vh',
-                    ease: 'sine.Out'
-                }
-            )
-            TweenLite.fromTo(
-                '.preload_background',
-                0.5,
-                {
-                    height: '0vh'
-                },
-                {
-                    height: '100vh',
-                    ease: 'sine.Out',
-                    delay: 0.5
+                    delay: 2.4,
+                    opacity: 1,
+                    ease: 'linear'
                 }
             )
             TweenLite.fromTo(
@@ -164,9 +147,16 @@ export default {
                 {
                     opacity: '1',
                     ease: 'sine.Out',
-                    delay: 1
+                    delay: 2
                 }
             )
+            TweenLite.to('.image-mask', 0.5, {
+                visibility: 'visible',
+                scaleY: 0,
+                ease: 'sine.Out',
+                transformOrigin: '0% 80%',
+                delay: 2
+            })
             TweenLite.fromTo(
                 '.nav',
                 0.8,
@@ -178,78 +168,60 @@ export default {
                     opacity: '1',
                     y: 0,
                     ease: 'sine.Out',
-                    delay: 1
+                    delay: 1.8
                 }
             )
-
+            TweenLite.to('.image-mask2', 1.2, {
+                visibility: 'visible',
+                scaleY: 0,
+                ease: 'sine.Out',
+                transformOrigin: '0% 100%',
+                delay: 2
+            })
+            TweenLite.to('.container2', 1.2, {
+                opacity: 1,
+                ease: 'sine.Out'
+            })
             TweenLite.fromTo(
                 '.slider-nav',
-                1,
+                0.5,
                 {
                     opacity: '0',
-                    x: -50
+                    y: -30
                 },
                 {
                     opacity: '1',
-                    x: 0,
+                    y: 0,
                     ease: 'sine.Out',
-                    delay: 1.2
-                }
-            )
-            TweenLite.fromTo(
-                '.chevron-down',
-                1,
-                {
-                    opacity: '0',
-                    x: -20
-                },
-                {
-                    opacity: '1',
-                    x: 0,
-                    ease: 'sine.Out',
-                    delay: 1.2
+                    delay: 2.5
                 }
             )
             TweenLite.fromTo(
                 '.series-info',
-                1,
+                0.8,
                 {
                     opacity: '0',
-                    x: -100
+                    y: -40
                 },
                 {
                     opacity: '1',
-                    x: 0,
+                    y: 0,
                     ease: 'sine.Out',
-                    delay: 1.2
+                    delay: 2.7
                 }
             )
-            TweenLite.to('.image-mask', 1.2, {
-                visibility: 'visible',
-                scaleX: 0,
-                skewX: '-=10',
-                ease: 'sine.Out',
-                transformOrigin: '130% 0%',
-                delay: 1.2
-            })
-            TweenLite.to('.image-mask2', 1.2, {
-                visibility: 'visible',
-                scaleX: 0,
-                skewX: '-=10',
-                ease: 'sine.Out',
-                transformOrigin: '130% 0%',
-                delay: 1.2
-            })
             TweenLite.fromTo(
-                '.about-issue',
-                0.7,
+                '.chevron-down',
+                0.8,
                 {
-                    opacity: '0'
+                    opacity: '0',
+                    y: -20
                 },
                 {
-                    opacity: 1,
-                    ease: 'linear',
-                    delay: 1.2
+                    opacity: '1',
+                    y: 0,
+                    ease: 'sine.Out',
+                    delay: 2.7
                 }
             )
         }
@@ -260,11 +232,12 @@ export default {
             }, 2400)
         }
 
-        const body = window.document.body
+        const body = document.body
+        body.style.height = 100 + 'vh'
         setTimeout(() => {
-            body.style.backgroundColor = '#fcf9f5'
             body.style.height = this.$refs.accueil.clientHeight + 'px'
-        }, 1200)
+            body.style.backgroundColor = '#fcf9f5'
+        }, 1300)
     },
     methods: {
         ...mapMutations({
@@ -274,21 +247,3 @@ export default {
     }
 }
 </script>
-<style lang="scss">
-.preload_img {
-    position: fixed;
-    width: 100vw;
-    height: 0vh;
-    background-position: 0% 25%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    z-index: 1;
-}
-.preload_background {
-    position: fixed;
-    width: 100vw;
-    height: 0vh;
-    background-color: #fcf9f5;
-    z-index: 2;
-}
-</style>

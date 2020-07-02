@@ -21,7 +21,10 @@ export default {
                 href:
                     'https://fonts.googleapis.com/css?family==Montserrat&display=swap|Playfair+Display:wght@400;600&display=swap'
             },
-            { rel: 'import', href: 'https://vjs.zencdn.net/5.19/video-js.css' }
+            {
+                rel: 'stylesheet',
+                href: 'https://vjs.zencdn.net/5.19/video-js.css'
+            }
         ],
         script: [
             { src: 'https://vjs.zencdn.net/ie8/1.1/videojs-ie8.min.js' },

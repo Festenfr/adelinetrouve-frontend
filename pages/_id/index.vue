@@ -1,7 +1,5 @@
 <template>
     <div>
-        <div class="preload_img"></div>
-        <div class="preload_background"></div>
         <div ref="serie" class="page serie ">
             <Nav />
             <div class="serie-wrapper">
@@ -91,7 +89,6 @@
 
 <script>
 import CarouselArrow from '../../static/CarouselArrow'
-import Cursor from '../../modules/cursor'
 import { TweenLite } from 'gsap/all'
 import '../../directive/scroll'
 import { mapGetters, mapMutations } from 'vuex'
@@ -260,8 +257,30 @@ export default {
         },
         leave(el, done) {
             TweenLite.fromTo(
-                '.serie-content',
+                '.about-issue',
                 0.6,
+                {
+                    opacity: '1'
+                },
+                {
+                    opacity: 0,
+                    ease: 'linear'
+                }
+            )
+            TweenLite.fromTo(
+                '.serie-gallery',
+                1.2,
+                {
+                    opacity: '1'
+                },
+                {
+                    opacity: '0',
+                    ease: 'sine.Out'
+                }
+            )
+            TweenLite.fromTo(
+                '.serie-content',
+                0.8,
                 {
                     opacity: 1,
                     y: 0
@@ -274,7 +293,7 @@ export default {
             )
             TweenLite.fromTo(
                 '.serie-quote',
-                0.6,
+                0.8,
                 {
                     opacity: 1,
                     y: 0
@@ -288,13 +307,13 @@ export default {
             )
             TweenLite.to('.image-mask', 1.2, {
                 visibility: 'visible',
-                scaleY: 1.5,
+                scaleY: 1,
                 ease: 'sine.Out',
-                transformOrigin: '0px 0%'
+                transformOrigin: '0% 0%'
             })
             TweenLite.fromTo(
                 '.nav',
-                0.6,
+                0.8,
                 {
                     opacity: '1',
                     y: 0
@@ -303,7 +322,7 @@ export default {
                     opacity: 0,
                     y: 50,
                     ease: 'sine.Out',
-                    delay: 0.2,
+                    delay: 0.4,
                     onComplete: done
                 }
             )
@@ -321,31 +340,22 @@ export default {
         }
     },
     mounted() {
+        this.createCursor()
         this.IsWhite()
         function enterPage() {
             TweenLite.fromTo(
-                '.preload_img',
-                0.5,
+                '.serie-gallery',
+                0.2,
                 {
-                    height: '0vh'
+                    opacity: '0'
                 },
                 {
-                    height: '100vh',
-                    ease: 'sine.Out'
-                }
-            )
-            TweenLite.fromTo(
-                '.preload_background',
-                0.5,
-                {
-                    height: '0vh'
-                },
-                {
-                    height: '100vh',
+                    opacity: '1',
                     ease: 'sine.Out',
-                    delay: 0.5
+                    delay: 2
                 }
             )
+
             TweenLite.fromTo(
                 '.serie-image',
                 0.2,
@@ -355,7 +365,7 @@ export default {
                 {
                     opacity: '1',
                     ease: 'sine.Out',
-                    delay: 1
+                    delay: 2
                 }
             )
             TweenLite.fromTo(
@@ -369,16 +379,15 @@ export default {
                     opacity: '1',
                     y: 0,
                     ease: 'sine.Out',
-                    delay: 1
+                    delay: 2
                 }
             )
             TweenLite.to('.image-mask', 1.2, {
                 visibility: 'visible',
                 scaleY: 0,
-                skewY: '-=20',
                 ease: 'sine.Out',
-                transformOrigin: '0px 150%',
-                delay: 1.2
+                transformOrigin: '0% 100%',
+                delay: 2.2
             })
             TweenLite.fromTo(
                 '.serie-content',
@@ -391,7 +400,7 @@ export default {
                     opacity: 1,
                     y: 0,
                     ease: 'sine.Out',
-                    delay: 1.6
+                    delay: 2.4
                 }
             )
             TweenLite.fromTo(
@@ -401,6 +410,19 @@ export default {
                     opacity: '0'
                 },
                 {
+                    delay: 2,
+                    opacity: 1,
+                    ease: 'linear'
+                }
+            )
+            TweenLite.fromTo(
+                '.about-issue',
+                0.7,
+                {
+                    opacity: '0'
+                },
+                {
+                    delay: 2.4,
                     opacity: 1,
                     ease: 'linear'
                 }
@@ -412,22 +434,12 @@ export default {
                 enterPage()
             }, 2400)
         }
-
-        const cursor = new Cursor(document.querySelector('.cursor'))
-        ;[...document.querySelectorAll('a')].forEach((el) => {
-            el.addEventListener('mouseenter', () => cursor.emit('enter'))
-            el.addEventListener('mouseleave', () => cursor.emit('leave'))
-        })
-        ;[...document.querySelectorAll('.serie-issue')].forEach((el) => {
-            el.addEventListener('mouseenter', () => cursor.emit('enter'))
-            el.addEventListener('mouseleave', () => cursor.emit('leave'))
-        })
         let body = document.body
-        body.style.height = this.$refs.serie.clientHeight + 'px'
+        body.style.height = 100 + 'vh'
         setTimeout(() => {
+            body.style.height = this.$refs.serie.clientHeight + 'px'
             body.style.backgroundColor = '#fcf9f5'
         }, 1200)
-
         setInterval(() => {
             this.images = document.querySelectorAll('.image')
             let rect = []
@@ -519,6 +531,7 @@ export default {
     },
     methods: {
         ...mapMutations({
+            createCursor: 'createCursor',
             IsWhite: 'IsWhite'
         })
     }
@@ -526,23 +539,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.preload_img {
-    position: fixed;
-    width: 100vw;
-    height: 0vh;
-    background-image: url('https://adeona.s3.eu-west-3.amazonaws.com/newSite/Salon+1.png');
-    background-position: 0% 25%; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover;
-    z-index: 1;
-}
-.preload_background {
-    position: fixed;
-    width: 100vw;
-    height: 0vh;
-    background-color: #fcf9f5;
-    z-index: 2;
-}
 .serie-wrapper {
     margin: auto;
     display: flex;

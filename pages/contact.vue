@@ -1,7 +1,5 @@
 <template>
     <div>
-        <div class="preload_img"></div>
-        <div class="preload_background"></div>
         <div ref="contact">
             <NavWhite />
             <div class="contact-wrapper">
@@ -48,13 +46,13 @@ export default {
             )
             TweenLite.to('.image-mask', 1.2, {
                 visibility: 'visible',
-                scaleY: 1.5,
+                scaleY: 1,
                 ease: 'sine.Out',
                 transformOrigin: '0px 0%'
             })
             TweenLite.fromTo(
                 '.nav',
-                0.6,
+                0.8,
                 {
                     opacity: '1',
                     y: 0
@@ -63,8 +61,22 @@ export default {
                     opacity: 0,
                     y: 50,
                     ease: 'sine.Out',
-                    delay: 0.2,
+                    delay: 0.4,
                     onComplete: done
+                }
+            )
+            TweenLite.fromTo(
+                '.contact-nav',
+                0.8,
+                {
+                    opacity: '1',
+                    y: 0
+                },
+                {
+                    opacity: 0,
+                    y: 20,
+                    ease: 'sine.Out',
+                    delay: 0.4
                 }
             )
         }
@@ -74,26 +86,17 @@ export default {
 
         function enterPage() {
             TweenLite.fromTo(
-                '.preload_img',
-                0.5,
+                '.contact-nav',
+                0.8,
                 {
-                    height: '0vh'
+                    opacity: '0',
+                    y: -20
                 },
                 {
-                    height: '100vh',
+                    opacity: 1,
+                    y: 0,
+                    delay: 2,
                     ease: 'sine.Out'
-                }
-            )
-            TweenLite.fromTo(
-                '.preload_background',
-                0.5,
-                {
-                    height: '0vh'
-                },
-                {
-                    height: '100vh',
-                    ease: 'sine.Out',
-                    delay: 0.5
                 }
             )
             TweenLite.fromTo(
@@ -105,12 +108,12 @@ export default {
                 {
                     opacity: '1',
                     ease: 'sine.Out',
-                    delay: 1
+                    delay: 2
                 }
             )
             TweenLite.fromTo(
                 '.nav',
-                0.6,
+                0.8,
                 {
                     opacity: '0',
                     y: -50
@@ -119,15 +122,14 @@ export default {
                     opacity: '1',
                     y: 0,
                     ease: 'sine.Out',
-                    delay: 1
+                    delay: 1.8
                 }
             )
             TweenLite.to('.image-mask', 1.2, {
                 visibility: 'visible',
                 scaleY: 0,
-                skewY: '-=20',
                 ease: 'sine.Out',
-                transformOrigin: '0px 150%',
+                transformOrigin: '0px 100%',
                 delay: 1.2
             })
             TweenLite.fromTo(
@@ -142,6 +144,18 @@ export default {
                     y: 0,
                     ease: 'sine.Out',
                     delay: 1.4
+                }
+            )
+            TweenLite.fromTo(
+                '.about-issue',
+                0.7,
+                {
+                    opacity: '0'
+                },
+                {
+                    delay: 2.4,
+                    opacity: 1,
+                    ease: 'linear'
                 }
             )
         }
@@ -162,10 +176,11 @@ export default {
             el.addEventListener('mouseleave', () => cursor.emit('leave'))
         })
         let body = document.body
-        body.style.height = this.$refs.contact.clientHeight + 'px'
+        body.style.height = 100 + 'vh'
         setTimeout(() => {
+            body.style.height = this.$refs.contact.clientHeight + 'px'
             body.style.backgroundColor = '#121212'
-        }, 1200)
+        }, 1300)
     },
     methods: {
         ...mapMutations({
@@ -176,23 +191,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.preload_img {
-    position: fixed;
-    width: 100vw;
-    height: 0vh;
-    background-image: url('https://adeona.s3.eu-west-3.amazonaws.com/APropos/Adeline.jpg');
-    background-position: 0% 25%; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover;
-    z-index: 1;
-}
-.preload_background {
-    position: fixed;
-    width: 100vw;
-    height: 0vh;
-    background-color: #121212;
-    z-index: 2;
-}
 .contact-wrapper {
     padding: 10.313vw 8vw 0;
     margin: auto;

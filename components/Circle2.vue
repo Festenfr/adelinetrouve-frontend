@@ -7,9 +7,8 @@
             <span>C</span>
             <span>R</span>
             <span>E</span>
-            <span>O</span>
-            <span>N</span>
-            <span>S</span>
+            <span>E</span>
+            <span>R</span>
             <span></span>
             <span>-</span>
             <span></span>
@@ -53,7 +52,7 @@ export default {
                 ease: 'linear'
             }
         )
-        TweenMax.to('.circle', 40, {
+        TweenMax.to('.circle', 60, {
             rotation: 360,
             ease: 'linear'
         }).repeat(-1)
@@ -62,21 +61,22 @@ export default {
 </script>
 <style lang="scss" scoped>
 .about-issue {
-    visibility: hidden;
     position: fixed;
-    bottom: 20px;
-    left: 40px;
+    bottom: 2vw;
+    left: 2vw;
     z-index: 15;
+    width: 10vw;
+    height: 10vw;
     .pen {
         position: fixed;
-        width: 6.375vw;
-        height: 6.375vw;
+        width: 10vw;
+        height: 10vw;
         display: flex;
         align-items: center;
     }
     .circle {
-        width: 6.375vw;
-        height: 6.375vw;
+        width: 10vw;
+        height: 10vw;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -89,16 +89,16 @@ export default {
 }
 span {
     font-family: 'Playfair Display', serif;
-    font-size: 0.625vw;
+    font-size: 0.8vw;
     color: white;
     line-height: normal;
     letter-spacing: 0;
     text-transform: uppercase;
     position: absolute;
-    height: 2.7vw;
-    width: 0.156vw;
-    left: 2.97vw;
-    top: 0.35vw;
+    height: 4.5vw;
+    width: 0.55vw;
+    left: 4.8vw;
+    top: 0.6vw;
     -webkit-transform-origin: bottom center;
     transform-origin: bottom center;
 }

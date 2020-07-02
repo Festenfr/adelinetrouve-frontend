@@ -1,7 +1,5 @@
 <template>
     <div>
-        <div class="preload_img"></div>
-        <div class="preload_background"></div>
         <div ref="about" class="page about ">
             <NavWhite />
             <div class="about-wrapper">
@@ -84,13 +82,13 @@
 </template>
 
 <script>
-import Cursor from '../modules/cursor'
 import { TweenLite } from 'gsap/all'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
     computed: {
         ...mapGetters({
-            loader: 'loader'
+            loader: 'loader',
+            pageName: 'pageName'
         })
     },
     transition: {
@@ -101,8 +99,19 @@ export default {
         },
         leave(el, done) {
             TweenLite.fromTo(
-                '.about-content',
+                '.about-issue',
                 0.6,
+                {
+                    opacity: '1'
+                },
+                {
+                    opacity: 0,
+                    ease: 'linear'
+                }
+            )
+            TweenLite.fromTo(
+                '.about-content',
+                0.8,
                 {
                     opacity: 1,
                     y: 0
@@ -115,7 +124,7 @@ export default {
             )
             TweenLite.fromTo(
                 '.about-quote',
-                0.6,
+                0.8,
                 {
                     opacity: 1,
                     y: 0
@@ -123,19 +132,18 @@ export default {
                 {
                     opacity: 0,
                     y: 50,
-                    ease: 'sine.Out',
-                    delay: 0.2
+                    ease: 'sine.Out'
                 }
             )
             TweenLite.to('.image-mask', 1.2, {
                 visibility: 'visible',
-                scaleY: 1.5,
+                scaleY: 1,
                 ease: 'sine.Out',
                 transformOrigin: '0px 0%'
             })
             TweenLite.fromTo(
                 '.nav',
-                0.6,
+                0.8,
                 {
                     opacity: '1',
                     y: 0
@@ -144,50 +152,17 @@ export default {
                     opacity: 0,
                     y: 50,
                     ease: 'sine.Out',
-                    delay: 0.2,
+                    delay: 0.4,
                     onComplete: done
-                }
-            )
-            TweenLite.fromTo(
-                '.about-issue',
-                0.8,
-                {
-                    opacity: '1'
-                },
-                {
-                    opacity: 0,
-                    ease: 'linear'
                 }
             )
         }
     },
     mounted() {
+        this.createCursor()
         this.IsNotWhite()
 
         function enterPage() {
-            TweenLite.fromTo(
-                '.preload_img',
-                0.5,
-                {
-                    height: '0vh'
-                },
-                {
-                    height: '100vh',
-                    ease: 'sine.Out'
-                }
-            )
-            TweenLite.fromTo(
-                '.preload_background',
-                0.5,
-                {
-                    height: '0vh'
-                },
-                {
-                    height: '100vh',
-                    ease: 'sine.Out',
-                    delay: 0.5
-                }
-            )
             TweenLite.fromTo(
                 '.about-image',
                 0.2,
@@ -197,7 +172,7 @@ export default {
                 {
                     opacity: '1',
                     ease: 'sine.Out',
-                    delay: 1
+                    delay: 2
                 }
             )
             TweenLite.fromTo(
@@ -211,16 +186,15 @@ export default {
                     opacity: '1',
                     y: 0,
                     ease: 'sine.Out',
-                    delay: 1
+                    delay: 2
                 }
             )
             TweenLite.to('.image-mask', 1.2, {
                 visibility: 'visible',
                 scaleY: 0,
-                skewY: '-=20',
                 ease: 'sine.Out',
-                transformOrigin: '0px 150%',
-                delay: 1.2
+                transformOrigin: '0px 101%',
+                delay: 2.2
             })
             TweenLite.fromTo(
                 '.about-quote',
@@ -233,7 +207,7 @@ export default {
                     opacity: 1,
                     y: 0,
                     ease: 'sine.Out',
-                    delay: 1.4
+                    delay: 2.4
                 }
             )
             TweenLite.fromTo(
@@ -247,7 +221,7 @@ export default {
                     opacity: 1,
                     y: 0,
                     ease: 'sine.Out',
-                    delay: 1.6
+                    delay: 2.7
                 }
             )
             TweenLite.fromTo(
@@ -257,6 +231,7 @@ export default {
                     opacity: '0'
                 },
                 {
+                    delay: 2.4,
                     opacity: 1,
                     ease: 'linear'
                 }
@@ -269,23 +244,16 @@ export default {
             }, 2400)
         }
 
-        const cursor = new Cursor(document.querySelector('.cursor'))
-        ;[...document.querySelectorAll('a')].forEach((el) => {
-            el.addEventListener('mouseenter', () => cursor.emit('enter'))
-            el.addEventListener('mouseleave', () => cursor.emit('leave'))
-        })
-        ;[...document.querySelectorAll('.about-issue')].forEach((el) => {
-            el.addEventListener('mouseenter', () => cursor.emit('enter'))
-            el.addEventListener('mouseleave', () => cursor.emit('leave'))
-        })
         let body = document.body
-        body.style.height = this.$refs.about.clientHeight + 'px'
+        body.style.height = 100 + 'vh'
         setTimeout(() => {
+            body.style.height = this.$refs.about.clientHeight + 'px'
             body.style.backgroundColor = '#121212'
-        }, 1200)
+        }, 1300)
     },
     methods: {
         ...mapMutations({
+            createCursor: 'createCursor',
             IsNotWhite: 'IsNotWhite'
         })
     }
@@ -293,23 +261,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.preload_img {
-    position: fixed;
-    width: 100vw;
-    height: 0vh;
-    background-image: url('https://adeona.s3.eu-west-3.amazonaws.com/APropos/Adeline.jpg');
-    background-position: 0% 25%; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover;
-    z-index: 1;
-}
-.preload_background {
-    position: fixed;
-    width: 100vw;
-    height: 0vh;
-    background-color: #121212;
-    z-index: 2;
-}
 .about-wrapper {
     padding: 10.313vw 8vw 0;
     margin: auto;

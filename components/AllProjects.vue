@@ -300,7 +300,6 @@ export default {
 
             this.mesh.position.set(this.offset.x, this.offset.y, 0)
             this.mesh.scale.set(this.sizes.x, this.sizes.y, 1)
-            console.log(this.mesh.position.x)
 
             if (this.mesh.position.x >= 0) {
                 this.titre = this.titreProject.children[0]
@@ -311,7 +310,7 @@ export default {
                     window.innerWidth / 2 +
                     -this.mesh.scale.x / 2 +
                     this.mesh.position.x -
-                    30 +
+                    100 +
                     'px'
             } else {
                 this.titre = this.titreProject.children[0]
@@ -321,7 +320,7 @@ export default {
                     window.innerWidth / 2 +
                     this.mesh.scale.x / 2 +
                     this.mesh.position.x +
-                    10 +
+                    80 +
                     'px'
             }
 
@@ -497,7 +496,7 @@ export default {
                     window.innerWidth / 2 +
                     -this.mesh2.scale.x / 2 +
                     this.mesh2.position.x -
-                    30 +
+                    100 +
                     'px'
             } else {
                 this.titre2 = this.titreProject2.children[0]
@@ -507,7 +506,7 @@ export default {
                     window.innerWidth / 2 +
                     this.mesh2.scale.x / 2 +
                     this.mesh2.position.x +
-                    10 +
+                    80 +
                     'px'
             }
             this.scene2.add(this.mesh2)
@@ -616,17 +615,19 @@ export default {
             text-decoration: none;
 
             .titre {
+                line-height: normal;
+                font-weight: lighter;
                 font-family: 'Playfair Display', serif;
                 position: relative;
-                font-size: 2.5vw;
+                font-size: 5vw;
                 line-height: 1;
-                letter-spacing: 0.15vw;
+                letter-spacing: 0.2vw;
                 margin-bottom: 3vh;
             }
             .explore {
                 font-family: 'Montserrat', sans-serif;
                 position: relative;
-                font-size: 0.6vw;
+                font-size: 1vw;
                 letter-spacing: 0.1vw;
                 line-height: 1.8;
                 border-bottom: 0.1px solid;

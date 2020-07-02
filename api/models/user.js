@@ -53,6 +53,11 @@ const userSchema = new mongoose.Schema({
         select: false,
         maxlength: 255
     },
+    isAdmin: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     resetPasswordToken: String,
     resetPasswordExpire: Date
 })

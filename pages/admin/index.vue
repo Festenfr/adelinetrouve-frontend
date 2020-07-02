@@ -1,6 +1,5 @@
 <template>
     <div>
-        <Chart></Chart>
         <ErrorMessage v-if="errorMessage">
             {{ fetchMessage }}
         </ErrorMessage>
@@ -9,11 +8,7 @@
 <script>
 import { gsap } from 'gsap/all'
 import { mapActions, mapGetters } from 'vuex'
-import Chart from '../../components/admin/Chart'
 export default {
-    components: {
-        Chart
-    },
     transition: {
         css: false,
         mode: 'out-in',

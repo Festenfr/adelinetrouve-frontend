@@ -4,4 +4,5 @@ export default function({ store }) {
         const userData = ls.get('user')
         store.commit('setUserData', userData)
     }
+    store.commit('changePageName')
 }

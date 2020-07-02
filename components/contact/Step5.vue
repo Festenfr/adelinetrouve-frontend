@@ -9,6 +9,7 @@
             >
                 <v-text-field
                     v-model="nom"
+                    class="text-area"
                     :rules="nameRules"
                     label="Nom"
                     required
@@ -16,18 +17,21 @@
                 <v-text-field
                     v-model="phone"
                     :rules="phoneRules"
+                    class="text-area"
                     label="telephone"
                     required
                 ></v-text-field>
                 <v-text-field
                     v-model="email"
                     :rules="emailRules"
+                    class="text-area"
                     label="E-mail"
                     required
                 ></v-text-field>
                 <v-text-field
                     v-model="password1"
                     :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                    class="text-area"
                     :type="show1 ? 'text' : 'password'"
                     :rules="passwordRules"
                     label="Mot de passe"
@@ -45,6 +49,7 @@
                 </v-text-field>
                 <v-text-field
                     v-model="password2"
+                    class="text-area"
                     :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
                     :type="show2 ? 'text' : 'password'"
                     :rules="passwordRules"
@@ -176,5 +181,9 @@ export default {
     align-items: center;
     justify-content: center;
     display: flex;
+}
+.text-area {
+    margin-left: 10%;
+    margin-right: 10%;
 }
 </style>

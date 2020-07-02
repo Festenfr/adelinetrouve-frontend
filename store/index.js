@@ -2,11 +2,9 @@
 import Vue from 'vue'
 import Cursor from '../modules/cursor'
 import { gsap } from 'gsap/all'
-import dateFormat from 'dateFormat'
 export const state = () => ({
-    NewProjectIsWhite: false,
+    NewProjectIsWhite: true,
     isOpen: true,
-    visits: [],
     dark: true,
     user: '',
     loggedIn: false,
@@ -16,7 +14,9 @@ export const state = () => ({
     messages: [],
     loader: true,
     animate: false,
-    cursor: ''
+    cursor: '',
+    pageName: '',
+    pageChange: ''
 })
 export const getters = {
     cursor: (state) => state.cursor,
@@ -30,7 +30,9 @@ export const getters = {
     loggedIn: (state) => !!state.user,
     message: (state) => state.message,
     error: (state) => state.error,
-    messages: (state) => state.messages
+    messages: (state) => state.messages,
+    pageName: (state) => state.pageName,
+    pageChange: (state) => state.pageChange
 }
 export const mutations = {
     createCursor(state) {
@@ -66,15 +68,15 @@ export const mutations = {
         state.message = ''
         state.error = null
     },
-    addVisit(state, path) {
-        let now = new Date()
-        state.visits.push({
-            path,
-            year: dateFormat(now, 'yyyy'),
-            day: dateFormat(now, 'd'),
-            month: dateFormat(now, 'm'),
-            hour: dateFormat(now, 'H')
-        })
+    changePageName(state) {
+        state.pageChange = Math.random()
+    },
+    setPageName(state, path) {
+        if (path === '/') {
+            path = '/index'
+        }
+        state.pageName = `https://adeline-site-web.s3.eu-west-3.amazonaws.com/page${path}.png`
+        console.log(state.pageName)
     },
     toggleMenu(state) {
         state.isOpen = !state.isOpen
@@ -132,19 +134,14 @@ export const mutations = {
                             `.cls-${index}`,
                             1.2,
                             {
-                                scale: '0',
                                 opacity: 0,
-                                rotate: 'random(-600, 600)',
-                                y: 'random(-500, 500)',
-                                x: 'random(-500, 500)',
-                                ease: 'sine.Out'
+                                x: 'random(-100, 100)',
+                                y: 'random(0, -400)'
                             },
                             {
-                                scale: '1',
-                                opacity: 1,
-                                rotate: 0,
                                 y: 0,
                                 x: 0,
+                                opacity: 1,
                                 ease: 'sine.Out'
                             },
                             0.03
@@ -156,19 +153,17 @@ export const mutations = {
                             resolve(true)
                         }
                     })
+
                     tl1.staggerFromTo(
                         titre,
                         1.2,
                         {
                             opacity: 0,
-                            y: 'random(-300, 300)',
-                            x: 'random(-300, 300)',
-                            ease: 'sine.Out'
+                            y: -50
                         },
                         {
                             opacity: 1,
                             y: 0,
-                            x: 0,
                             ease: 'sine.Out'
                         },
                         0.04

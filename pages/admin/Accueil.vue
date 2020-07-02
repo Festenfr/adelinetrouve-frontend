@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="card">
-            yo
+            {{ users }}
         </div>
         <ErrorMessage v-if="errorMessage">
             {{ fetchMessage }}
