@@ -9,7 +9,7 @@
                     >
                         <h3 class="titre">
                             {{ project.titre }}
-                        </h3>
+                        </h3>daz
                         <div class="explore">Explore</div>
                     </a>
                     <img
