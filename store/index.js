@@ -112,6 +112,7 @@ export const mutations = {
         state.user = data.user
         this.$axios.setHeader('Authorization', `Bearer ${data.token}`)
         state.loggedIn = true
+        console.log(state.loggedIn)
     },
     darkToLight(state) {
         if (state.dark === false) {

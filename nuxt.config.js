@@ -53,7 +53,7 @@ export default {
         { src: '@/plugins/vuetify', ssr: false },
         { src: '@/plugins/ksvuefp', ssr: false },
         { src: '@/plugins/global', ssr: false },
-        '~/plugins/interceptors'
+        { src: '@/plugins/interceptors', ssr: false }
     ],
     robots: {
         UserAgent: '*',
