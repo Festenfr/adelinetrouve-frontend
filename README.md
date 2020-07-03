@@ -7,8 +7,6 @@
 ``` bash
 # install dependencies
 $ npm install
-First time no see
-
 
 # serve with hot reload at localhost:3000
 $ npm run dev
