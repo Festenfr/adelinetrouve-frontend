@@ -1,6 +1,6 @@
 <template>
     <div v-scroll="handleScroll">
-        <div v-for="project in projects" :key="project._id">
+        <div v-for="project in filterProjectItem" :key="project._id">
             <div class="container2">
                 <div class="tile__figure">
                     <a
@@ -13,11 +13,11 @@
                         <div class="explore">Explore</div>
                     </a>
                     <img
-                        :src="project.image"
-                        :data-src="project.image"
-                        :data-hover="project.hoverImage"
+                        :src="project.file1"
+                        :data-src="project.file1"
+                        :data-hover="project.file2"
                         class="tile__image"
-                        :alt="project.alt"
+                        :alt="project.titre"
                     />
                 </div>
                 <canvas id="stage"></canvas>
@@ -32,8 +32,11 @@ import * as THREE from 'three'
 import '../directive/scroll'
 import { fragmentShader } from '../modules/fragmentShader'
 import { vertexShader } from '../modules/vertexShader'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapGetters } from 'vuex'
 export default {
+    async fetch() {
+        await this.$store.dispatch('projet/fetchProjectsItem')
+    },
     data() {
         return {
             titreProject: '',
@@ -83,46 +86,15 @@ export default {
             uniforms2: 0,
             oldValue2: 0,
             isFirstInit2: true,
-            images: [],
-            projects: [
-                {
-                    titre: 'La maison du futur',
-                    image:
-                        'https://images.unsplash.com/photo-1564078516393-cf04bd966897?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
-                    hoverImage:
-                        'https://images.unsplash.com/photo-1571829604981-ea159f94e5ad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
-                    alt: 'image',
-                    to: '/La maison du futur '
-                },
-                {
-                    titre: 'La maison du futur2',
-                    image:
-                        'https://images.unsplash.com/photo-1562663474-6cbb3eaa4d14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
-                    hoverImage:
-                        'https://images.unsplash.com/photo-1506968430777-bf7784a87f23?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80',
-
-                    alt: 'image',
-                    to: '/La maison du futur '
-                },
-                {
-                    titre: 'Construction maison type bardage LCB',
-                    image:
-                        'https://images.unsplash.com/photo-1576698483491-8c43f0862543?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=80',
-                    hoverImage:
-                        'https://images.unsplash.com/photo-1541415534056-fad380cd68a5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=650&q=80',
-                    alt: 'image',
-                    to: '/La maison du futur '
-                },
-                {
-                    titre: 'La maison du futur4',
-                    image:
-                        'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
-                    hoverImage:
-                        'https://images.unsplash.com/photo-1487088678257-3a541e6e3922?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80',
-                    alt: 'image',
-                    to: '/La maison du futur '
-                }
-            ]
+            images: []
+        }
+    },
+    computed: {
+        ...mapGetters({
+            projectItem: 'projet/projectItem'
+        }),
+        filterProjectItem() {
+            return this.projectItem.filter((el) => el.isCarousel === false)
         }
     },
     watch: {
@@ -148,8 +120,12 @@ export default {
         }
     },
     mounted() {
-        this.init()
-        this.init2()
+        if (this.filterProjectItem[0]) {
+            this.init()
+        }
+        if (this.filterProjectItem[1]) {
+            this.init2()
+        }
     },
     methods: {
         ...mapMutations({
@@ -207,6 +183,7 @@ export default {
             const titres = document.querySelectorAll('.titre-project')
             const containers = document.querySelectorAll('#stage')
             this.$image = images[this.indexMin1]
+
             this.container = containers[this.indexMin1]
             this.titreProject = titres[this.indexMin1]
 
@@ -273,6 +250,7 @@ export default {
         },
 
         createMesh() {
+            console.log(this.image)
             ;(this.uniforms = {
                 u_image: { type: 't', value: this.image },
                 u_imagehover: { type: 't', value: this.hoverImage },

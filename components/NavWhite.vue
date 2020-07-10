@@ -23,7 +23,9 @@
                 >
                     about
                 </nuxt-link>
+
                 <nuxt-link
+                    v-if="!user"
                     to="/login"
                     exact-active-class="titre_nav_actif"
                     class="titre_nav"
@@ -31,10 +33,38 @@
                 >
                     login
                 </nuxt-link>
+                <nuxt-link
+                    v-else-if="user.isAdmin === false"
+                    to="/client"
+                    exact-active-class="titre_nav_actif"
+                    class="titre_nav"
+                    style="margin-left: 20px;"
+                >
+                    espace client
+                </nuxt-link>
+                <nuxt-link
+                    v-else-if="user.isAdmin === true"
+                    to="/admin"
+                    exact-active-class="titre_nav_actif"
+                    class="titre_nav"
+                    style="margin-left: 20px;"
+                >
+                    Admin
+                </nuxt-link>
             </li>
         </ul>
     </div>
 </template>
+<script>
+import { mapGetters } from 'vuex'
+export default {
+    computed: {
+        ...mapGetters({
+            user: 'user'
+        })
+    }
+}
+</script>
 <style lang="scss" scoped>
 @media screen and (max-width: 768px) {
     .nav {

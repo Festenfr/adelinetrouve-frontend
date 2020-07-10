@@ -3,7 +3,11 @@ export const mutations = {
     addToken(state, data) {
         localStorage.setItem('user', JSON.stringify(data))
         this.$axios.setHeader('Authorization', `Bearer ${data.token}`)
-        this.$router.push('/admin/')
+        if (data.user.isAdmin === true) {
+            this.$router.push('/admin/')
+        } else {
+            this.$router.push('/client/')
+        }
     },
     deleteToken() {
         ls.remove('user')

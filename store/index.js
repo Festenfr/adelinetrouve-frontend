@@ -76,7 +76,6 @@ export const mutations = {
             path = '/index'
         }
         state.pageName = `https://adeline-site-web.s3.eu-west-3.amazonaws.com/page${path}.png`
-        console.log(state.pageName)
     },
     toggleMenu(state) {
         state.isOpen = !state.isOpen
@@ -112,7 +111,6 @@ export const mutations = {
         state.user = data.user
         this.$axios.setHeader('Authorization', `Bearer ${data.token}`)
         state.loggedIn = true
-        console.log(state.loggedIn)
     },
     darkToLight(state) {
         if (state.dark === false) {

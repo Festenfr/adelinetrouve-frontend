@@ -56,7 +56,7 @@ export default {
         { src: '@/plugins/interceptors', ssr: false }
     ],
     robots: {
-        UserAgent: '*',
+        UserAgent: '****',
         Disallow: '/admin/**'
     },
     sitemap: {
