@@ -14,7 +14,7 @@
                         isOpen ? 'contenu_admin_little' : 'contenu_admin_big'
                     ]"
                 >
-                    <nuxt-child keep-alive />
+                    <nuxt-child />
                 </div>
             </div>
         </v-app>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import NavAdmin from '../components/admin/NavAdmin'
 export default {
     middleware: 'authenticated',
@@ -35,16 +35,7 @@ export default {
     computed: {
         ...mapGetters({
             dark: 'dark',
-            isOpen: 'isOpen',
-            users: 'dashboard/users'
-        })
-    },
-    created() {
-        this.fetchUsers()
-    },
-    methods: {
-        ...mapActions({
-            fetchUsers: 'dashboard/fetchUsers'
+            isOpen: 'isOpen'
         })
     }
 }

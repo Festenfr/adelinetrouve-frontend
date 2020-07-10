@@ -1,22 +1,11 @@
 const { User, validate } = require('../models/user')
 const express = require('express')
 const bcrypt = require('bcrypt')
-const verifyToken = require('../middleware/verifytoken')
 const jwt = require('jsonwebtoken')
 
 require('dotenv').config()
 const router = express.Router()
 
-router.get('/', verifyToken, async (req, res) => {
-    let user = await User.find()
-    jwt.verify(req.token, process.env.JWT_PRIVATE_KEY, (err) => {
-        if (err) {
-            res.status(401).send('Token non valide')
-        } else {
-            res.send(user)
-        }
-    })
-})
 router.post('/', async (req, res) => {
     const result = validate(req.body)
     if (result.error)
@@ -35,7 +24,7 @@ router.post('/', async (req, res) => {
             budjet: req.body.budjet,
             pieces: req.body.pieces,
             nom: req.body.nom,
-            phone: req.body.nom,
+            phone: req.body.phone,
             email: req.body.email.toLowerCase(),
             password1: req.body.password1,
             password2: req.body.password2
@@ -60,7 +49,8 @@ router.post('/', async (req, res) => {
                 pieces: user.pieces,
                 nom: user.nom,
                 phone: user.nom,
-                email: user.email
+                email: user.email,
+                isAdmin: user.isAdmin
             }
         })
     } else {

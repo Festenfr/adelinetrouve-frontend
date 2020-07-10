@@ -23,7 +23,7 @@
             </div>
         </div>
         <RondBlanc style="z-index:5" />
-        <Notification></Notification>
+        <Notification style="z-index:10"></Notification>
     </div>
 </template>
 <script>
@@ -34,6 +34,7 @@ import RondBlanc from '../components/RondBlanc'
 import Notification from '../components/Notification'
 import Preloader from '../components/Preloader'
 import { mapGetters, mapMutations } from 'vuex'
+import ls from 'local-storage'
 export default {
     components: {
         Notification,
@@ -99,6 +100,10 @@ export default {
         }
     },
     created() {
+        if (ls.get('user')) {
+            const userData = ls.get('user')
+            this.$store.commit('setUserData', userData)
+        }
         if (
             this.$route.path === '/contact' ||
             this.$route.path === '/about' ||

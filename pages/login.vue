@@ -194,13 +194,13 @@ export default {
         ...mapMutations({
             IsNotWhite: 'IsNotWhite'
         }),
-        async login() {
+        login() {
             if (this.$refs.form.validate()) {
                 const fd = {
                     email: this.email,
                     password: this.password
                 }
-                await this.giveToken(fd)
+                this.giveToken(fd)
             }
         }
     }

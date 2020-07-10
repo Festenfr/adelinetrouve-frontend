@@ -2,8 +2,8 @@
     <div class="wrapper-slider">
         <div class="left-col">
             <CarouselSlideImage
-                v-for="(slide, i) in slides"
-                :key="slide._id"
+                v-for="(project, i) in filterProjectItem"
+                :key="project._id"
                 :index="i"
                 class="little-img image-transition-preload"
                 :direction="direction"
@@ -11,9 +11,9 @@
                 <div class="image-mask"></div>
                 <a
                     style="text-decoration:none; color:black; cursor: pointer;"
-                    @click="goTo(`/${slide.title.replace(/ /g, '-')}`)"
+                    @click="goTo(`/${project.titre.replace(/ /g, '-')}`)"
                 >
-                    <img :src="slide.image1" alt="Adeline Trouvé" />
+                    <img :src="project.file1" alt="Adeline Trouvé" />
                 </a>
             </CarouselSlideImage>
             <div class="slider-nav">
@@ -36,8 +36,8 @@
                 </a>
             </div>
             <CarouselSlideText
-                v-for="(slide, i) in slides"
-                :key="slide._id"
+                v-for="(project, i) in filterProjectItem"
+                :key="project.titre"
                 :index="i"
                 :direction="direction"
                 class="series-info"
@@ -46,9 +46,11 @@
                     <h3>
                         <a
                             style="text-decoration:none; color:black;cursor: pointer;"
-                            @click="goTo(`/${slide.title.replace(/ /g, '-')}`)"
+                            @click="
+                                goTo(`/${project.titre.replace(/ /g, '-')}`)
+                            "
                         >
-                            {{ slide.title }}
+                            {{ project.titre }}
                         </a>
                     </h3>
                 </div>
@@ -58,7 +60,7 @@
                         <span>
                             ©
                         </span>
-                        {{ slide.date }}
+                        {{ project.date }}
                     </p>
                 </div>
             </CarouselSlideText>
@@ -73,8 +75,8 @@
         </div>
         <div class="right-col">
             <CarouselSlideImage
-                v-for="(slide, i) in slides"
-                :key="slide._id"
+                v-for="(project, i) in filterProjectItem"
+                :key="project.date"
                 :index="i"
                 :direction="direction"
                 class="big-img image-transition-preload"
@@ -82,9 +84,9 @@
                 <div class="image-mask2"></div>
                 <a
                     style="text-decoration:none; color:black; cursor: pointer;"
-                    @click="goTo(`/${slide.title.replace(/ /g, '-')}`)"
+                    @click="goTo(`/${project.titre.replace(/ /g, '-')}`)"
                 >
-                    <img :src="slide.image2" alt="Adeline Trouvé" />
+                    <img :src="project.file2" alt="Adeline Trouvé" />
                 </a>
             </CarouselSlideImage>
         </div>
@@ -101,44 +103,25 @@ export default {
         CarouselSlideText,
         CarouselArrow
     },
+    async fetch() {
+        await this.$store.dispatch('projet/fetchProjectsItem')
+    },
     data() {
         return {
             index: 0,
-            direction: '',
-            slides: [
-                {
-                    image1:
-                        'https://adeona.s3.eu-west-3.amazonaws.com/photos/Loin+du+temps/arbreblanc.jpg',
-                    image2:
-                        'https://adeona.s3.eu-west-3.amazonaws.com/newSite/Bureau+1.png',
-                    title: 'Construction maison type bardage LCB',
-                    date: '2018'
-                },
-                {
-                    image1:
-                        'https://adeona.s3.eu-west-3.amazonaws.com/photos/Quotidien/RAPH.jpg',
-                    image2:
-                        'https://adeona.s3.eu-west-3.amazonaws.com/newSite/Bureau+2.png',
-                    title: 'Maison de la cousine',
-                    date: '2020'
-                },
-                {
-                    image1:
-                        'https://adeona.s3.eu-west-3.amazonaws.com/photos/Quotidien/bledar.jpg',
-                    image2:
-                        'https://adeona.s3.eu-west-3.amazonaws.com/newSite/WC1-1.png',
-                    title: 'Maison du futur',
-                    date: '2028'
-                }
-            ]
+            direction: ''
         }
     },
     computed: {
         ...mapGetters({
-            animate: 'animate'
+            animate: 'animate',
+            projectItem: 'projet/projectItem'
         }),
+        filterProjectItem() {
+            return this.projectItem.filter((el) => el.isCarousel === true)
+        },
         slidesCount() {
-            return this.slides.length
+            return this.filterProjectItem.length
         }
     },
     methods: {
