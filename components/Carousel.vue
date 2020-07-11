@@ -13,7 +13,7 @@
                     style="text-decoration:none; color:black; cursor: pointer;"
                     @click="goTo(`/${project.titre.replace(/ /g, '-')}`)"
                 >
-                    <img :src="project.file1" alt="Adeline Trouvé" />
+                    <img :src="project.file2" alt="Adeline Trouvé" />
                 </a>
             </CarouselSlideImage>
             <div class="slider-nav">
@@ -86,7 +86,7 @@
                     style="text-decoration:none; color:black; cursor: pointer;"
                     @click="goTo(`/${project.titre.replace(/ /g, '-')}`)"
                 >
-                    <img :src="project.file2" alt="Adeline Trouvé" />
+                    <img :src="project.file1" alt="Adeline Trouvé" />
                 </a>
             </CarouselSlideImage>
         </div>
