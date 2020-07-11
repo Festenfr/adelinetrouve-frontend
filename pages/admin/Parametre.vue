@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="card">
-            yo
+            Parametres
         </div>
     </div>
 </template>

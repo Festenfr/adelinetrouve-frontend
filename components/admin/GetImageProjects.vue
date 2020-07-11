@@ -45,7 +45,7 @@
                     <v-row>
                         <v-col
                             v-for="(item, i) in props.items"
-                            :key="item.type"
+                            :key="item._id"
                             cols="12"
                             sm="6"
                             md="6"
@@ -185,6 +185,9 @@ export default {
         },
         filteredKeys() {
             return this.keys.filter((key) => key !== `titre`)
+        },
+        titrePage() {
+            return this.$route.params.id
         }
     },
     methods: {
@@ -245,6 +248,7 @@ export default {
             this.itemsPerPage = number
         },
         deleteOneItem(id, i) {
+            let titreWithSpace = this.titrePage.replace(/-/g, ' ')
             Swal.fire({
                 title: 'Supprimer le projet',
                 text: 'Es tu sur?',
@@ -254,10 +258,12 @@ export default {
                 cancelButtonColor: '#c84224',
                 confirmButtonText: 'Oui!'
             }).then((result) => {
+                console.log(i)
                 if (result.value) {
-                    this.$store.dispatch('projet/deleteProjectItem', {
+                    this.$store.dispatch('projetImage/deleteProjectItem', {
                         arg1: i,
-                        arg2: id
+                        arg2: id,
+                        arg3: titreWithSpace
                     })
                     Swal.fire('Supprimé!', 'success')
                 }

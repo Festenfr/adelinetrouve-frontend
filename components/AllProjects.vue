@@ -13,6 +13,7 @@
                         <div class="explore">Explore</div>
                     </a>
                     <img
+                        crossorigin="anonymous"
                         :src="project.file1"
                         :data-src="project.file1"
                         :data-hover="project.file2"
@@ -250,7 +251,6 @@ export default {
         },
 
         createMesh() {
-            console.log(this.image)
             ;(this.uniforms = {
                 u_image: { type: 't', value: this.image },
                 u_imagehover: { type: 't', value: this.hoverImage },

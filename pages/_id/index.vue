@@ -6,7 +6,7 @@
                 <div class="serie-image">
                     <div class="image-mask"></div>
                     <img
-                        src="../../static/WC1-1.png"
+                        :src="projectItem.file1"
                         data-load="preload"
                         alt="Adeline Trouvé"
                     />
@@ -23,7 +23,7 @@
                             <div class="serie-titre">
                                 <div class="titre">
                                     <h3 style="font-weight: 400;">
-                                        Maison type bardage métallique
+                                        {{ projectItem.titre }}
                                     </h3>
                                 </div>
                                 <div class="date">
@@ -31,7 +31,7 @@
                                         <span class="copyright">
                                             ©
                                         </span>
-                                        2018
+                                        {{ projectItem.date }}
                                     </p>
                                 </div>
                             </div>
@@ -39,11 +39,7 @@
                                 <div class="serie-info-description">
                                     <span>à propos du projet</span>
                                     <p>
-                                        Through its pictorial intensity and
-                                        pastel colors, this iconic series La
-                                        Dolce Vita by Elena Iv-skaya represents
-                                        Italian-style art of living, offering a
-                                        voluptuous retro atmosphere.
+                                        {{ projectItem.description }}
                                     </p>
                                 </div>
                             </div>
@@ -64,22 +60,22 @@
             </div>
             <div class="serie-gallery">
                 <div
-                    v-for="ligne in lignes"
-                    :key="ligne._id"
+                    v-for="image in projectItemImage"
+                    :key="image._id"
                     class="gallery-item"
-                    :class="ligne.type"
+                    :class="image.type"
                 >
                     <div class="relative-container-first">
                         <img
                             class="image"
-                            :src="ligne.image1"
-                            :data-src="ligne.type"
+                            :src="image.file1"
+                            :data-src="image.type"
                             alt="salon"
                             style="opacity: 0;"
                         />
                     </div>
-                    <div v-if="ligne.image2" class="relative-container-second">
-                        <img :src="ligne.image2" alt="salon" class="image2" />
+                    <div v-if="image.file2" class="relative-container-second">
+                        <img :src="image.file2" alt="salon" class="image2" />
                     </div>
                 </div>
             </div>
@@ -96,37 +92,28 @@ export default {
     components: {
         CarouselArrow
     },
+    async fetch() {
+        await this.$store.dispatch('projetImage/fetchProjectsItem', {
+            titre: this.$route.params.id.replace(/-/g, ' ')
+        })
+        await this.$store.dispatch('projetImage/fetchProjectsItem1', {
+            titre: this.$route.params.id.replace(/-/g, ' ')
+        })
+    },
     data() {
         return {
             isVisible1: false,
             isVisible2: false,
             images: '',
             indexMin1: 0,
-            indexMin2: 1,
-            lignes: [
-                {
-                    image1:
-                        'https://adeona.s3.eu-west-3.amazonaws.com/newSite/Bureau+2.png',
-                    image2:
-                        'https://adeona.s3.eu-west-3.amazonaws.com/newSite/Bureau+1.png',
-                    type: 'duo'
-                },
-                {
-                    image1:
-                        'https://adeona.s3.eu-west-3.amazonaws.com/newSite/Salon+1.png',
-                    type: 'paysage'
-                },
-                {
-                    image1:
-                        'https://adeona.s3.eu-west-3.amazonaws.com/newSite/Bureau+1.png',
-                    type: 'portrait'
-                }
-            ]
+            indexMin2: 1
         }
     },
     computed: {
         ...mapGetters({
-            loader: 'loader'
+            loader: 'loader',
+            projectItemImage: 'projetImage/projectItem',
+            projectItem: 'projetImage/projectItem1'
         })
     },
     watch: {

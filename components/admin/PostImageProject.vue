@@ -64,7 +64,7 @@ export default {
         }
     },
     computed: {
-        titreActu() {
+        titrePage() {
             return this.$route.params.id
         }
     },
@@ -81,7 +81,7 @@ export default {
             ]
         },
         validate() {
-            let titreWithSpace = this.titreActu.replace(/-/g, ' ')
+            let titreWithSpace = this.titrePage.replace(/-/g, ' ')
             if (this.$refs.form.validate()) {
                 const fd = new FormData()
                 fd.append('type', this.type)

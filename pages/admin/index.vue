@@ -1,7 +1,7 @@
 <template>
     <div ref="admin">
         <div>
-            <p>yo</p>
+            <p>Tableau de bord</p>
         </div>
     </div>
 </template>

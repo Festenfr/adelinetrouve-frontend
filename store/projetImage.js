@@ -1,11 +1,14 @@
 export const state = () => ({
-    projectItem: []
+    projectItem: [],
+    projectItem1: []
 })
 export const getters = {
-    projectItem: (state) => state.projectItem
+    projectItem: (state) => state.projectItem,
+    projectItem1: (state) => state.projectItem1
 }
 export const mutations = {
     setProjectItem: (state, data) => (state.projectItem = data),
+    setProjectItem1: (state, data) => (state.projectItem1 = data),
     newprojectItem: (state, data) => state.projectItem.unshift(data),
     updateItem(state, data) {
         const index = state.projectItem.findIndex(
@@ -26,11 +29,26 @@ export const actions = {
             )
             commit('newprojectItem', data)
             rootState.snackbar = true
-            rootState.message = 'La photo a été ajouté'
+            rootState.message = 'image(s) ajouté au projet'
             rootState.error = false
         } catch (err) {
             rootState.error = true
             rootState.message = err.response.data
+        }
+    },
+    async fetchProjectsItem1({ commit, rootState }, { titre }) {
+        const titreWithSpace = titre.replace(/_/g, ' ')
+        const titreDecoded = decodeURI(titreWithSpace)
+        try {
+            const { data } = await this.$axios.get(
+                `/projetImage/${titreDecoded}/1`
+            )
+            commit('setProjectItem1', data)
+            rootState.snackbar = true
+            rootState.error = false
+        } catch (error) {
+            rootState.error = true
+            rootState.message = error.response.data
         }
     },
     async fetchProjectsItem({ commit, rootState }, { titre }) {
@@ -60,13 +78,15 @@ export const actions = {
             rootState.message = err.response.data
         }
     },
-    async deleteProjectItem({ commit, rootState }, { arg1, arg2 }) {
+    async deleteProjectItem({ commit, rootState }, { arg1, arg2, arg3 }) {
         try {
-            const { data } = await this.$axios.delete(`/projet/${arg2}`)
+            const { data } = await this.$axios.delete(
+                `/projetImage/${arg3}/${arg2}`
+            )
             commit('removeItem', arg1)
             rootState.snackbar = true
             rootState.error = false
-            rootState.message = 'Le projet est supprimé'
+            rootState.message = 'image(s) du projet supprimé'
             return data
         } catch (error) {
             rootState.error = true
