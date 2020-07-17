@@ -1,6 +1,6 @@
 <template>
     <div class="nav">
-        <ul style="display:flex;">
+        <ul>
             <li>
                 <nuxt-link
                     to="/"
@@ -67,45 +67,40 @@ export default {
 <style lang="scss" scoped>
 @media screen and (max-width: 768px) {
     .nav {
+        padding: 5vh 8vw 0;
         position: fixed;
         top: 0;
         margin: auto;
         width: 100%;
         z-index: 5;
-        padding: 5.5vh 9.333vw;
-    }
-    li {
-        display: list-item;
-        text-align: -webkit-match-parent;
-    }
-    .nav ul {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-    }
-    .nav ul li {
-        font-family: 'Montserrat', sans-serif;
-        font-weight: bold;
-        font-size: 2.5vw;
-        line-height: normal;
-        letter-spacing: 0;
-        letter-spacing: 0.125vw;
-        line-height: 1.875vw;
-        text-transform: uppercase;
-        transition: opacity 0.2s ease;
-    }
-    ol,
-    ul {
-        list-style: none;
-    }
-    .titre_nav {
-        text-decoration: none;
-        color: rgb(0, 0, 0);
-    }
-    .titre_nav_actif {
-        color: rgb(0, 0, 0);
-        text-decoration: none;
+        ul {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            list-style: none;
+            .titre_nav {
+                text-decoration: none;
+                color: black;
+            }
+            .titre_nav_actif {
+                color: black;
+                text-decoration: none;
+            }
+            li {
+                font-family: 'Montserrat', sans-serif;
+                font-size: 0.875vw;
+                font-weight: bold;
+                line-height: normal;
+                letter-spacing: 0;
+                letter-spacing: 0.125vw;
+                line-height: 1.875vw;
+                text-transform: uppercase;
+                transition: opacity 0.2s ease;
+                display: list-item;
+                text-align: -webkit-match-parent;
+            }
+        }
     }
 }
 @media screen and (min-width: 768px) {
@@ -116,38 +111,34 @@ export default {
         margin: auto;
         width: 100%;
         z-index: 5;
-    }
-    li {
-        display: list-item;
-        text-align: -webkit-match-parent;
-    }
-    .nav ul {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-    }
-    .nav ul li {
-        font-family: 'Montserrat', sans-serif;
-        font-size: 0.875vw;
-        font-weight: bold;
-        line-height: normal;
-        letter-spacing: 0;
-        letter-spacing: 0.125vw;
-        line-height: 1.875vw;
-        text-transform: uppercase;
-    }
-    ol,
-    ul {
-        list-style: none;
-    }
-    .titre_nav {
-        text-decoration: none;
-        color: rgb(0, 0, 0);
-    }
-    .titre_nav_actif {
-        color: rgb(0, 0, 0);
-        text-decoration: none;
+        ul {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            list-style: none;
+            width: 100%;
+            .titre_nav {
+                text-decoration: none;
+                color: black;
+            }
+            .titre_nav_actif {
+                color: black;
+                text-decoration: none;
+            }
+            li {
+                font-family: 'Montserrat', sans-serif;
+                font-size: 0.875vw;
+                font-weight: bold;
+                line-height: normal;
+                letter-spacing: 0;
+                letter-spacing: 0.125vw;
+                line-height: 1.875vw;
+                text-transform: uppercase;
+                transition: opacity 0.2s ease;
+                display: list-item;
+                text-align: -webkit-match-parent;
+            }
+        }
     }
 }
 </style>

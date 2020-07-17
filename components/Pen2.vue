@@ -9,16 +9,6 @@
         style="position: relative
         ;left: 30%;"
     >
-        <defs>
-            <style>
-                .cls-g {
-                    fill: #fff;
-                }
-                .cls-w {
-                    fill: #000;
-                }
-            </style>
-        </defs>
         <title>Realiser mon projet</title>
         <path
             class="cls-g"
@@ -62,3 +52,11 @@
         />
     </svg>
 </template>
+<style>
+.cls-g {
+    fill: #fff;
+}
+.cls-w {
+    fill: #000;
+}
+</style>
