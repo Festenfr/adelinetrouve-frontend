@@ -1,10 +1,8 @@
 <template>
-    <div>
-        <div ref="accueil">
-            <Nav />
-            <Carousel />
-            <AllProjects />
-        </div>
+    <div ref="accueil">
+        <Nav />
+        <Carousel />
+        <AllProjects />
     </div>
 </template>
 <script>

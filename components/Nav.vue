@@ -65,20 +65,33 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@media screen and (max-width: 768px) {
-    .nav {
-        padding: 5vh 8vw 0;
-        position: fixed;
-        top: 0;
-        margin: auto;
+.nav {
+    padding: 5vh 8vw 0;
+    position: fixed;
+    top: 0;
+    margin: auto;
+    width: 100%;
+    z-index: 5;
+    ul {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        list-style: none;
         width: 100%;
-        z-index: 5;
-        ul {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
+
+        li {
             list-style: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.875vw;
+            font-weight: bold;
+            line-height: normal;
+            letter-spacing: 0;
+            letter-spacing: 0.125vw;
+            line-height: 1.875vw;
+            text-transform: uppercase;
+            transition: opacity 0.2s ease;
+            display: list-item;
+            text-align: -webkit-match-parent;
             .titre_nav {
                 text-decoration: none;
                 color: black;
@@ -86,57 +99,6 @@ export default {
             .titre_nav_actif {
                 color: black;
                 text-decoration: none;
-            }
-            li {
-                font-family: 'Montserrat', sans-serif;
-                font-size: 0.875vw;
-                font-weight: bold;
-                line-height: normal;
-                letter-spacing: 0;
-                letter-spacing: 0.125vw;
-                line-height: 1.875vw;
-                text-transform: uppercase;
-                transition: opacity 0.2s ease;
-                display: list-item;
-                text-align: -webkit-match-parent;
-            }
-        }
-    }
-}
-@media screen and (min-width: 768px) {
-    .nav {
-        padding: 5vh 8vw 0;
-        position: fixed;
-        top: 0;
-        margin: auto;
-        width: 100%;
-        z-index: 5;
-        ul {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            list-style: none;
-            width: 100%;
-            .titre_nav {
-                text-decoration: none;
-                color: black;
-            }
-            .titre_nav_actif {
-                color: black;
-                text-decoration: none;
-            }
-            li {
-                font-family: 'Montserrat', sans-serif;
-                font-size: 0.875vw;
-                font-weight: bold;
-                line-height: normal;
-                letter-spacing: 0;
-                letter-spacing: 0.125vw;
-                line-height: 1.875vw;
-                text-transform: uppercase;
-                transition: opacity 0.2s ease;
-                display: list-item;
-                text-align: -webkit-match-parent;
             }
         }
     }
