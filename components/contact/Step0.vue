@@ -9,7 +9,7 @@
         muted="muted"
     >
         <source
-            src="../../static/material-makes-it-possible.mp4"
+            src="https://adeline-site-web.s3.eu-west-3.amazonaws.com/material-makes-it-possible.mp4"
             type="video/mp4"
         />
     </video>

@@ -1,6 +1,6 @@
 <template>
     <div class="nav">
-        <ul>
+        <ul style="display:flex;">
             <li>
                 <nuxt-link
                     to="/"
@@ -14,7 +14,7 @@
                     />
                 </nuxt-link>
             </li>
-            <li>
+            <li style="display:flex;">
                 <nuxt-link
                     to="/about"
                     exact-active-class="titre_nav_actif"

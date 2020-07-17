@@ -274,7 +274,7 @@ export default {
         updateItemsPerPage(number) {
             this.itemsPerPage = number
         },
-        deleteOneItem(id, i) {
+        deleteOneItem(id) {
             Swal.fire({
                 title: 'Supprimer le projet',
                 text: 'Es tu sur?',
@@ -285,10 +285,7 @@ export default {
                 confirmButtonText: 'Oui!'
             }).then((result) => {
                 if (result.value) {
-                    this.$store.dispatch('projet/deleteProjectItem', {
-                        arg1: i,
-                        arg2: id
-                    })
+                    this.$store.dispatch('projet/deleteProjectItem', id)
                     Swal.fire('Supprimé!', 'success')
                 }
             })

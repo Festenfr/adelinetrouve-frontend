@@ -42,7 +42,7 @@
                     color="primary"
                     @click="validate"
                 >
-                    Creer le projet
+                    Ajouter l'image(s)
                 </v-btn>
             </div>
         </v-form>

@@ -40,7 +40,7 @@
             <v-switch v-model="isCarousel"></v-switch>
             <v-btn @click="$refs.files.click()">
                 <span v-if="selectedFiles[0] === undefined">
-                    Image Principale + texture
+                    Texture + Image Principale
                 </span>
                 <span
                     v-for="(selectedFile, index) in selectedFiles"

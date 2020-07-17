@@ -44,7 +44,7 @@
                 <template v-slot:default="props">
                     <v-row>
                         <v-col
-                            v-for="(item, i) in props.items"
+                            v-for="item in props.items"
                             :key="item._id"
                             cols="12"
                             sm="6"
@@ -83,15 +83,6 @@
                                         /></v-list-item-content>
                                     </v-list-item>
                                     <div class="actions">
-                                        <div
-                                            :ref="item._id"
-                                            @click="getId(item._id, i)"
-                                        >
-                                            <p v-show="false">{{ item._id }}</p>
-                                            <p v-show="false">
-                                                {{ item.type }}
-                                            </p>
-                                        </div>
                                         <v-btn
                                             small
                                             @click="
@@ -107,7 +98,7 @@
                                         </v-btn>
                                         <v-btn
                                             small
-                                            @click="deleteOneItem(item._id, i)"
+                                            @click="deleteOneItem(item._id)"
                                         >
                                             <v-icon small icon>
                                                 mdi-delete
@@ -229,14 +220,10 @@ export default {
         goTo(page) {
             $nuxt._router.push(`${page}`)
         },
-        updateOneItem(id, titre, description, surface, budjet, date) {
+        updateOneItem(id, type) {
             this.id = id
             this.update = true
-            this.titreUpdate = titre
-            this.descriptionUpdate = description
-            this.surfaceUpdate = surface
-            this.budjetUpdate = budjet
-            this.dateUpdate = date
+            this.typeUpdate = type
         },
         nextPage() {
             if (this.page + 1 <= this.numberOfPages) this.page += 1
@@ -247,7 +234,7 @@ export default {
         updateItemsPerPage(number) {
             this.itemsPerPage = number
         },
-        deleteOneItem(id, i) {
+        deleteOneItem(id) {
             let titreWithSpace = this.titrePage.replace(/-/g, ' ')
             Swal.fire({
                 title: 'Supprimer le projet',
@@ -258,12 +245,10 @@ export default {
                 cancelButtonColor: '#c84224',
                 confirmButtonText: 'Oui!'
             }).then((result) => {
-                console.log(i)
                 if (result.value) {
                     this.$store.dispatch('projetImage/deleteProjectItem', {
-                        arg1: i,
-                        arg2: id,
-                        arg3: titreWithSpace
+                        arg1: id,
+                        arg2: titreWithSpace
                     })
                     Swal.fire('Supprimé!', 'success')
                 }

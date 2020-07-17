@@ -16,8 +16,10 @@ export const mutations = {
         )
         if (index !== -1) state.projectItem.splice(index, 1, data)
     },
-    removeItem: (state, i) => {
-        state.projectItem.splice(i, 1)
+    removeItem: (state, id) => {
+        const index = state.projectItem.findIndex((item) => item._id === id)
+        console.log(index)
+        if (index !== -1) state.projectItem.splice(index, 1)
     }
 }
 export const actions = {
@@ -66,22 +68,25 @@ export const actions = {
             rootState.message = error.response.data
         }
     },
-    async updateProjectItem({ commit, rootState }, { arg1, arg2 }) {
+    async updateProjectItem({ commit, rootState }, { arg1, arg2, arg3 }) {
         try {
-            const { data } = await this.$axios.put(`/projet/${arg2}`, arg1)
+            const { data } = await this.$axios.put(
+                `/projetImage/${arg2}/${arg3}`,
+                arg1
+            )
             commit('updateItem', data)
             rootState.snackbar = true
             rootState.error = false
-            rootState.message = 'Le projet est modifié'
+            rootState.message = "L'image est modifié"
         } catch (err) {
             rootState.error = true
             rootState.message = err.response.data
         }
     },
-    async deleteProjectItem({ commit, rootState }, { arg1, arg2, arg3 }) {
+    async deleteProjectItem({ commit, rootState }, { arg1, arg2 }) {
         try {
             const { data } = await this.$axios.delete(
-                `/projetImage/${arg3}/${arg2}`
+                `/projetImage/${arg2}/${arg1}`
             )
             commit('removeItem', arg1)
             rootState.snackbar = true

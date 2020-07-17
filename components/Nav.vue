@@ -1,6 +1,6 @@
 <template>
     <div class="nav">
-        <ul>
+        <ul style="display:flex;">
             <li>
                 <nuxt-link
                     to="/"

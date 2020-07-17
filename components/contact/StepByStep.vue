@@ -1,70 +1,90 @@
 <template>
     <div class="contact-image">
-        <div class="image-mask"></div>
-        <transition :css="false" @enter="enter" @leave="leave">
-            <keep-alive>
-                <component
-                    :is="step"
-                    :valid="valid"
-                    :infos="infos"
-                    @validChange="valid = $event"
-                    @validInfos="infos = $event"
-                ></component>
-            </keep-alive>
-        </transition>
-
-        <div class="contact-nav">
-            <a
-                class="nav-left"
-                :class="[index === 0 ? 'prev-gris' : 'prev-white']"
-                @click="prev"
-            >
-                <CarouselArrow2 />
-                <h3 style="font-weight: 400;">
-                    Précedent
-                </h3>
-            </a>
-            <div class="cursor-nav">
-                <span class="rond"> </span>
-                <span class="rond"> </span>
-                <span class="rond"> </span>
-                <span class="rond"> </span>
-                <span class="rond"> </span>
-                <span class="rond"> </span>
+        <template v-if="!show">
+            <div class="contact-chantier">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    data-name="Layer 1"
+                    style="width:150px; height:170px"
+                    viewBox="0 0 48 60"
+                    x="0px"
+                    y="0px"
+                >
+                    <path
+                        style="fill:white"
+                        d="M46.85,1.66A2.48,2.48,0,0,0,45.57.24,2.44,2.44,0,0,0,43.66.15l-11,4a2.5,2.5,0,0,0-.29,4.58v3l-2.69,2.69-2.26-2.26a2.51,2.51,0,0,0-2.29-.68,2.48,2.48,0,0,0-1.82,1.53L19,23.85a2,2,0,0,0,1.85,2.74,2,2,0,0,0,.75-.15h0l10.91-4.31A2.51,2.51,0,0,0,34,20.3,2.48,2.48,0,0,0,33.32,18l-2.26-2.26,3-3a1,1,0,0,0,.29-.7V8.8l11-4a2.48,2.48,0,0,0,1.51-3.19ZM31.91,19.43a.51.51,0,0,1,.14.47.5.5,0,0,1-.31.37L20.82,24.58h0l4.32-10.91a.5.5,0,0,1,.37-.31l.11,0a.49.49,0,0,1,.36.16l2.26,2.26L26,18a1,1,0,0,0,0,1.41,1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29l2.24-2.24ZM45,2.71a.48.48,0,0,1-.28.26h0l-11,4A.51.51,0,0,1,33,6.62.5.5,0,0,1,33.31,6l11-4,.17,0a.49.49,0,0,1,.21,0,.48.48,0,0,1,.26.28A.51.51,0,0,1,45,2.71ZM47,34H33V29a1,1,0,0,0-1-1H18a1,1,0,0,0-1,1v5H1a1,1,0,0,0-1,1V47a1,1,0,0,0,1,1H47a1,1,0,0,0,1-1V35A1,1,0,0,0,47,34Zm-1,6H41V36h5Zm-7,0H27V36H39ZM17,40H13V36H25v4Zm2-10H31v4H19ZM2,36h9v4H2Zm0,6H16v4H2Zm16,0H30v4H18Zm28,4H32V42H46Z"
+                    />
+                </svg>
+                <h3 style="margin-left: 0px">Espace en chantier...</h3>
             </div>
-            <a
-                v-if="index <= 4"
-                class="nav-right"
-                :class="[nextIsValid ? 'next-white' : 'next-gris']"
-                @click="next"
-            >
-                <h3 style="font-weight: 400;">
-                    Suivant
-                </h3>
-                <div
+        </template>
+        <template v-if="show">
+            <div class="image-mask"></div>
+            <transition :css="false" @enter="enter" @leave="leave">
+                <keep-alive>
+                    <component
+                        :is="step"
+                        :valid="valid"
+                        :infos="infos"
+                        @validChange="valid = $event"
+                        @validInfos="infos = $event"
+                    ></component>
+                </keep-alive>
+            </transition>
+
+            <div class="contact-nav">
+                <a
+                    class="nav-left"
+                    :class="[index === 0 ? 'prev-gris' : 'prev-white']"
+                    @click="prev"
+                >
+                    <CarouselArrow2 />
+                    <h3 style="font-weight: 400;">
+                        Précedent
+                    </h3>
+                </a>
+                <div class="cursor-nav">
+                    <span class="rond"> </span>
+                    <span class="rond"> </span>
+                    <span class="rond"> </span>
+                    <span class="rond"> </span>
+                    <span class="rond"> </span>
+                    <span class="rond"> </span>
+                </div>
+                <a
+                    v-if="index <= 4"
+                    class="nav-right"
                     :class="[nextIsValid ? 'next-white' : 'next-gris']"
-                    style="transform: rotate(180deg);"
+                    @click="next"
                 >
-                    <CarouselArrow2 />
-                </div>
-            </a>
-            <a
-                v-if="index === 5"
-                class="nav-right"
-                :class="[valid ? 'next-white' : 'next-gris']"
-                @click="register"
-            >
-                <h3 style="font-weight: 400;">
-                    Creer mon espace client
-                </h3>
-                <div
+                    <h3 style="font-weight: 400;">
+                        Suivant
+                    </h3>
+                    <div
+                        :class="[nextIsValid ? 'next-white' : 'next-gris']"
+                        style="transform: rotate(180deg);"
+                    >
+                        <CarouselArrow2 />
+                    </div>
+                </a>
+                <a
+                    v-if="index === 5"
+                    class="nav-right"
                     :class="[valid ? 'next-white' : 'next-gris']"
-                    style="transform: rotate(180deg);"
+                    @click="register"
                 >
-                    <CarouselArrow2 />
-                </div>
-            </a>
-        </div>
+                    <h3 style="font-weight: 400;">
+                        Creer mon espace client
+                    </h3>
+                    <div
+                        :class="[valid ? 'next-white' : 'next-gris']"
+                        style="transform: rotate(180deg);"
+                    >
+                        <CarouselArrow2 />
+                    </div>
+                </a>
+            </div>
+        </template>
     </div>
 </template>
 
@@ -91,6 +111,7 @@ export default {
     },
     data() {
         return {
+            show: false,
             valid: true,
             infos: {
                 nom: '',
@@ -322,6 +343,20 @@ export default {
 </script>
 
 <style lang="scss">
+.contact-chantier {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    top: -25vh;
+    font-size: 3vw;
+
+    font-family: 'Playfair Display', serif;
+}
 .contact-image {
     width: 100%;
     height: 80vh;

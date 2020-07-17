@@ -79,10 +79,98 @@ router.post('/:titre', isAdmin, upload.array('files'), async (req, res) => {
         res.status(422).json({ err })
     }
 })
+router.put('/:titre/:id', isAdmin, upload.array('files'), async (req, res) => {
+    const projet = await Projet.findOne({ titre: req.params.titre })
+    const s3 = new aws.S3()
+    const rand = Math.round(Math.random() * 1000000)
+    const rand2 = Math.round(Math.random() * 1000000)
+    let projetImage = await ProjetImage.find({ _id: req.params.id })
+    if (!projetImage)
+        return res
+            .status(404)
+            .send("le Projet que tu veux modifier n'existes plus")
+    let nameImage = projetImage[0].file1.substring(
+        projetImage[0].file1.lastIndexOf('/') + 1
+    )
+    console.log(nameImage)
+    let keyBucket = decodeURI(nameImage)
+    let params = {
+        Bucket: `adeline-site-web/projet/${projet.titre}`,
+        Key: keyBucket
+    }
+    let params2
+    if (projetImage[0].file2) {
+        let nameImage2 = projetImage[0].file2.substring(
+            projetImage[0].file2.lastIndexOf('/') + 1
+        )
+        let keyBucket2 = decodeURI(nameImage2)
+        params2 = {
+            Bucket: `adeline-site-web/projet/${projet.titre}`,
+            Key: keyBucket2
+        }
+    }
+    setTimeout(() => {
+        s3.deleteObject(
+            params,
+            function(err) {
+                if (err) console.log(err, err.stack)
+                // error
+                else {
+                    if (projetImage[0].file2) {
+                        s3.deleteObject(params2, function(err) {
+                            if (err) console.log(err, err.stack)
+                            // error
+                        })
+                    }
+                }
+            },
+            500
+        )
+    })
+    try {
+        const buffer = await sharp(req.files[0].path)
+            .resize(1400)
+            .toBuffer()
+        const s3res = await s3
+            .upload({
+                Bucket: `adeline-site-web/projet/${projet.titre}`,
+                Key: `${rand}-${req.files[0].originalname}`,
+                Body: buffer,
+                ACL: 'public-read'
+            })
+            .promise()
+        if (req.files[1]) {
+            const buffer2 = await sharp(req.files[1].path)
+                .resize(1400)
+                .toBuffer()
+            const s3res2 = await s3
+                .upload({
+                    Bucket: `adeline-site-web/projet/${projet.titre}`,
+                    Key: `${rand2}-${req.files[1].originalname}`,
+                    Body: buffer2,
+                    ACL: 'public-read'
+                })
+
+                .promise()
+            projetImage[0].type = req.body.typeUpdate
+            projetImage[0].file1 = s3res.Location
+            projetImage[0].file2 = s3res2.Location
+        } else {
+            projetImage[0].type = req.body.typeUpdate
+            projetImage[0].file1 = s3res.Location
+        }
+        projetImage[0] = await projetImage[0].save()
+        res.status(200).send(projetImage[0])
+    } catch (err) {
+        res.status(422).json({ err })
+    }
+})
 router.delete('/:titre/:id', isAdmin, async (req, res) => {
     const projet = await Projet.findOne({ titre: req.params.titre })
     const s3 = new aws.S3()
-    let projetImage = await ProjetImage.findOneAndDelete({ ref: projet._id })
+    let projetImage = await ProjetImage.findOneAndDelete({
+        _id: req.params.id
+    })
     let nameImage = projetImage.file1.substring(
         projetImage.file1.lastIndexOf('/') + 1
     )
