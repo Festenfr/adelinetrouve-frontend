@@ -79,6 +79,18 @@ export default {
                     delay: 0.4
                 }
             )
+            TweenLite.fromTo(
+                '.about-issue',
+                0.7,
+                {
+                    opacity: '1'
+                },
+                {
+                    delay: 0.4,
+                    opacity: 0,
+                    ease: 'linear'
+                }
+            )
         }
     },
     mounted() {

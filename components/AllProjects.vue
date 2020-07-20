@@ -1,5 +1,5 @@
 <template>
-    <div v-scroll="handleScroll">
+    <div>
         <div v-for="project in filterProjectItem" :key="project._id">
             <div class="container2">
                 <div class="tile__figure">
@@ -30,7 +30,6 @@
 <script>
 import { TweenMax as TM } from 'gsap'
 import * as THREE from 'three'
-import '../directive/scroll'
 import { fragmentShader } from '../modules/fragmentShader'
 import { vertexShader } from '../modules/vertexShader'
 import { mapMutations, mapGetters } from 'vuex'
@@ -121,19 +120,7 @@ export default {
         }
     },
     mounted() {
-        if (this.filterProjectItem[0]) {
-            this.init()
-        }
-        if (this.filterProjectItem[1]) {
-            this.init2()
-        }
-    },
-    methods: {
-        ...mapMutations({
-            imageLeave: 'imageLeave',
-            imageEnter: 'imageEnter'
-        }),
-        handleScroll() {
+        setInterval(() => {
             this.images = document.querySelectorAll('.tile__image')
             let rect = []
             this.images.forEach((el) => {
@@ -174,7 +161,19 @@ export default {
                     this.indexMin2 = indexRef
                 }
             }
-        },
+        }, 150)
+        if (this.filterProjectItem[0]) {
+            this.init()
+        }
+        if (this.filterProjectItem[1]) {
+            this.init2()
+        }
+    },
+    methods: {
+        ...mapMutations({
+            imageLeave: 'imageLeave',
+            imageEnter: 'imageEnter'
+        }),
         goTo(page) {
             $nuxt._router.push(`${page}`)
         },

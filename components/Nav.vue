@@ -10,7 +10,7 @@
                     <img
                         style="height:10vh"
                         src="https://adeona.s3.eu-west-3.amazonaws.com/logo/Logo_Home_Noir.png"
-                        alt="Logo *****"
+                        alt="Logo Adeline Trouvé noir"
                     />
                 </nuxt-link>
             </li>

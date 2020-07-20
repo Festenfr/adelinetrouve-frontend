@@ -90,7 +90,7 @@
 
 <script>
 import Step0 from './Step0'
-import { TweenLite, TweenMax } from 'gsap'
+import { TweenLite, TweenMax, Power4 } from 'gsap'
 import Step1 from './Step1'
 import Step2 from './Step2'
 import Step3 from './Step3'
@@ -111,7 +111,7 @@ export default {
     },
     data() {
         return {
-            show: false,
+            show: true,
             valid: true,
             infos: {
                 nom: '',
@@ -174,7 +174,6 @@ export default {
                         display: 'flex',
                         opacity: 1,
                         delay: 0.5,
-                        // eslint-disable-next-line no-undef
                         ease: Power4.easeOut,
                         onComplete: done
                     }
@@ -193,7 +192,6 @@ export default {
                         display: 'flex',
                         opacity: 1,
                         delay: 0.5,
-                        // eslint-disable-next-line no-undef
                         ease: Power4.easeOut,
                         onComplete: done
                     }
@@ -212,7 +210,6 @@ export default {
                     {
                         x: 300,
                         opacity: 0,
-                        // eslint-disable-next-line no-undef
                         ease: Power4.easeOut,
                         onComplete: done
                     }
@@ -228,7 +225,6 @@ export default {
                     {
                         x: -300,
                         opacity: 0,
-                        // eslint-disable-next-line no-undef
                         ease: Power4.easeOut,
                         onComplete: done
                     }

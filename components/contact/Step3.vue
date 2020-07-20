@@ -357,6 +357,7 @@ export default {
             width: 7vw;
             height: 5vw;
             display: flex;
+            text-align: center;
             justify-content: center;
             align-items: center;
         }
@@ -371,6 +372,7 @@ export default {
             width: 7vw;
             height: 5vw;
             display: flex;
+            text-align: center;
             justify-content: center;
             align-items: center;
         }

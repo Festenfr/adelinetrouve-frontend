@@ -7,7 +7,7 @@ export default {
         htmlAttrs: {
             lang: 'fr'
         },
-        title: '******',
+        title: 'Adeline Trouvé',
         meta: [
             { charset: 'utf-8' },
             {
@@ -18,11 +18,6 @@ export default {
         link: [
             {
                 rel: 'stylesheet',
-                href:
-                    'https://fonts.googleapis.com/css?family==Montserrat&display=swap|Playfair+Display:wght@400;600&display=swap'
-            },
-            {
-                rel: 'stylesheet',
                 href: 'https://vjs.zencdn.net/5.19/video-js.css'
             }
         ],
@@ -31,9 +26,10 @@ export default {
             { src: 'https://vjs.zencdn.net/5.19/video.js' }
         ]
     },
-    loading: {
-        color: '#a2564b',
-        height: '2px'
+    webfontloader: {
+        google: {
+            families: ['MontSerrat:400,700', 'Playfair Display:400,700']
+        }
     },
     css: ['./assets/main.scss'],
     axios: {
@@ -43,6 +39,7 @@ export default {
     serverMiddleware: ['redirect-ssl'],
     buildModules: ['@nuxtjs/eslint-module'],
     modules: [
+        'nuxt-webfontloader',
         '@nuxtjs/axios',
         '@nuxtjs/pwa',
         '~/modules/api',
@@ -51,8 +48,7 @@ export default {
     ],
     plugins: [
         { src: '@/plugins/vuetify', ssr: false },
-        { src: '@/plugins/ksvuefp', ssr: false },
-        { src: '@/plugins/global', ssr: false },
+        { src: '@/plugins/global', ssr: true },
         { src: '@/plugins/interceptors', ssr: false }
     ],
     robots: {
@@ -60,22 +56,24 @@ export default {
         Disallow: '/admin/**'
     },
     sitemap: {
-        hostname: 'https://www.*******.com',
+        hostname: 'https://www.adelinetrouve.com',
         gzip: true,
-        exclude: ['/administration/**']
+        exclude: ['/admin/**']
     },
     pwa: {
         manifest: {
-            name: '******',
-            short_name: '******',
+            name: 'adeline trouvé',
+            short_name: 'adeline trouvé',
             lang: 'fr',
             display: 'standalone'
         },
         meta: {
-            name: '*******************',
+            name: 'adeline trouvé',
             author: 'Wesley Dorsey',
-            description: '*******************************',
-            ogDescription: '******************************',
+            description:
+                "Architecte et designer d'intérieur sur  pour particuliers ou professionnels, réalisation de plans, maquette 3d, rendus dernière génération",
+            ogDescription:
+                "Architecte et designer d'intérieur sur  pour particuliers ou professionnels, réalisation de plans, maquette 3d, rendus dernière génération",
             lang: 'fr'
         }
     },

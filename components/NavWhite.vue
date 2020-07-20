@@ -10,7 +10,7 @@
                     <img
                         style="height:10vh"
                         src="https://wesleydorsey.s3.eu-west-3.amazonaws.com/Logo_Blanc_Ad.png"
-                        alt="Logo *****"
+                        alt="Logo Adeline Trouvé Blanc"
                     />
                 </nuxt-link>
             </li>

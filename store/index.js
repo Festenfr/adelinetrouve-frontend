@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import Vue from 'vue'
 import Cursor from '../modules/cursor'
-import { gsap } from 'gsap/all'
+import { gsap, TimelineLite } from 'gsap/all'
 export const state = () => ({
     NewProjectIsWhite: true,
     isOpen: true,
@@ -133,13 +133,11 @@ export const mutations = {
                             `.cls-${index}`,
                             1.2,
                             {
-                                opacity: 0,
-                                x: 'random(-100, 100)',
-                                y: 'random(0, -400)'
+                                y: -200,
+                                opacity: 0
                             },
                             {
                                 y: 0,
-                                x: 0,
                                 opacity: 1,
                                 ease: 'sine.Out'
                             },
@@ -158,7 +156,7 @@ export const mutations = {
                         1.2,
                         {
                             opacity: 0,
-                            y: -50
+                            y: -200
                         },
                         {
                             opacity: 1,
