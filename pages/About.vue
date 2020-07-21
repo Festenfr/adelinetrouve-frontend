@@ -12,7 +12,8 @@
                     />
                     <div class="about-quote">
                         <h3 style="font-weight: 400;">
-                            Architecture d'interieur et design d'espace
+                            " Réaliser des espaces uniques pour des clients
+                            uniques "
                         </h3>
                     </div>
                 </div>
@@ -21,15 +22,34 @@
                         <div class="content-text">
                             <div class="paragraph">
                                 <p>
-                                    Jeune diplomée en Design d’Espace puis en
-                                    Arts plastiques et sciences de l’art, j’ai
-                                    eu la chance d’effectuer des projets de
-                                    scénographies et d’architecture d’intérieur
-                                    à travers différents stages. Je suis
-                                    passionnée d’architecture et de design, mais
-                                    aussi de photographie, que j’aime exploiter
-                                    au travers de mes voyages, de la nature, de
-                                    l’architecture..
+                                    Adeline Trouvé, diplomée en design d’espace
+                                    à Bordeaux et d’une licence d’arts
+                                    plastiques et science de l’art à la
+                                    Sorbonne, a travaillé comme Architecte
+                                    d’Intérieur dans plusieurs agences, cela lui
+                                    a permis, en plus de l’expérience acquise,
+                                    d’affiner les critères de son avenir
+                                    professionnel. <br />
+                                    <br />
+                                    Ce qui la fait vibrer ? Voir le sourire de
+                                    ses clients à qui elle livre leur projet de
+                                    vie. De nature passionnée et proche des
+                                    gens, imaginer, créer, réaliser, aider,
+                                    conseiller, et surtout vivre de nouvelles
+                                    experiences est essentielles pour elle.
+                                    <br />
+                                    <br />
+                                    Son domaine d’intervention va de la
+                                    restructuration de lieux jusqu’à la
+                                    décoration pure. Elle vous accompagne donc
+                                    dans toutes les étapes du projet :
+                                    définition du plan idéal d’aménagement,
+                                    conception détaillée (choix des matériaux,
+                                    éclairage, meubles sur mesure), consultation
+                                    des entreprises et direction des travaux.
+                                    Mais intervient aussi dans différents
+                                    secteurs du bâtiment : habitations,
+                                    restaurants, boutiques.
                                 </p>
                             </div>
                         </div>
@@ -54,6 +74,16 @@
                                             style="color:white; "
                                         >
                                             Arnaud Bielher</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a
+                                            href="https://www.face-sa.fr/filiales/lcb/"
+                                            target="_blank"
+                                            rel="noopener"
+                                            style="color:white; "
+                                        >
+                                            LCB Bardage</a
                                         >
                                     </li>
                                 </ul>
@@ -297,9 +327,9 @@ export default {
         }
         .about-quote {
             position: absolute;
-            width: 40vw;
+            width: 50vw;
             font-family: 'Playfair Display', serif;
-            font-size: 5vw;
+            font-size: 4vw;
             color: white;
             left: calc(100% - 6.25vw);
             top: 8vw;
@@ -319,10 +349,10 @@ export default {
             display: flex;
             flex-direction: column;
             .content-text {
-                margin-top: 11.25vw;
+                margin-top: 6vw;
                 .paragraph {
                     font-family: 'Montserrat', sans-serif;
-                    font-size: 2vw;
+                    font-size: 1.5vw;
                     line-height: normal;
                     letter-spacing: 0;
                     line-height: 3.125vw;

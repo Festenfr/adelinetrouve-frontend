@@ -111,7 +111,7 @@ export default {
     },
     data() {
         return {
-            show: true,
+            show: false,
             valid: true,
             infos: {
                 nom: '',

@@ -21,7 +21,7 @@
                     class="titre_nav"
                     style="margin-right: 20px;"
                 >
-                    about
+                    à propos
                 </nuxt-link>
                 <nuxt-link
                     v-if="!user"
@@ -30,7 +30,7 @@
                     class="titre_nav"
                     style="margin-left: 20px;"
                 >
-                    login
+                    Connexion
                 </nuxt-link>
                 <nuxt-link
                     v-else-if="user.isAdmin === false"

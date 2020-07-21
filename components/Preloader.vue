@@ -1,44 +1,42 @@
 <template>
     <div v-show="loader">
-        <client-only>
-            <div class="preloader ">
-                <LogoAd />
-                <div class="titre">
-                    <h1 class="titre_preload">A</h1>
-                    <h1 class="titre_preload">d</h1>
-                    <h1 class="titre_preload">e</h1>
-                    <h1 class="titre_preload">l</h1>
-                    <h1 class="titre_preload">i</h1>
-                    <h1 class="titre_preload">n</h1>
-                    <h1 class="titre_preload" style="margin-right:10px">e</h1>
-                    <h1 class="titre_preload">t</h1>
-                    <h1 class="titre_preload">r</h1>
-                    <h1 class="titre_preload">o</h1>
-                    <h1 class="titre_preload">u</h1>
-                    <h1 class="titre_preload">v</h1>
-                    <h1 class="titre_preload" style="margin-right:10px">é</h1>
-                    <h1 class="titre_preload">d</h1>
-                    <h1 class="titre_preload">e</h1>
-                    <h1 class="titre_preload">s</h1>
-                    <h1 class="titre_preload">i</h1>
-                    <h1 class="titre_preload">g</h1>
-                    <h1 class="titre_preload">n</h1>
-                    <h1 class="titre_preload">e</h1>
-                    <h1 class="titre_preload" style="margin-right:10px">r</h1>
-                    <h1 class="titre_preload">d</h1>
-                    <h1 class="titre_preload">'</h1>
-                    <h1 class="titre_preload">i</h1>
-                    <h1 class="titre_preload">n</h1>
-                    <h1 class="titre_preload">t</h1>
-                    <h1 class="titre_preload">é</h1>
-                    <h1 class="titre_preload">r</h1>
-                    <h1 class="titre_preload">i</h1>
-                    <h1 class="titre_preload">e</h1>
-                    <h1 class="titre_preload">u</h1>
-                    <h1 class="titre_preload">r</h1>
-                </div>
+        <div class="preloader ">
+            <LogoAd />
+            <div class="titre">
+                <h1 class="titre_preload">A</h1>
+                <h1 class="titre_preload">d</h1>
+                <h1 class="titre_preload">e</h1>
+                <h1 class="titre_preload">l</h1>
+                <h1 class="titre_preload">i</h1>
+                <h1 class="titre_preload">n</h1>
+                <h1 class="titre_preload" style="margin-right:10px">e</h1>
+                <h1 class="titre_preload">t</h1>
+                <h1 class="titre_preload">r</h1>
+                <h1 class="titre_preload">o</h1>
+                <h1 class="titre_preload">u</h1>
+                <h1 class="titre_preload">v</h1>
+                <h1 class="titre_preload" style="margin-right:10px">é</h1>
+                <h1 class="titre_preload">d</h1>
+                <h1 class="titre_preload">e</h1>
+                <h1 class="titre_preload">s</h1>
+                <h1 class="titre_preload">i</h1>
+                <h1 class="titre_preload">g</h1>
+                <h1 class="titre_preload">n</h1>
+                <h1 class="titre_preload">e</h1>
+                <h1 class="titre_preload" style="margin-right:10px">r</h1>
+                <h1 class="titre_preload">d</h1>
+                <h1 class="titre_preload">'</h1>
+                <h1 class="titre_preload">i</h1>
+                <h1 class="titre_preload">n</h1>
+                <h1 class="titre_preload">t</h1>
+                <h1 class="titre_preload">é</h1>
+                <h1 class="titre_preload">r</h1>
+                <h1 class="titre_preload">i</h1>
+                <h1 class="titre_preload">e</h1>
+                <h1 class="titre_preload">u</h1>
+                <h1 class="titre_preload">r</h1>
             </div>
-        </client-only>
+        </div>
     </div>
 </template>
 

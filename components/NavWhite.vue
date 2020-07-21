@@ -21,7 +21,7 @@
                     class="titre_nav"
                     style="margin-right: 20px;"
                 >
-                    about
+                    à propos
                 </nuxt-link>
 
                 <nuxt-link

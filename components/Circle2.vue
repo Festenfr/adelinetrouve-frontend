@@ -1,37 +1,35 @@
 <template>
     <nuxt-link to="/contact" class="about-issue">
-        <client-only>
-            <div class="pen">
-                <Pen />
-            </div>
-            <div class="circle">
-                <span>C</span>
-                <span>R</span>
-                <span>E</span>
-                <span>E</span>
-                <span>R</span>
-                <span></span>
-                <span>-</span>
-                <span></span>
-                <span>V</span>
-                <span>O</span>
-                <span>T</span>
-                <span>R</span>
-                <span>E</span>
-                <span></span>
-                <span>-</span>
-                <span></span>
-                <span>P</span>
-                <span>R</span>
-                <span>O</span>
-                <span>J</span>
-                <span>E</span>
-                <span>T</span>
-                <span></span>
-                <span>-</span>
-                <span></span>
-            </div>
-        </client-only>
+        <div class="pen">
+            <Pen />
+        </div>
+        <div class="circle">
+            <span>C</span>
+            <span>R</span>
+            <span>E</span>
+            <span>E</span>
+            <span>R</span>
+            <span></span>
+            <span>-</span>
+            <span></span>
+            <span>V</span>
+            <span>O</span>
+            <span>T</span>
+            <span>R</span>
+            <span>E</span>
+            <span></span>
+            <span>-</span>
+            <span></span>
+            <span>P</span>
+            <span>R</span>
+            <span>O</span>
+            <span>J</span>
+            <span>E</span>
+            <span>T</span>
+            <span></span>
+            <span>-</span>
+            <span></span>
+        </div>
     </nuxt-link>
 </template>
 <script>
