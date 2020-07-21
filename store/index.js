@@ -99,7 +99,7 @@ export const mutations = {
         if (path === '/') {
             path = '/index'
         }
-        state.pageName = `https://adeline-site-web.s3.eu-west-3.amazonaws.com/page${path}.png`
+        state.pageName = `https://adeline-site-web.s3.eu-west-3.amazonaws.com/page${path}.jpg`
     },
     toggleMenu(state) {
         state.isOpen = !state.isOpen
