@@ -11,7 +11,7 @@ const projetSchema = new mongoose.Schema({
     description: {
         type: String,
         minlength: 1,
-        maxlength: 255,
+        maxlength: 500,
         required: true
     },
     surface: {
