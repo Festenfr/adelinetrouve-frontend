@@ -57,12 +57,12 @@ function validateProjet(projet) {
                 'string.empty': 'Entrer un type',
                 'string.min': `Le titre doit contenir au moins 1 caractères`,
                 'string.max':
-                    'Le titre doit contenir au maximum 255 caractères',
+                    'Le titre doit contenir au maximum 500 caractères',
                 'any.required': 'le type est requis'
             }),
         description: Joi.string()
             .min(1)
-            .max(255)
+            .max(500)
             .required()
             .messages({
                 'string.base':

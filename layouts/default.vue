@@ -58,6 +58,7 @@ export default {
                 this.setPageName(this.$route.path)
                 var list = document.querySelector('.preload_img')
                 list.style.backgroundImage = "url('" + this.pageName + "')"
+                console.log(this.pageName)
                 TweenLite.fromTo(
                     '.preload_img',
                     1,

@@ -4,11 +4,7 @@
         <div class="serie-wrapper">
             <div class="serie-image">
                 <div class="image-mask"></div>
-                <img
-                    :src="projectItem.file1"
-                    data-load="preload"
-                    alt="Adeline Trouvé"
-                />
+                <img :src="projectItem.file1" :alt="projectItem.titre" />
             </div>
             <div class="serie-content">
                 <div class="serie-right">
