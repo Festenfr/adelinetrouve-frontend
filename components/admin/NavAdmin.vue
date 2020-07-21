@@ -51,7 +51,7 @@
         </div>
         <div class="topbar">
             <v-btn v-if="loggedIn" :color="'darken3'" small @click="logout">
-                Logout
+                Déconnexion
             </v-btn>
         </div>
     </div>

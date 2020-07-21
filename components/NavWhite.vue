@@ -31,7 +31,7 @@
                     class="titre_nav"
                     style="margin-left: 20px;"
                 >
-                    login
+                    connexion
                 </nuxt-link>
                 <nuxt-link
                     v-else-if="user.isAdmin === false"

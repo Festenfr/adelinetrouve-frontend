@@ -14,9 +14,9 @@
                     </a>
                     <img
                         crossorigin="anonymous"
-                        :src="project.file2"
-                        :data-src="project.file2"
-                        :data-hover="project.file1"
+                        :src="project.file1"
+                        :data-src="project.file1"
+                        :data-hover="project.file2"
                         class="tile__image"
                         :alt="project.titre"
                     />

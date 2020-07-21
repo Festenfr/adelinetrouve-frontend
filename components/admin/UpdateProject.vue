@@ -71,7 +71,7 @@
                     color="primary"
                     @click="validate"
                 >
-                    Creer le projet
+                    modifier le projet
                 </v-btn>
             </div>
         </v-form>

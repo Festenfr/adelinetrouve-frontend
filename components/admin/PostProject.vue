@@ -40,7 +40,7 @@
             <v-switch v-model="isCarousel"></v-switch>
             <v-btn @click="$refs.files.click()">
                 <span v-if="selectedFiles[0] === undefined">
-                    Texture + Image Principale
+                    Image Principale + Texture
                 </span>
                 <span
                     v-for="(selectedFile, index) in selectedFiles"
@@ -102,6 +102,7 @@ export default {
                     type: file.type
                 }))
             ]
+            console.log(this.uploadFiles)
         },
         validate() {
             if (this.$refs.form.validate()) {

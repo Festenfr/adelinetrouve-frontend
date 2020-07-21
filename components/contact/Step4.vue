@@ -29,8 +29,8 @@
                 </h3>
             </a>
         </div>
-        <div class="wrapper2-budjet">
-            <div class="budjet">Budjet : {{ amount }}</div>
+        <div class="wrapper2-budget">
+            <div class="budget">Budget : {{ amount }}</div>
             <div class="echelle">
                 <div class="curseur2"></div>
                 <div class="dragger"></div>
@@ -177,14 +177,14 @@ export default {
             align-items: center;
         }
     }
-    .wrapper2-budjet {
+    .wrapper2-budget {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
         width: 100%;
         height: 75%;
-        .budjet {
+        .budget {
             position: relative;
             font-family: 'Montserrat';
             font-size: 1.5vw;

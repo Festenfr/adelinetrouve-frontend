@@ -47,7 +47,8 @@ export default {
         ...mapGetters({
             NewProjectIsWhite: 'NewProjectIsWhite',
             pageChange: 'pageChange',
-            pageName: 'pageName'
+            pageName: 'pageName',
+            iscomputer: 'isComputer'
         })
     },
 
@@ -115,6 +116,8 @@ export default {
         }
     },
     mounted() {
+        window.addEventListener('resize', this.getWindowWidth)
+        this.getWindowWidth()
         this.setPageName(this.$route.path)
 
         var list = document.querySelector('.preload_img')
@@ -158,7 +161,6 @@ export default {
                 }
             )
         }
-
         var html = document.documentElement
         var body = document.body
         var scroller = {
@@ -220,6 +222,7 @@ export default {
     },
     methods: {
         ...mapMutations({
+            getWindowWidth: 'getWindowWidth',
             IsWhite: 'IsWhite',
             IsNotWhite: 'IsNotWhite',
             setPageName: 'setPageName'

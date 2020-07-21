@@ -203,7 +203,7 @@ export default {
             page: 1,
             itemsPerPage: 3,
             sortBy: 'budjet',
-            keys: ['budjet', 'surface', 'date']
+            keys: ['budget', 'surface', 'date']
         }
     },
     computed: {

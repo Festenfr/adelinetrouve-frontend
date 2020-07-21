@@ -1,82 +1,80 @@
 <template>
-    <div>
-        <div ref="serie" class="page serie ">
-            <Nav />
-            <div class="serie-wrapper">
-                <div class="serie-image">
-                    <div class="image-mask"></div>
-                    <img
-                        :src="projectItem.file1"
-                        data-load="preload"
-                        alt="Adeline Trouvé"
-                    />
-                </div>
-                <div class="serie-content">
-                    <div class="serie-right">
-                        <div class="content-text">
-                            <nuxt-link to="/" class="back">
-                                <CarouselArrow />
-                                <span>
-                                    Retour en galerie
-                                </span>
-                            </nuxt-link>
-                            <div class="serie-titre">
-                                <div class="titre">
-                                    <h3 style="font-weight: 400;">
-                                        {{ projectItem.titre }}
-                                    </h3>
-                                </div>
-                                <div class="date">
-                                    <p>
-                                        <span class="copyright">
-                                            ©
-                                        </span>
-                                        {{ projectItem.date }}
-                                    </p>
-                                </div>
+    <div ref="serie" class="page serie ">
+        <Nav />
+        <div class="serie-wrapper">
+            <div class="serie-image">
+                <div class="image-mask"></div>
+                <img
+                    :src="projectItem.file1"
+                    data-load="preload"
+                    alt="Adeline Trouvé"
+                />
+            </div>
+            <div class="serie-content">
+                <div class="serie-right">
+                    <div class="content-text">
+                        <nuxt-link to="/" class="back">
+                            <CarouselArrow />
+                            <span>
+                                Retour en galerie
+                            </span>
+                        </nuxt-link>
+                        <div class="serie-titre">
+                            <div class="titre">
+                                <h3 style="font-weight: 400;">
+                                    {{ projectItem.titre }}
+                                </h3>
                             </div>
-                            <div class="serie-info">
-                                <div class="serie-info-description">
-                                    <span>à propos du projet</span>
-                                    <p>
-                                        {{ projectItem.description }}
-                                    </p>
-                                </div>
+                            <div class="date">
+                                <p>
+                                    <span class="copyright">
+                                        ©
+                                    </span>
+                                    {{ projectItem.date }}
+                                </p>
                             </div>
-                            <div class="chevron-down">
-                                <svg
-                                    style="width:32px;height:32px"
-                                    viewBox="0 0 24 24"
-                                >
-                                    <path
-                                        fill="currentColor"
-                                        d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"
-                                    />
-                                </svg>
+                        </div>
+                        <div class="serie-info">
+                            <div class="serie-info-description">
+                                <span>à propos du projet</span>
+                                <p>
+                                    {{ projectItem.description }}
+                                </p>
                             </div>
+                        </div>
+                        <div class="chevron-down">
+                            <svg
+                                style="width:32px;height:32px"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    fill="currentColor"
+                                    d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"
+                                />
+                            </svg>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="serie-gallery">
-                <div
-                    v-for="image in projectItemImage"
-                    :key="image._id"
-                    class="gallery-item"
-                    :class="image.type"
-                >
-                    <div class="relative-container-first">
-                        <img
-                            class="image"
-                            :src="image.file1"
-                            :data-src="image.type"
-                            alt="salon"
-                            style="opacity: 0;"
-                        />
-                    </div>
-                    <div v-if="image.file2" class="relative-container-second">
-                        <img :src="image.file2" alt="salon" class="image2" />
-                    </div>
+        </div>
+        <div class="serie-gallery">
+            <div
+                v-for="image in projectItemImage"
+                :key="image._id"
+                class="gallery-item"
+                :class="image.type"
+            >
+                <div class="relative-container-first">
+                    <img
+                        class="image"
+                        :src="image.file1"
+                        :data-src="image.type"
+                        alt="salon"
+                        style="opacity: 0;"
+                    />
+                </div>
+                <div v-if="image.file2" class="relative-container-second">
+                    <img :src="image.file2" alt="salon" class="image2" />
                 </div>
             </div>
         </div>
@@ -526,202 +524,406 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.serie-wrapper {
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-    position: relative;
-    z-index: 3;
-    .serie-image {
-        height: 100vh;
-        width: 70.69555302166477vh;
-        position: relative;
-        top: 0;
-        left: 0;
+@media screen and (min-width: 500px) {
+    .serie-wrapper {
+        margin: auto;
         display: flex;
-        opacity: 0;
-        pointer-events: none;
-        .image-mask {
-            background-color: #fcf9f5;
-            position: absolute;
-            transform: scaleY(1);
-            top: -2px;
-            width: 100%;
-            height: 100%;
-            display: block;
-            z-index: 2;
-        }
-        img {
-            opacity: 0.94;
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            object-fit: cover;
-            object-position: 0% 50%;
-        }
-    }
-    .serie-content {
+        justify-content: space-between;
         position: relative;
-        opacity: 0;
-        display: flex;
-        justify-content: flex-start;
-        color: black;
-        top: 20vh;
-        width: 55vw;
-        height: 80vh;
-
-        .serie-right {
+        z-index: 3;
+        .serie-image {
+            height: 100vh;
+            width: 70.69555302166477vh;
+            position: relative;
+            top: 0;
+            left: 0;
             display: flex;
-            flex-direction: column;
-            .content-text {
-                .back {
-                    text-decoration: none;
-                    color: black;
-                    font-weight: bold;
-                    text-transform: uppercase;
-                    font-family: 'Montserrat', sans-serif;
-                    font-size: 0.875vw;
-                    line-height: normal;
-                    letter-spacing: 0;
-                    line-height: 1.875vw;
-                    letter-spacing: 0.125vw;
-                }
-                .serie-titre {
-                    flex-direction: column;
-                    max-width: 50vw;
-                    margin-top: 3vw;
-                    z-index: 2;
-                    .titre {
-                        font-family: 'Playfair Display', serif;
-                        font-size: 5vw;
-                        line-height: normal;
-                        letter-spacing: 0;
-                    }
-                    .date {
+            opacity: 0;
+            pointer-events: none;
+            .image-mask {
+                background-color: #fcf9f5;
+                position: absolute;
+                transform: scaleY(1);
+                top: -2px;
+                width: 100%;
+                height: 100%;
+                display: block;
+                z-index: 2;
+            }
+            img {
+                opacity: 0.94;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                object-fit: cover;
+                object-position: 0% 50%;
+            }
+        }
+        .serie-content {
+            position: relative;
+            opacity: 0;
+            display: flex;
+            justify-content: flex-start;
+            color: black;
+            top: 20vh;
+            width: 55vw;
+            height: 80vh;
+
+            .serie-right {
+                display: flex;
+                flex-direction: column;
+                .content-text {
+                    .back {
+                        text-decoration: none;
+                        color: black;
+                        font-weight: bold;
+                        text-transform: uppercase;
                         font-family: 'Montserrat', sans-serif;
                         font-size: 0.875vw;
                         line-height: normal;
                         letter-spacing: 0;
-                        margin-top: 1vw;
-                        letter-spacing: 0.125vw;
                         line-height: 1.875vw;
-                        p {
-                            box-sizing: border-box;
-                            color: #121212;
-                            .copyright {
-                                font-size: 1.25vw;
-                                line-height: normal;
-                                letter-spacing: 0;
-                                position: relative;
-                                top: 0.125vw;
-                                padding-right: 0.625vw;
-                            }
-                        }
+                        letter-spacing: 0.125vw;
                     }
-                }
-                .serie-info {
-                    display: flex;
-                    justify-content: space-between;
-                    max-width: 30vw;
-                    margin-top: 3vw;
-                    z-index: 2;
-                    width: 100%;
-                    .serie-info-description {
-                        span {
-                            font-weight: bold;
-                            display: block;
+                    .serie-titre {
+                        flex-direction: column;
+                        max-width: 50vw;
+                        margin-top: 3vw;
+                        z-index: 2;
+                        .titre {
+                            font-family: 'Playfair Display', serif;
+                            font-size: 5vw;
+                            line-height: normal;
+                            letter-spacing: 0;
+                        }
+                        .date {
                             font-family: 'Montserrat', sans-serif;
                             font-size: 0.875vw;
                             line-height: normal;
                             letter-spacing: 0;
-                            line-height: 1.3125vw;
+                            margin-top: 1vw;
                             letter-spacing: 0.125vw;
-                            text-transform: uppercase;
-                            margin-bottom: 0.45vw;
-                        }
-                        p {
-                            font-family: 'Montserrat', sans-serif;
-                            font-size: 1vw;
-                            line-height: normal;
-                            letter-spacing: 0;
                             line-height: 1.875vw;
+                            p {
+                                box-sizing: border-box;
+                                color: #121212;
+                                .copyright {
+                                    font-size: 1.25vw;
+                                    line-height: normal;
+                                    letter-spacing: 0;
+                                    position: relative;
+                                    top: 0.125vw;
+                                    padding-right: 0.625vw;
+                                }
+                            }
                         }
                     }
+                    .serie-info {
+                        display: flex;
+                        justify-content: space-between;
+                        max-width: 30vw;
+                        margin-top: 3vw;
+                        z-index: 2;
+                        width: 100%;
+                        .serie-info-description {
+                            span {
+                                font-weight: bold;
+                                display: block;
+                                font-family: 'Montserrat', sans-serif;
+                                font-size: 0.875vw;
+                                line-height: normal;
+                                letter-spacing: 0;
+                                line-height: 1.3125vw;
+                                letter-spacing: 0.125vw;
+                                text-transform: uppercase;
+                                margin-bottom: 0.45vw;
+                            }
+                            p {
+                                font-family: 'Montserrat', sans-serif;
+                                font-size: 1vw;
+                                line-height: normal;
+                                letter-spacing: 0;
+                                line-height: 1.875vw;
+                            }
+                        }
+                    }
+                    .chevron-down {
+                        position: absolute;
+                        bottom: 0;
+                    }
                 }
-                .chevron-down {
-                    position: absolute;
-                    bottom: 0;
+            }
+        }
+    }
+    .serie-gallery {
+        max-width: 80vw;
+        left: 10vw;
+        position: relative;
+        opacity: 1;
+        .gallery-item.duo {
+            margin-top: 13.438vw;
+            margin-bottom: 12.5vw;
+            display: flex;
+            justify-content: space-around;
+            height: 50vw;
+            width: 100%;
+            .relative-container-first {
+                position: relative;
+                max-width: 100%;
+                width: 100%;
+                overflow: hidden;
+                img {
+                    height: 100%;
+                }
+            }
+            .relative-container-second {
+                position: relative;
+                max-width: 100%;
+                width: 100%;
+                transform: translateY(50px);
+                overflow: hidden;
+                img {
+                    height: 100%;
+                }
+            }
+        }
+        .gallery-item.paysage {
+            margin-top: 13.438vw;
+            margin-bottom: 12.5vw;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            .relative-container-first {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                max-width: 100%;
+                width: 100%;
+                overflow: hidden;
+                img {
+                    max-width: 60vw;
+                }
+            }
+        }
+        .gallery-item.portrait {
+            margin-top: 13.438vw;
+            margin-bottom: 12.5vw;
+            display: flex;
+            justify-content: center;
+            height: 50vw;
+            width: 100%;
+            .relative-container-first {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                max-width: 100%;
+                width: 100%;
+                overflow: hidden;
+                img {
+                    height: 100%;
                 }
             }
         }
     }
 }
-.serie-gallery {
-    max-width: 80vw;
-    left: 10vw;
-    position: relative;
-    opacity: 1;
-    .gallery-item.duo {
-        margin-top: 13.438vw;
-        margin-bottom: 12.5vw;
+@media screen and (max-width: 500px) {
+    .serie-wrapper {
+        margin: auto;
         display: flex;
-        justify-content: space-around;
-        height: 50vw;
-        width: 100%;
-        .relative-container-first {
+        justify-content: space-between;
+        position: relative;
+        z-index: 3;
+        .serie-image {
+            height: 100vh;
+            width: 70.69555302166477vh;
             position: relative;
-            max-width: 100%;
-            width: 100%;
-            overflow: hidden;
-            img {
+            top: 0;
+            left: 0;
+            display: flex;
+            opacity: 0;
+            pointer-events: none;
+            .image-mask {
+                background-color: #fcf9f5;
+                position: absolute;
+                transform: scaleY(1);
+                top: -2px;
+                width: 100%;
                 height: 100%;
+                display: block;
+                z-index: 2;
+            }
+            img {
+                opacity: 0.94;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                object-fit: cover;
+                object-position: 0% 50%;
             }
         }
-        .relative-container-second {
+        .serie-content {
             position: relative;
-            max-width: 100%;
-            width: 100%;
-            transform: translateY(50px);
-            overflow: hidden;
-            img {
-                height: 100%;
+            opacity: 0;
+            display: flex;
+            justify-content: flex-start;
+            color: black;
+            top: 20vh;
+            width: 55vw;
+            height: 80vh;
+
+            .serie-right {
+                display: flex;
+                flex-direction: column;
+                .content-text {
+                    .back {
+                        text-decoration: none;
+                        color: black;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                        font-family: 'Montserrat', sans-serif;
+                        font-size: 0.875vw;
+                        line-height: normal;
+                        letter-spacing: 0;
+                        line-height: 1.875vw;
+                        letter-spacing: 0.125vw;
+                    }
+                    .serie-titre {
+                        flex-direction: column;
+                        max-width: 50vw;
+                        margin-top: 3vw;
+                        z-index: 2;
+                        .titre {
+                            font-family: 'Playfair Display', serif;
+                            font-size: 5vw;
+                            line-height: normal;
+                            letter-spacing: 0;
+                        }
+                        .date {
+                            font-family: 'Montserrat', sans-serif;
+                            font-size: 0.875vw;
+                            line-height: normal;
+                            letter-spacing: 0;
+                            margin-top: 1vw;
+                            letter-spacing: 0.125vw;
+                            line-height: 1.875vw;
+                            p {
+                                box-sizing: border-box;
+                                color: #121212;
+                                .copyright {
+                                    font-size: 1.25vw;
+                                    line-height: normal;
+                                    letter-spacing: 0;
+                                    position: relative;
+                                    top: 0.125vw;
+                                    padding-right: 0.625vw;
+                                }
+                            }
+                        }
+                    }
+                    .serie-info {
+                        display: flex;
+                        justify-content: space-between;
+                        max-width: 30vw;
+                        margin-top: 3vw;
+                        z-index: 2;
+                        width: 100%;
+                        .serie-info-description {
+                            span {
+                                font-weight: bold;
+                                display: block;
+                                font-family: 'Montserrat', sans-serif;
+                                font-size: 0.875vw;
+                                line-height: normal;
+                                letter-spacing: 0;
+                                line-height: 1.3125vw;
+                                letter-spacing: 0.125vw;
+                                text-transform: uppercase;
+                                margin-bottom: 0.45vw;
+                            }
+                            p {
+                                font-family: 'Montserrat', sans-serif;
+                                font-size: 1vw;
+                                line-height: normal;
+                                letter-spacing: 0;
+                                line-height: 1.875vw;
+                            }
+                        }
+                    }
+                    .chevron-down {
+                        position: absolute;
+                        bottom: 0;
+                    }
+                }
             }
         }
     }
-    .gallery-item.paysage {
-        margin-top: 13.438vw;
-        margin-bottom: 12.5vw;
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        .relative-container-first {
-            position: relative;
+    .serie-gallery {
+        max-width: 80vw;
+        left: 10vw;
+        position: relative;
+        opacity: 1;
+        .gallery-item.duo {
+            margin-top: 13.438vw;
+            margin-bottom: 12.5vw;
             display: flex;
-            justify-content: center;
-            max-width: 100%;
+            justify-content: space-around;
+            height: 50vw;
             width: 100%;
-            overflow: hidden;
-            img {
-                max-width: 60vw;
+            .relative-container-first {
+                position: relative;
+                max-width: 100%;
+                width: 100%;
+                overflow: hidden;
+                img {
+                    height: 100%;
+                }
+            }
+            .relative-container-second {
+                position: relative;
+                max-width: 100%;
+                width: 100%;
+                transform: translateY(50px);
+                overflow: hidden;
+                img {
+                    height: 100%;
+                }
             }
         }
-    }
-    .gallery-item.portrait {
-        margin-top: 13.438vw;
-        margin-bottom: 12.5vw;
-        display: flex;
-        justify-content: center;
-        height: 50vw;
-        width: 100%;
-        .relative-container-first {
-            position: relative;
+        .gallery-item.paysage {
+            margin-top: 13.438vw;
+            margin-bottom: 12.5vw;
             display: flex;
             justify-content: center;
-            max-width: 100%;
             width: 100%;
-            overflow: hidden;
-            img {
-                height: 100%;
+            .relative-container-first {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                max-width: 100%;
+                width: 100%;
+                overflow: hidden;
+                img {
+                    max-width: 60vw;
+                }
+            }
+        }
+        .gallery-item.portrait {
+            margin-top: 13.438vw;
+            margin-bottom: 12.5vw;
+            display: flex;
+            justify-content: center;
+            height: 50vw;
+            width: 100%;
+            .relative-container-first {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                max-width: 100%;
+                width: 100%;
+                overflow: hidden;
+                img {
+                    height: 100%;
+                }
             }
         }
     }

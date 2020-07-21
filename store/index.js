@@ -16,7 +16,11 @@ export const state = () => ({
     animate: false,
     cursor: '',
     pageName: '',
-    pageChange: ''
+    pageChange: '',
+    windowWith: '',
+    isPhone: false,
+    isComputer: false,
+    isTablet: false
 })
 export const getters = {
     cursor: (state) => state.cursor,
@@ -32,9 +36,29 @@ export const getters = {
     error: (state) => state.error,
     messages: (state) => state.messages,
     pageName: (state) => state.pageName,
-    pageChange: (state) => state.pageChange
+    pageChange: (state) => state.pageChange,
+    windowWith: (state) => state.windowWith,
+    isPhone: (state) => state.isPhone,
+    isComputer: (state) => state.isComputer,
+    isTablet: (state) => state.isTablet
 }
 export const mutations = {
+    getWindowWidth(state) {
+        state.windowWith = document.body.clientWidth
+        if (state.windowWith <= 500) {
+            state.isPhone = true
+            state.isComputer = false
+            state.isTablet = false
+        } else if (500 < state.windowWith <= 1024) {
+            state.isPhone = false
+            state.isComputer = false
+            state.isTablet = true
+        } else {
+            state.isPhone = false
+            state.isComputer = true
+            state.isTablet = false
+        }
+    },
     createCursor(state) {
         state.cursor = new Cursor(document.querySelector('.cursor'))
         ;[...document.querySelectorAll('a')].forEach((el) => {
