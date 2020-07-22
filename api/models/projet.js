@@ -26,7 +26,7 @@ const projetSchema = new mongoose.Schema({
         minlength: 1,
         maxlength: 255
     },
-    budjet: {
+    budget: {
         type: String,
         required: true,
         minlength: 1,
@@ -85,16 +85,16 @@ function validateProjet(projet) {
                     'La surface doit contenir au maximum 255 caractères',
                 'any.required': 'la surface est requis'
             }),
-        budjet: Joi.string()
+        budget: Joi.string()
             .min(1)
             .max(50)
             .required()
             .messages({
-                'string.base': 'Le budjet doit être une chaine de caractère',
+                'string.base': 'Le budget doit être une chaine de caractère',
                 'string.empty': 'Entrer une surface',
-                'string.min': `Le budjet doit contenir au moins 1 caractères`,
+                'string.min': `Le budget doit contenir au moins 1 caractères`,
                 'string.max':
-                    'Le budjet doit contenir au maximum 50 caractères',
+                    'Le budget doit contenir au maximum 50 caractères',
                 'any.required': 'la surface est requis'
             }),
         isCarousel: Joi.boolean()

@@ -1,29 +1,25 @@
 <template>
-    <client-only>
-        <v-app :class="[dark ? 'theme-dark' : 'theme-light']">
-            <div
-                :class="[
-                    isOpen ? 'container_admin_little' : 'container_admin_big'
-                ]"
-            >
-                <NavAdmin></NavAdmin>
-                <DarkToLight></DarkToLight>
+    <v-app :class="[dark ? 'theme-dark' : 'theme-light']" style="z-index: 5;">
+        <div
+            class="container_admin"
+            :class="[isOpen ? 'container_admin_little' : 'container_admin_big']"
+        >
+            <NavAdmin></NavAdmin>
+            <DarkToLight></DarkToLight>
 
-                <div
-                    :class="[
-                        isOpen ? 'contenu_admin_little' : 'contenu_admin_big'
-                    ]"
-                >
-                    <nuxt-child />
-                </div>
+            <div
+                :class="[isOpen ? 'contenu_admin_little' : 'contenu_admin_big']"
+            >
+                <nuxt-child />
             </div>
-        </v-app>
-    </client-only>
+        </div>
+    </v-app>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import NavAdmin from '../components/admin/NavAdmin'
+import { TweenLite } from 'gsap'
 export default {
     middleware: 'authenticated',
     components: {
@@ -31,6 +27,82 @@ export default {
     },
     data() {
         return {}
+    },
+    transition: {
+        css: false,
+        mode: 'out-in',
+        enter(el, done) {
+            TweenLite.fromTo(
+                '.theme-dark',
+                1,
+                {
+                    opacity: 0
+                },
+                {
+                    opacity: 1,
+                    ease: 'linear'
+                }
+            )
+            TweenLite.fromTo(
+                '.theme-light',
+                1,
+                {
+                    opacity: 0
+                },
+                {
+                    opacity: 1,
+                    ease: 'linear'
+                }
+            )
+            TweenLite.fromTo(
+                '.container_nav_open',
+                1,
+                {
+                    x: '-20vw'
+                },
+                {
+                    x: '0vw',
+                    ease: 'linear',
+                    onComplete: done
+                }
+            )
+        },
+        leave(el, done) {
+            TweenLite.fromTo(
+                '.container_nav_open',
+                0.5,
+                {
+                    x: '0vw'
+                },
+                {
+                    x: '-20vw',
+                    ease: 'linear'
+                }
+            )
+            TweenLite.fromTo(
+                '.theme-dark',
+                1,
+                {
+                    opacity: 1
+                },
+                {
+                    opacity: 0,
+                    ease: 'linear',
+                    onComplete: done
+                }
+            )
+            TweenLite.fromTo(
+                '.theme-light',
+                1,
+                {
+                    opacity: 1
+                },
+                {
+                    opacity: 0,
+                    ease: 'linear'
+                }
+            )
+        }
     },
     computed: {
         ...mapGetters({

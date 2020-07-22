@@ -36,9 +36,9 @@
                     required
                 />
                 <v-text-field
-                    v-model="budjet"
+                    v-model="budget"
                     class="text-marge"
-                    label="budjet"
+                    label="budget"
                     required
                 />
             </div>
@@ -105,7 +105,7 @@ export default {
             type: String,
             default: ''
         },
-        budjet: {
+        budget: {
             type: String,
             default: ''
         }
@@ -143,7 +143,7 @@ export default {
                 fd.append('descriptionUpdate', this.description)
                 fd.append('dateUpdate', this.date)
                 fd.append('surfaceUpdate', this.surface)
-                fd.append('budjetUpdate', this.budjet)
+                fd.append('budgetUpdate', this.budget)
                 fd.append('isCarouselUpdate', this.isCarousel)
                 _.forEach(this.uploadFiles, (file) => {
                     fd.append('files', file)

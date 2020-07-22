@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="navAdmin">
         <div
             :class="[isOpen ? 'position_hamb_open' : 'position_hamb_close']"
             @click="toggleMenu"

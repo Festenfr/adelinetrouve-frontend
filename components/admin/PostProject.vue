@@ -10,11 +10,13 @@
                 <v-text-field v-model="titre" label="titre" required />
             </div>
             <div style="width:100%">
-                <v-text-field
+                <v-textarea
                     v-model="description"
                     label="description"
                     required
-                />
+                    outlined
+                    name="input-7-4"
+                ></v-textarea>
             </div>
 
             <div class="ligne-space">
@@ -31,9 +33,9 @@
                     required
                 />
                 <v-text-field
-                    v-model="budjet"
+                    v-model="budget"
                     class="text-marge"
-                    label="budjet"
+                    label="budget"
                     required
                 />
             </div>
@@ -85,7 +87,7 @@ export default {
             description: '',
             date: '',
             surface: '',
-            budjet: '',
+            budget: '',
             selectedFiles: [],
             uploadFiles: [],
             lazy: true
@@ -111,7 +113,7 @@ export default {
                 fd.append('description', this.description)
                 fd.append('date', this.date)
                 fd.append('surface', this.surface)
-                fd.append('budjet', this.budjet)
+                fd.append('budget', this.budget)
                 fd.append('isCarousel', this.isCarousel)
                 _.forEach(this.uploadFiles, (file) => {
                     fd.append('files', file)

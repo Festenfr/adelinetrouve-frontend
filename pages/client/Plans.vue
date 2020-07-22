@@ -1,13 +1,8 @@
 <template>
-    <div>
-        <ErrorMessage v-if="errorMessage">
-            {{ fetchMessage }}
-        </ErrorMessage>
-    </div>
+    <div></div>
 </template>
 <script>
-import { gsap } from 'gsap/all'
-import { mapActions, mapGetters } from 'vuex'
+import { gsap, Power3 } from 'gsap/all'
 export default {
     transition: {
         css: false,
@@ -33,25 +28,6 @@ export default {
                 onComplete: done
             })
         }
-    },
-    data() {
-        return {}
-    },
-    computed: {
-        ...mapGetters({
-            user: 'user',
-            users: 'dashboard/users',
-            fetchMessage: 'dashboard/message',
-            errorMessage: 'dashboard/error'
-        })
-    },
-    created() {
-        this.fetchUsers()
-    },
-    methods: {
-        ...mapActions({
-            fetchUsers: 'dashboard/fetchUsers'
-        })
     }
 }
 </script>

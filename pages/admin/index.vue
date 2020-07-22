@@ -9,10 +9,6 @@
 export default {
     data() {
         return {}
-    },
-    mounted() {
-        const body = document.body
-        body.style.height = this.$refs.admin.clientHeight + 'px'
     }
 }
 </script>

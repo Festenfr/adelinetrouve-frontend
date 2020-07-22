@@ -11,7 +11,6 @@
             class="form-post-projet"
             :lazy-validation="lazy"
         >
-            {{ type }}{{ id }}
             <div style="width:100%">
                 <v-select
                     v-model="type"

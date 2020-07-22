@@ -56,7 +56,7 @@ router.post('/', isAdmin, upload.array('files'), async (req, res) => {
             file2: s3res2.Location,
             titre: req.body.titre,
             description: req.body.description,
-            budjet: req.body.budjet,
+            budget: req.body.budget,
             surface: req.body.surface,
             isCarousel: req.body.isCarousel,
             date: req.body.date
@@ -126,7 +126,7 @@ router.put('/:id', isAdmin, upload.array('files'), async (req, res) => {
             .promise()
         ;(projet.titre = req.body.titreUpdate),
             (projet.description = req.body.descriptionUpdate),
-            (projet.budjet = req.body.budjetUpdate),
+            (projet.budget = req.body.budgetUpdate),
             (projet.surface = req.body.surfaceUpdate),
             (projet.date = req.body.dateUpdate),
             (projet.file1 = s3res.Location),

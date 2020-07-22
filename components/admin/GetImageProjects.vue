@@ -1,130 +1,35 @@
 <template>
     <div>
-        <transition :css="false" @enter="enter" @leave="leave">
-            <v-data-iterator
-                v-if="update === false"
-                :items="projectItem"
-                :items-per-page.sync="itemsPerPage"
-                :page="page"
-                :search="search"
-                :sort-by="sortBy.toLowerCase()"
-                :sort-desc="sortDesc"
-                hide-default-footer
-            >
-                <template v-slot:header>
-                    <v-toolbar class="mb-1">
-                        <v-text-field
-                            v-model="search"
-                            class="ma-2"
-                            hide-details
-                            label="Rechercher"
-                        ></v-text-field>
-                        <template v-if="$vuetify.breakpoint.mdAndUp">
-                            <v-spacer></v-spacer>
-                            <v-select
-                                v-model="sortBy"
-                                text
-                                class="ma-2"
-                                hide-details
-                                :items="keys"
-                                label="Trier par"
-                            ></v-select>
-                            <v-spacer></v-spacer>
-                            <v-btn-toggle v-model="sortDesc" mandatory>
-                                <v-btn small color="#b24c4c" :value="false">
-                                    <v-icon>mdi-arrow-up</v-icon>
-                                </v-btn>
-                                <v-btn small color="#b24c4c" :value="true">
-                                    <v-icon>mdi-arrow-down</v-icon>
-                                </v-btn>
-                            </v-btn-toggle>
-                        </template>
-                    </v-toolbar>
-                </template>
-                <template v-slot:default="props">
-                    <v-row>
-                        <v-col
-                            v-for="item in props.items"
-                            :key="item._id"
-                            cols="12"
-                            sm="6"
-                            md="6"
-                            lg="6"
+        <transition :css="false" tag="div" @enter="enter" @leave="leave">
+            <div v-if="update === false">
+                <div
+                    v-for="(projectImage, index) in projectItem"
+                    :key="projectImage._id"
+                    :data-index="index"
+                    class="card-image"
+                >
+                    <div class="actions">
+                        <v-btn
+                            small
+                            @click="
+                                updateOneItem(
+                                    projectImage._id,
+                                    projectImage.type
+                                )
+                            "
                         >
-                            <v-card>
-                                <v-card-title
-                                    class="subheading font-weight-bold"
-                                    >{{ item.type }}</v-card-title
-                                >
-
-                                <v-divider></v-divider>
-
-                                <v-list dense>
-                                    <v-list-item
-                                        v-for="(key, index) in filteredKeys"
-                                        :key="index"
-                                    >
-                                        <v-list-item-content
-                                            :class="{
-                                                'grey--text': sortBy === key
-                                            }"
-                                            >{{ key }}:</v-list-item-content
-                                        >
-                                        <v-list-item-content
-                                            class="align-end"
-                                            :class="{
-                                                'grey--text': sortBy === key
-                                            }"
-                                        >
-                                            <img
-                                                style="height: 100px;"
-                                                :src="item[key.toLowerCase()]"
-                                                alt=""
-                                        /></v-list-item-content>
-                                    </v-list-item>
-                                    <div class="actions">
-                                        <v-btn
-                                            small
-                                            @click="
-                                                updateOneItem(
-                                                    item._id,
-                                                    item.type
-                                                )
-                                            "
-                                        >
-                                            <v-icon small icon>
-                                                mdi-pen
-                                            </v-icon>
-                                        </v-btn>
-                                        <v-btn
-                                            small
-                                            @click="deleteOneItem(item._id)"
-                                        >
-                                            <v-icon small icon>
-                                                mdi-delete
-                                            </v-icon>
-                                        </v-btn>
-                                    </div>
-                                </v-list>
-                            </v-card>
-                        </v-col>
-                    </v-row>
-                </template>
-
-                <template v-slot:footer>
-                    <v-row class="mt-2" align="center" justify="center">
-                        <span class="mr-4">
-                            Page {{ page }} sur {{ numberOfPages }}
-                        </span>
-                        <v-btn text small class="mr-1" @click="formerPage">
-                            <v-icon>mdi-chevron-left</v-icon>
+                            <v-icon small icon>
+                                mdi-pen
+                            </v-icon>
                         </v-btn>
-                        <v-btn text small class="ml-1" @click="nextPage">
-                            <v-icon>mdi-chevron-right</v-icon>
+                        <v-btn small @click="deleteOneItem(projectImage._id)">
+                            <v-icon small icon>
+                                mdi-delete
+                            </v-icon>
                         </v-btn>
-                    </v-row>
-                </template>
-            </v-data-iterator>
+                    </div>
+                </div>
+            </div>
         </transition>
         <transition :css="false" @enter="enter" @leave="leave">
             <UpdateImageProject
@@ -155,28 +60,15 @@ export default {
         return {
             update: false,
             id: '',
+            i: 0,
             type: '',
-            typeUpdate: '',
-            itemsPerPageArray: [1, 2, 3, 4, 5, 6],
-            search: '',
-            filter: {},
-            sortDesc: false,
-            page: 1,
-            itemsPerPage: 2,
-            sortBy: 'type',
-            keys: ['file1', 'file2']
+            typeUpdate: ''
         }
     },
     computed: {
         ...mapGetters({
             projectItem: 'projetImage/projectItem'
         }),
-        numberOfPages() {
-            return Math.ceil(this.projectItem.length / this.itemsPerPage)
-        },
-        filteredKeys() {
-            return this.keys.filter((key) => key !== `titre`)
-        },
         titrePage() {
             return this.$route.params.id
         }
@@ -198,7 +90,8 @@ export default {
                     onComplete: () => {
                         done()
                     }
-                }
+                },
+                0.1
             )
         },
         leave(el, done) {
@@ -224,15 +117,6 @@ export default {
             this.id = id
             this.update = true
             this.typeUpdate = type
-        },
-        nextPage() {
-            if (this.page + 1 <= this.numberOfPages) this.page += 1
-        },
-        formerPage() {
-            if (this.page - 1 >= 1) this.page -= 1
-        },
-        updateItemsPerPage(number) {
-            this.itemsPerPage = number
         },
         deleteOneItem(id) {
             let titreWithSpace = this.titrePage.replace(/-/g, ' ')
@@ -265,8 +149,8 @@ export default {
     align-items: center;
 }
 .card-image {
-    width: 100vw;
-    height: 100vh;
+    width: 50vw;
+    height: 10vh;
     display: flex;
     justify-content: center;
     align-items: center;

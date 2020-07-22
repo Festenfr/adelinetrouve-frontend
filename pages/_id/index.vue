@@ -38,6 +38,7 @@
                                 </p>
                             </div>
                         </div>
+                        <div class="cache-texte"></div>
                         <div class="chevron-down">
                             <svg
                                 style="width:32px;height:32px"
@@ -422,6 +423,11 @@ export default {
             body.style.backgroundColor = '#fcf9f5'
         }, 1200)
         setInterval(() => {
+            const cacheTexte = document
+                .querySelector('.cache-texte')
+                .getBoundingClientRect()
+            console.log(cacheTexte)
+
             this.images = document.querySelectorAll('.image')
             let rect = []
             this.images.forEach((el) => {
@@ -643,9 +649,19 @@ export default {
                             }
                         }
                     }
+                    .cache-texte {
+                        position: absolute;
+                        bottom: -10vh;
+                        background-color: #fcf9f5;
+                        opacity: 0.9;
+                        z-index: 1;
+                        width: 30vw;
+                        height: 18vh;
+                    }
                     .chevron-down {
                         position: absolute;
                         bottom: 0;
+                        z-index: 2;
                     }
                 }
             }

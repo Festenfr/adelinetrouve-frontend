@@ -101,7 +101,7 @@
                                                     item.titre,
                                                     item.description,
                                                     item.surface,
-                                                    item.budjet,
+                                                    item.bujget,
                                                     item.date
                                                 )
                                             "
@@ -162,7 +162,7 @@
                 :update="update"
                 :titre="titreUpdate"
                 :description="descriptionUpdate"
-                :budjet="budjetUpdate"
+                :bujget="bujgetUpdate"
                 :date="dateUpdate"
                 :surface="surfaceUpdate"
                 @closeUpdate="update = $event"
@@ -189,12 +189,12 @@ export default {
             titre: '',
             description: '',
             surface: '',
-            budjet: '',
+            budget: '',
             date: '',
             titreUpdate: '',
             descriptionUpdate: '',
             surfaceUpdate: '',
-            budjetUpdate: '',
+            bujgetUpdate: '',
             dateUpdate: '',
             itemsPerPageArray: [3, 6, 9],
             search: '',
@@ -202,7 +202,7 @@ export default {
             sortDesc: false,
             page: 1,
             itemsPerPage: 3,
-            sortBy: 'budjet',
+            sortBy: 'budget',
             keys: ['budget', 'surface', 'date']
         }
     },
@@ -256,13 +256,13 @@ export default {
         goTo(page) {
             $nuxt._router.push(`${page}`)
         },
-        updateOneItem(id, titre, description, surface, budjet, date) {
+        updateOneItem(id, titre, description, surface, bujget, date) {
             this.id = id
             this.update = true
             this.titreUpdate = titre
             this.descriptionUpdate = description
             this.surfaceUpdate = surface
-            this.budjetUpdate = budjet
+            this.bujgetUpdate = bujget
             this.dateUpdate = date
         },
         nextPage() {

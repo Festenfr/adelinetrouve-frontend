@@ -16,7 +16,7 @@ export default {
 .card {
     background-color: var(--color-2);
     width: 30vw;
-    height: 40vh;
+    height: 150vh;
     display: flex;
     justify-content: center;
     align-items: center;

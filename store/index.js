@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import Vue from 'vue'
 import Cursor from '../modules/cursor'
-import { gsap, TimelineLite } from 'gsap/all'
+import { gsap, TimelineLite, Power3 } from 'gsap/all'
 export const state = () => ({
     NewProjectIsWhite: true,
     isOpen: true,

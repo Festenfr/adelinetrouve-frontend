@@ -40,10 +40,6 @@ export default {
             component: 'get-projects'
         }
     },
-    mounted() {
-        const body = document.body
-        body.style.height = this.$refs.projet.clientHeight + 'px'
-    },
     methods: {
         isPost() {
             this.component = 'post-project'

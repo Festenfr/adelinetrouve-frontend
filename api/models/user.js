@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
         type: Array,
         required: true
     },
-    budjet: {
+    budget: {
         type: String,
         required: true,
         minlength: 1,
@@ -95,16 +95,16 @@ function validateUser(user) {
                 'array.empty': 'Ajouter des pieces',
                 'any.required': 'Il faut ajouter au moins une piece'
             }),
-        budjet: Joi.string()
+        budget: Joi.string()
             .min(1)
             .max(50)
             .required()
             .messages({
-                'string.base': 'Le budjet doit être une chaine de caractère',
+                'string.base': 'Le budget doit être une chaine de caractère',
                 'string.empty': 'Entrer une surface',
-                'string.min': `Le budjet doit contenir au moins 1 caractères`,
+                'string.min': `Le budget doit contenir au moins 1 caractères`,
                 'string.max':
-                    'Le budjet doit contenir au maximum 50 caractères',
+                    'Le budget doit contenir au maximum 50 caractères',
                 'any.required': 'la surface est requis'
             }),
         nom: Joi.string()

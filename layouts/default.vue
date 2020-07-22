@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div v-show="NewProjectIsWhite === true">
+        <div v-show="NewProjectIsWhite === true && isAdminOrClient === false">
             <CircleProject />
         </div>
-        <div v-show="NewProjectIsWhite === false">
+        <div v-show="NewProjectIsWhite === false && isAdminOrClient === false">
             <CircleProject2 />
         </div>
         <Preloader />
@@ -15,14 +15,14 @@
                     : 'preload_background_black'
             ]"
         ></div>
-        <div class="viewport cursor_rond">
-            <div id="scroll-container" class="scroll-container">
+        <div :class="[isAdminOrClient ? 'classic' : 'viewport']">
+            <div :class="[isAdminOrClient ? 'classic' : 'scroll-container']">
                 <div class="content">
                     <nuxt />
                 </div>
             </div>
         </div>
-        <RondBlanc style="z-index:5" />
+        <RondBlanc v-if="isAdminOrClient === false" style="z-index:5" />
         <Notification style="z-index:10"></Notification>
     </div>
 </template>
@@ -43,6 +43,11 @@ export default {
         CircleProject,
         CircleProject2
     },
+    data() {
+        return {
+            isAdminOrClient: false
+        }
+    },
     computed: {
         ...mapGetters({
             NewProjectIsWhite: 'NewProjectIsWhite',
@@ -55,48 +60,62 @@ export default {
     watch: {
         pageChange() {
             setTimeout(() => {
-                this.setPageName(this.$route.path)
-                var list = document.querySelector('.preload_img')
-                list.style.backgroundImage = "url('" + this.pageName + "')"
-                console.log(this.pageName)
-                TweenLite.fromTo(
-                    '.preload_img',
-                    1,
-                    {
-                        y: '-100vh'
-                    },
-                    {
-                        delay: 1.2,
-                        y: '0vh',
-                        ease: 'sine.Out'
-                    }
-                )
-                if (this.NewProjectIsWhite === true) {
-                    TweenLite.fromTo(
-                        '.preload_background_white',
-                        1,
-                        {
-                            height: '0vh'
-                        },
-                        {
-                            height: '100vh',
-                            ease: 'sine.Out',
-                            delay: 2.2
-                        }
-                    )
+                if (
+                    this.$route.path === '/admin' ||
+                    this.$route.path === '/admin/projet' ||
+                    this.$route.path === '/admin/client' ||
+                    this.$route.path === '/admin/parametre' ||
+                    this.$route.path === '/client' ||
+                    this.$route.path === '/client/Plans' ||
+                    this.$route.path === '/client/maquette' ||
+                    this.$route.path === '/client/Rendus' ||
+                    this.$route.path === '/client/shoppingList'
+                ) {
+                    this.isAdminOrClient = true
                 } else {
+                    this.isAdminOrClient = false
+                    this.setPageName(this.$route.path)
+                    var list = document.querySelector('.preload_img')
+                    list.style.backgroundImage = "url('" + this.pageName + "')"
                     TweenLite.fromTo(
-                        '.preload_background_black',
+                        '.preload_img',
                         1,
                         {
-                            height: '0vh'
+                            y: '-100vh'
                         },
                         {
-                            height: '100vh',
-                            ease: 'sine.Out',
-                            delay: 2.2
+                            delay: 1.2,
+                            y: '0vh',
+                            ease: 'sine.Out'
                         }
                     )
+                    if (this.NewProjectIsWhite === true) {
+                        TweenLite.fromTo(
+                            '.preload_background_white',
+                            1,
+                            {
+                                height: '0vh'
+                            },
+                            {
+                                height: '100vh',
+                                ease: 'sine.Out',
+                                delay: 2.2
+                            }
+                        )
+                    } else {
+                        TweenLite.fromTo(
+                            '.preload_background_black',
+                            1,
+                            {
+                                height: '0vh'
+                            },
+                            {
+                                height: '100vh',
+                                ease: 'sine.Out',
+                                delay: 2.2
+                            }
+                        )
+                    }
                 }
             }, 0.01)
         }
@@ -117,65 +136,84 @@ export default {
         }
     },
     mounted() {
-        window.addEventListener('resize', this.getWindowWidth)
-        this.getWindowWidth()
-        this.setPageName(this.$route.path)
-
-        var list = document.querySelector('.preload_img')
-        list.style.backgroundImage = "url('" + this.pageName + "')"
-        TweenLite.fromTo(
-            '.preload_img',
-            1,
-            {
-                y: '-100vh'
-            },
-            {
-                y: '0vh',
-                delay: 2.4,
-                ease: 'sine.Out'
-            }
-        )
-        if (this.NewProjectIsWhite === true) {
-            TweenLite.fromTo(
-                '.preload_background_white',
-                1,
-                {
-                    height: '0vh'
-                },
-                {
-                    height: '100vh',
-                    ease: 'sine.Out',
-                    delay: 3.4
-                }
-            )
+        if (
+            this.$route.path === '/admin' ||
+            this.$route.path === '/admin/projet' ||
+            this.$route.path === '/admin/client' ||
+            this.$route.path === '/admin/parametre' ||
+            this.$route.path === '/client' ||
+            this.$route.path === '/client/Plans' ||
+            this.$route.path === '/client/maquette' ||
+            this.$route.path === '/client/Rendus' ||
+            this.$route.path === '/client/shoppingList'
+        ) {
+            this.isAdminOrClient = true
         } else {
+            this.isAdminOrClient = false
+            window.addEventListener('resize', this.getWindowWidth)
+            this.getWindowWidth()
+            this.setPageName(this.$route.path)
+
+            var list = document.querySelector('.preload_img')
+            list.style.backgroundImage = "url('" + this.pageName + "')"
             TweenLite.fromTo(
-                '.preload_background_black',
+                '.preload_img',
                 1,
                 {
-                    height: '0vh'
+                    y: '-100vh'
                 },
                 {
-                    height: '100vh',
-                    ease: 'sine.Out',
-                    delay: 3.4
+                    y: '0vh',
+                    delay: 2.4,
+                    ease: 'sine.Out'
                 }
             )
+            if (this.NewProjectIsWhite === true) {
+                TweenLite.fromTo(
+                    '.preload_background_white',
+                    1,
+                    {
+                        height: '0vh'
+                    },
+                    {
+                        height: '100vh',
+                        ease: 'sine.Out',
+                        delay: 3.4
+                    }
+                )
+            } else {
+                TweenLite.fromTo(
+                    '.preload_background_black',
+                    1,
+                    {
+                        height: '0vh'
+                    },
+                    {
+                        height: '100vh',
+                        ease: 'sine.Out',
+                        delay: 3.4
+                    }
+                )
+            }
+            var html = document.documentElement
+            var body = document.body
+            var scroller = {
+                target: document.querySelector('.scroll-container'),
+                ease: 0.06,
+                endY: 0,
+                y: 0,
+                resizeRequest: 1,
+                scrollRequest: 0
+            }
+            var requestId = null
+            TweenLite.set(scroller.target, {})
+            window.addEventListener('load', onLoad)
+
+            this.$nextTick(onLoad())
         }
-        var html = document.documentElement
-        var body = document.body
-        var scroller = {
-            target: document.querySelector('#scroll-container'),
-            ease: 0.06,
-            endY: 0,
-            y: 0,
-            resizeRequest: 1,
-            scrollRequest: 0
-        }
-        var requestId = null
-        TweenLite.set(scroller.target, {})
-        window.addEventListener('load', onLoad)
+
         function onLoad() {
+            console.log(this)
             updateScroller()
             window.focus()
             window.addEventListener('resize', onResize)
@@ -219,7 +257,6 @@ export default {
                 requestId = requestAnimationFrame(updateScroller)
             }
         }
-        this.$nextTick(onLoad())
     },
     methods: {
         ...mapMutations({
@@ -264,6 +301,12 @@ export default {
     right: 0;
     bottom: 0;
     z-index: 3;
+}
+.classic {
+    width: 100%;
+    min-height: 100vh;
+    z-index: 5;
+    position: relative;
 }
 .content {
     width: 100%;
