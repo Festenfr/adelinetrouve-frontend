@@ -94,6 +94,7 @@ export default {
         await this.$store.dispatch('projetImage/fetchProjectsItem1', {
             titre: this.$route.params.id.replace(/-/g, ' ')
         })
+        this.getIndex()
     },
     data() {
         return {
@@ -301,7 +302,6 @@ export default {
     mounted() {
         this.createCursor()
         this.IsWhite()
-
         function enterPage() {
             TweenLite.fromTo(
                 '.serie-gallery',
@@ -315,7 +315,6 @@ export default {
                     delay: 2
                 }
             )
-
             TweenLite.fromTo(
                 '.serie-image',
                 0.2,
@@ -363,7 +362,6 @@ export default {
                     delay: 2.4
                 }
             )
-
             TweenLite.fromTo(
                 '.about-issue',
                 0.7,
@@ -389,97 +387,116 @@ export default {
             body.style.height = this.$refs.serie.clientHeight + 'px'
             body.style.backgroundColor = '#fcf9f5'
         }, 1200)
-        this.getIndex()
+
         // const cacheTexte = document
         //     .querySelector('.cache-texte')
         //     .getBoundingClientRect()
     },
     methods: {
         getIndex() {
-            this.images = document.querySelectorAll('.image')
-            let rect = []
-            this.images.forEach((el) => {
-                rect.push(el.getBoundingClientRect())
-            })
-            let top = []
-            let top2 = []
-            rect.map((el) => {
-                top.push(Math.abs(el.top))
-                top2.push(el.top)
-            })
+            if (typeof document !== 'undefined') {
+                this.images = document.querySelectorAll('.image')
 
-            let indexRef = top.indexOf(Math.min(...top))
-            if (indexRef > -1) {
-                if (indexRef === 0) {
-                    this.indexMin1 = 0
-                    this.indexMin2 = 1
-                } else if (indexRef === top.length - 1) {
-                    if (top.length % 2 === 0) {
-                        this.indexMin1 = top.length - 1
-                        this.indexMin2 = this.indexMin1 - 1
-                    } else {
-                        this.indexMin2 = top.length - 1
-                        this.indexMin1 = this.indexMin2 - 1
+                let rect = []
+                this.images.forEach((el) => {
+                    rect.push(el.getBoundingClientRect())
+                })
+                let top = []
+                let top2 = []
+                rect.map((el) => {
+                    top.push(Math.abs(el.top))
+                    top2.push(el.top)
+                })
+
+                let indexRef = top.indexOf(Math.min(...top))
+                if (indexRef > -1) {
+                    if (indexRef === 0) {
+                        this.indexMin1 = 0
+                        this.indexMin2 = 1
+                    } else if (indexRef === top.length - 1) {
+                        if (top.length % 2 === 0) {
+                            this.indexMin1 = top.length - 1
+                            this.indexMin2 = this.indexMin1 - 1
+                        } else {
+                            this.indexMin2 = top.length - 1
+                            this.indexMin1 = this.indexMin2 - 1
+                        }
+                    } else if (indexRef % 2 === 0) {
+                        this.indexMin1 = indexRef
+                        if (top2[indexRef] >= 10) {
+                            this.indexMin2 = indexRef - 1
+                        } else {
+                            this.indexMin2 = indexRef + 1
+                        }
+                    } else if (indexRef % 2 === 1) {
+                        if (top2[indexRef] >= 10) {
+                            this.indexMin1 = indexRef - 1
+                        } else {
+                            this.indexMin1 = indexRef + 1
+                        }
+                        this.indexMin2 = indexRef
                     }
-                } else if (indexRef % 2 === 0) {
-                    this.indexMin1 = indexRef
-                    if (top2[indexRef] >= 10) {
-                        this.indexMin2 = indexRef - 1
-                    } else {
-                        this.indexMin2 = indexRef + 1
-                    }
-                } else if (indexRef % 2 === 1) {
-                    if (top2[indexRef] >= 10) {
-                        this.indexMin1 = indexRef - 1
-                    } else {
-                        this.indexMin1 = indexRef + 1
-                    }
-                    this.indexMin2 = indexRef
                 }
-            }
-            if (
-                top[this.indexMin1] - window.innerHeight >
-                -window.innerHeight / 10
-            ) {
-                this.isVisible1 = false
-            } else if (
-                top[this.indexMin1] - window.innerHeight <
-                -window.innerHeight / 10
-            ) {
-                this.isVisible1 = true
-            }
-            if (
-                top[this.indexMin2] - window.innerHeight >
-                -window.innerHeight / 10
-            ) {
-                this.isVisible2 = false
-            } else if (
-                top[this.indexMin2] - window.innerHeight <
-                -window.innerHeight / 10
-            ) {
-                this.isVisible2 = true
-            }
-            if (this.images[this.indexMin1].dataset.src === 'duo') {
-                let translate1 =
-                    -(
-                        this.images[this.indexMin1].getBoundingClientRect()
-                            .top / window.innerHeight
-                    ) * 4
-                TweenLite.to(this.images[this.indexMin1].parentElement, 0.25, {
-                    y: translate1 + 'vw',
-                    ease: 'none'
-                })
-            }
-            if (this.images[this.indexMin2].dataset.src === 'duo') {
-                let translate2 =
-                    -(
-                        this.images[this.indexMin2].getBoundingClientRect()
-                            .top / window.innerHeight
-                    ) * 4
-                TweenLite.to(this.images[this.indexMin2].parentElement, 0.25, {
-                    y: translate2 + 'vw',
-                    ease: 'none'
-                })
+                if (
+                    top[this.indexMin1] - window.innerHeight >
+                    -window.innerHeight / 10
+                ) {
+                    this.isVisible1 = false
+                } else if (
+                    top[this.indexMin1] - window.innerHeight <
+                    -window.innerHeight / 10
+                ) {
+                    this.isVisible1 = true
+                }
+                if (
+                    top[this.indexMin2] - window.innerHeight >
+                    -window.innerHeight / 10
+                ) {
+                    this.isVisible2 = false
+                } else if (
+                    top[this.indexMin2] - window.innerHeight <
+                    -window.innerHeight / 10
+                ) {
+                    this.isVisible2 = true
+                }
+                if (typeof this.images[this.indexMin1] !== 'undefined') {
+                    if (this.images[this.indexMin1].dataset.src === 'duo') {
+                        let translate1 =
+                            -(
+                                this.images[
+                                    this.indexMin1
+                                ].getBoundingClientRect().top /
+                                window.innerHeight
+                            ) * 4
+                        TweenLite.to(
+                            this.images[this.indexMin1].parentElement,
+                            0.25,
+                            {
+                                y: translate1 + 'vw',
+                                ease: 'none'
+                            }
+                        )
+                    }
+                }
+                if (typeof this.images[this.indexMin2] !== 'undefined') {
+                    if (this.images[this.indexMin2].dataset.src === 'duo') {
+                        let translate2 =
+                            -(
+                                this.images[
+                                    this.indexMin2
+                                ].getBoundingClientRect().top /
+                                window.innerHeight
+                            ) * 4
+                        TweenLite.to(
+                            this.images[this.indexMin2].parentElement,
+                            0.25,
+                            {
+                                y: translate2 + 'vw',
+                                ease: 'none'
+                            }
+                        )
+                    }
+                }
             }
             requestAnimationFrame(this.getIndex)
         },
