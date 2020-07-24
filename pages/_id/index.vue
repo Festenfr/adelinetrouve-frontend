@@ -70,7 +70,7 @@
                         style="opacity: 0;"
                     />
                 </div>
-                <div v-if="image.file2" class="relative-container-second">
+                <div v-show="image.file2" class="relative-container-second">
                     <img :src="image.file2" alt="salon" class="image2" />
                 </div>
             </div>
@@ -126,7 +126,7 @@ export default {
                     }
                 )
                 if (this.images[this.indexMin1].dataset.src === 'duo') {
-                    const image2 = document.querySelectorAll('.image2')[
+                    let image2 = document.querySelectorAll('.image2')[
                         this.indexMin1
                     ]
                     TweenLite.fromTo(
@@ -153,8 +153,9 @@ export default {
                         ease: 'sine.Out'
                     }
                 )
+                let image2
                 if (this.images[this.indexMin1].dataset.src === 'duo') {
-                    const image2 = document.querySelectorAll('.image2')[
+                    image2 = document.querySelectorAll('.image2')[
                         this.indexMin1
                     ]
                     TweenLite.fromTo(
@@ -184,8 +185,9 @@ export default {
                         ease: 'sine.Out'
                     }
                 )
+
                 if (this.images[this.indexMin2].dataset.src === 'duo') {
-                    const image2 = document.querySelectorAll('.image2')[
+                    let image2 = document.querySelectorAll('.image2')[
                         this.indexMin2
                     ]
                     TweenLite.fromTo(
@@ -273,20 +275,6 @@ export default {
                     ease: 'sine.Out'
                 }
             )
-            TweenLite.fromTo(
-                '.serie-quote',
-                0.8,
-                {
-                    opacity: 1,
-                    y: 0
-                },
-                {
-                    opacity: 0,
-                    y: 50,
-                    ease: 'sine.Out',
-                    delay: 0.2
-                }
-            )
             TweenLite.to('.image-mask', 1.2, {
                 visibility: 'visible',
                 scaleY: 1,
@@ -308,22 +296,12 @@ export default {
                     onComplete: done
                 }
             )
-            TweenLite.fromTo(
-                '.serie-issue',
-                0.8,
-                {
-                    opacity: '1'
-                },
-                {
-                    opacity: 0,
-                    ease: 'linear'
-                }
-            )
         }
     },
     mounted() {
         this.createCursor()
         this.IsWhite()
+
         function enterPage() {
             TweenLite.fromTo(
                 '.serie-gallery',
@@ -385,18 +363,7 @@ export default {
                     delay: 2.4
                 }
             )
-            TweenLite.fromTo(
-                '.serie-issue',
-                0.7,
-                {
-                    opacity: '0'
-                },
-                {
-                    delay: 2,
-                    opacity: 1,
-                    ease: 'linear'
-                }
-            )
+
             TweenLite.fromTo(
                 '.about-issue',
                 0.7,
@@ -422,12 +389,13 @@ export default {
             body.style.height = this.$refs.serie.clientHeight + 'px'
             body.style.backgroundColor = '#fcf9f5'
         }, 1200)
-        setInterval(() => {
-            const cacheTexte = document
-                .querySelector('.cache-texte')
-                .getBoundingClientRect()
-            console.log(cacheTexte)
-
+        this.getIndex()
+        // const cacheTexte = document
+        //     .querySelector('.cache-texte')
+        //     .getBoundingClientRect()
+    },
+    methods: {
+        getIndex() {
             this.images = document.querySelectorAll('.image')
             let rect = []
             this.images.forEach((el) => {
@@ -440,28 +408,28 @@ export default {
                 top2.push(el.top)
             })
 
-            const indexRef = top.indexOf(Math.min(...top))
+            let indexRef = top.indexOf(Math.min(...top))
             if (indexRef > -1) {
                 if (indexRef === 0) {
                     this.indexMin1 = 0
                     this.indexMin2 = 1
-                } else if (indexRef === top.length) {
+                } else if (indexRef === top.length - 1) {
                     if (top.length % 2 === 0) {
-                        this.indexMin1 = top.length
+                        this.indexMin1 = top.length - 1
                         this.indexMin2 = this.indexMin1 - 1
                     } else {
-                        this.indexMin2 = top.length
+                        this.indexMin2 = top.length - 1
                         this.indexMin1 = this.indexMin2 - 1
                     }
                 } else if (indexRef % 2 === 0) {
                     this.indexMin1 = indexRef
-                    if (top2[indexRef] >= 50) {
+                    if (top2[indexRef] >= 10) {
                         this.indexMin2 = indexRef - 1
                     } else {
                         this.indexMin2 = indexRef + 1
                     }
                 } else if (indexRef % 2 === 1) {
-                    if (top2[indexRef] >= 50) {
+                    if (top2[indexRef] >= 10) {
                         this.indexMin1 = indexRef - 1
                     } else {
                         this.indexMin1 = indexRef + 1
@@ -491,7 +459,6 @@ export default {
             ) {
                 this.isVisible2 = true
             }
-
             if (this.images[this.indexMin1].dataset.src === 'duo') {
                 let translate1 =
                     -(
@@ -514,9 +481,8 @@ export default {
                     ease: 'none'
                 })
             }
-        }, 150)
-    },
-    methods: {
+            requestAnimationFrame(this.getIndex)
+        },
         ...mapMutations({
             createCursor: 'createCursor',
             IsWhite: 'IsWhite'
@@ -641,6 +607,7 @@ export default {
                                 margin-bottom: 0.45vw;
                             }
                             p {
+                                word-wrap: break-word;
                                 font-family: 'Montserrat', sans-serif;
                                 font-size: 1vw;
                                 line-height: normal;

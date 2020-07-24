@@ -213,7 +213,6 @@ export default {
         }
 
         function onLoad() {
-            console.log(this)
             updateScroller()
             window.focus()
             window.addEventListener('resize', onResize)

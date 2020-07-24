@@ -120,7 +120,16 @@ export default {
         }
     },
     mounted() {
-        setInterval(() => {
+        this.getIndex()
+        if (this.filterProjectItem[0]) {
+            this.init()
+        }
+        if (this.filterProjectItem[1]) {
+            this.init2()
+        }
+    },
+    methods: {
+        getIndex() {
             this.images = document.querySelectorAll('.tile__image')
             let rect = []
             this.images.forEach((el) => {
@@ -132,7 +141,7 @@ export default {
                 top.push(Math.abs(el.top))
                 top2.push(el.top)
             })
-            const indexRef = top.indexOf(Math.min(...top))
+            let indexRef = top.indexOf(Math.min(...top))
             if (indexRef > -1) {
                 if (indexRef === 0) {
                     this.indexMin1 = 0
@@ -147,13 +156,13 @@ export default {
                     }
                 } else if (indexRef % 2 === 0) {
                     this.indexMin1 = indexRef
-                    if (top2[indexRef] >= 50) {
+                    if (top2[indexRef] >= 10) {
                         this.indexMin2 = indexRef - 1
                     } else {
                         this.indexMin2 = indexRef + 1
                     }
                 } else if (indexRef % 2 === 1) {
-                    if (top2[indexRef] >= 50) {
+                    if (top2[indexRef] >= 10) {
                         this.indexMin1 = indexRef - 1
                     } else {
                         this.indexMin1 = indexRef + 1
@@ -161,15 +170,8 @@ export default {
                     this.indexMin2 = indexRef
                 }
             }
-        }, 150)
-        if (this.filterProjectItem[0]) {
-            this.init()
-        }
-        if (this.filterProjectItem[1]) {
-            this.init2()
-        }
-    },
-    methods: {
+            requestAnimationFrame(this.getIndex)
+        },
         ...mapMutations({
             imageLeave: 'imageLeave',
             imageEnter: 'imageEnter'
@@ -195,14 +197,10 @@ export default {
                 alpha: true
             })
             this.loaderThree = new THREE.TextureLoader()
-
             this.image = this.loaderThree.load(this.$image.src, () => {
                 this.start()
             })
 
-            window.addEventListener('mousemove', (ev) => {
-                this.onMouseMove(ev)
-            })
             this.hoverImage = this.loaderThree.load(this.$image.dataset.hover)
             this.$image.style.opacity = 0
             this.sizes = new THREE.Vector2(0, 0)
@@ -211,6 +209,9 @@ export default {
 
             this.renderer.setSize(window.innerWidth, window.innerHeight)
             this.renderer.setPixelRatio(window.devicePixelRatio)
+            window.addEventListener('mousemove', (ev) => {
+                this.onMouseMove(ev)
+            })
         },
         start() {
             this.getSizes()
@@ -389,9 +390,6 @@ export default {
                 alpha: true
             })
             this.loaderThree2 = new THREE.TextureLoader()
-            window.addEventListener('mousemove', (ev) => {
-                this.onMouseMove2(ev)
-            })
             this.image2 = this.loaderThree2.load(this.$image2.src, () => {
                 this.start2()
             })
@@ -405,6 +403,9 @@ export default {
 
             this.renderer2.setSize(window.innerWidth, window.innerHeight)
             this.renderer2.setPixelRatio(window.devicePixelRatio)
+            window.addEventListener('mousemove', (ev) => {
+                this.onMouseMove2(ev)
+            })
         },
         start2() {
             this.getSizes2()
