@@ -209,13 +209,13 @@ export default {
 
             this.renderer.setSize(window.innerWidth, window.innerHeight)
             this.renderer.setPixelRatio(window.devicePixelRatio)
-            window.addEventListener('mousemove', (ev) => {
-                this.onMouseMove(ev)
-            })
         },
         start() {
             this.getSizes()
             this.createMesh()
+            window.addEventListener('mousemove', (ev) => {
+                this.onMouseMove(ev)
+            })
             if (this.isFirstInit) {
                 this.update1()
             }
@@ -403,13 +403,13 @@ export default {
 
             this.renderer2.setSize(window.innerWidth, window.innerHeight)
             this.renderer2.setPixelRatio(window.devicePixelRatio)
-            window.addEventListener('mousemove', (ev) => {
-                this.onMouseMove2(ev)
-            })
         },
         start2() {
             this.getSizes2()
             this.createMesh2()
+            window.addEventListener('mousemove', (ev) => {
+                this.onMouseMove2(ev)
+            })
             if (this.isFirstInit2) {
                 this.update2()
             }
