@@ -39,17 +39,19 @@
                             </div>
                         </div>
                         <div class="cache-texte"></div>
-                        <div class="chevron-down">
+                        <a class="chevron-down">
                             <svg
+                                v-scroll-to="'.serie-gallery'"
                                 style="width:32px;height:32px"
                                 viewBox="0 0 24 24"
+                                class="chevron-down-svg"
                             >
                                 <path
                                     fill="currentColor"
                                     d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"
                                 />
                             </svg>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -510,6 +512,13 @@ export default {
 
 <style lang="scss" scoped>
 @media screen and (min-width: 500px) {
+    .chevron-down-svg {
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        color: black;
+        transition: 0.5s ease-in-out;
+    }
     .serie-wrapper {
         margin: auto;
         display: flex;

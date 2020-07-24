@@ -44,7 +44,8 @@ export default {
         '@nuxtjs/pwa',
         '~/modules/api',
         '@nuxtjs/sitemap',
-        '@nuxtjs/robots'
+        '@nuxtjs/robots',
+        'vue-scrollto/nuxt'
     ],
     plugins: [
         { src: '@/plugins/vuetify', ssr: false },

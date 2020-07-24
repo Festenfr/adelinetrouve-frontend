@@ -24,6 +24,7 @@
         </div>
         <RondBlanc v-if="isAdminOrClient === false" style="z-index:5" />
         <Notification style="z-index:10"></Notification>
+        <ScrollToTop />
     </div>
 </template>
 <script>
@@ -34,9 +35,11 @@ import RondBlanc from '../components/RondBlanc'
 import Notification from '../components/Notification'
 import Preloader from '../components/Preloader'
 import { mapGetters, mapMutations } from 'vuex'
+import ScrollToTop from '../components/ScrollToTop'
 import ls from 'local-storage'
 export default {
     components: {
+        ScrollToTop,
         Notification,
         RondBlanc,
         Preloader,
@@ -45,7 +48,11 @@ export default {
     },
     data() {
         return {
-            isAdminOrClient: false
+            isAdminOrClient: false,
+            html: '',
+            body: '',
+            scroller: {},
+            requestId: null
         }
     },
     computed: {
@@ -118,11 +125,16 @@ export default {
                     }
                 }
             }, 0.01)
+        },
+        isAdminOrClient() {
+            console.log('yoyo')
+            this.onLoad()
+            console.log(this.isAdminOrClient)
         }
     },
     created() {
         if (ls.get('user')) {
-            const userData = ls.get('user')
+            let userData = ls.get('user')
             this.$store.commit('setUserData', userData)
         }
         if (
@@ -195,9 +207,11 @@ export default {
                     }
                 )
             }
-            var html = document.documentElement
-            var body = document.body
-            var scroller = {
+
+            TweenLite.set(this.scroller.target, {})
+            this.html = document.documentElement
+            this.body = document.body
+            this.scroller = {
                 target: document.querySelector('.scroll-container'),
                 ease: 0.06,
                 endY: 0,
@@ -205,59 +219,62 @@ export default {
                 resizeRequest: 1,
                 scrollRequest: 0
             }
-            var requestId = null
-            TweenLite.set(scroller.target, {})
-            window.addEventListener('load', onLoad)
-
-            this.$nextTick(onLoad())
-        }
-
-        function onLoad() {
-            updateScroller()
-            window.focus()
-            window.addEventListener('resize', onResize)
-            document.addEventListener('scroll', onScroll)
-        }
-        function updateScroller() {
-            var resized = scroller.resizeRequest > 0
-            if (resized) {
-                var height = scroller.target.clientHeight
-                body.style.height = height + 150 + 'px'
-                scroller.resizeRequest = 0
-            }
-            var scrollY =
-                window.pageYOffset || html.scrollTop || body.scrollTop || 0
-
-            scroller.endY = scrollY
-            scroller.y += (scrollY - scroller.y) * scroller.ease
-
-            if (Math.abs(scrollY - scroller.y) < 0.05 || resized) {
-                scroller.y = scrollY
-                scroller.scrollRequest = 0
-            }
-            TweenLite.set(scroller.target, {
-                y: -scroller.y
-            })
-            requestId =
-                scroller.scrollRequest > 0
-                    ? requestAnimationFrame(updateScroller)
-                    : null
-        }
-        function onScroll() {
-            scroller.scrollRequest++
-            if (!requestId) {
-                requestId = requestAnimationFrame(updateScroller)
-            }
-        }
-
-        function onResize() {
-            scroller.resizeRequest++
-            if (!requestId) {
-                requestId = requestAnimationFrame(updateScroller)
-            }
+            this.requestId = null
+            window.addEventListener('load', this.onLoad)
+            this.$nextTick(this.onLoad())
         }
     },
     methods: {
+        onLoad() {
+            this.updateScroller()
+            window.focus()
+            window.addEventListener('resize', this.onResize)
+            document.addEventListener('scroll', this.onScroll)
+        },
+        updateScroller() {
+            if (this.isAdminOrClient === false) {
+                let resized = this.scroller.resizeRequest > 0
+                if (resized) {
+                    var height = this.scroller.target.clientHeight
+                    this.body.style.height = height + 150 + 'px'
+                    this.scroller.resizeRequest = 0
+                }
+                var scrollY =
+                    window.pageYOffset ||
+                    this.html.scrollTop ||
+                    this.body.scrollTop ||
+                    0
+
+                this.scroller.endY = scrollY
+                this.scroller.y +=
+                    (scrollY - this.scroller.y) * this.scroller.ease
+
+                if (Math.abs(scrollY - this.scroller.y) < 0.05 || resized) {
+                    this.scroller.y = scrollY
+                    this.scroller.scrollRequest = 0
+                }
+                TweenLite.set(this.scroller.target, {
+                    y: -this.scroller.y
+                })
+                this.requestId =
+                    this.scroller.scrollRequest > 0
+                        ? requestAnimationFrame(this.updateScroller)
+                        : null
+            }
+        },
+        onScroll() {
+            this.scroller.scrollRequest++
+            if (!this.requestId) {
+                this.requestId = requestAnimationFrame(this.updateScroller)
+            }
+        },
+
+        onResize() {
+            this.scroller.resizeRequest++
+            if (!this.requestId) {
+                this.requestId = requestAnimationFrame(this.updateScroller)
+            }
+        },
         ...mapMutations({
             getWindowWidth: 'getWindowWidth',
             IsWhite: 'IsWhite',

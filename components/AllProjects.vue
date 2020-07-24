@@ -581,6 +581,7 @@ export default {
         .titre-project {
             position: absolute;
             z-index: 12;
+
             display: flex;
             flex-direction: column;
             justify-content: flex-end;

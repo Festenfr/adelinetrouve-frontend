@@ -7,12 +7,18 @@
             :lazy-validation="lazy"
         >
             <div style="width:100%">
-                <v-text-field v-model="titre" label="titre" required />
+                <v-textarea
+                    v-model="titre"
+                    label="Titre"
+                    required
+                    outlined
+                    name="input-7-4"
+                />
             </div>
             <div style="width:100%">
                 <v-textarea
                     v-model="description"
-                    label="description"
+                    label="Déscription"
                     required
                     outlined
                     name="input-7-4"

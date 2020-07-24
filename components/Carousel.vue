@@ -45,13 +45,11 @@
                 <div class="title">
                     <h3>
                         <a
-                            style="text-decoration:none; color:black;cursor: pointer;"
                             @click="
                                 goTo(`/${project.titre.replace(/ /g, '-')}`)
                             "
+                            >{{ project.titre }}</a
                         >
-                            {{ project.titre }}
-                        </a>
                     </h3>
                 </div>
 
@@ -64,14 +62,18 @@
                     </p>
                 </div>
             </CarouselSlideText>
-            <div class="chevron-down">
-                <svg style="width:32px;height:32px" viewBox="0 0 24 24">
+            <a class="chevron-down">
+                <svg
+                    v-scroll-to="'.container2'"
+                    class="chevron-down-svg"
+                    viewBox="0 0 24 24"
+                >
                     <path
                         fill="currentColor"
                         d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"
                     />
                 </svg>
-            </div>
+            </a>
         </div>
         <div class="right-col">
             <CarouselSlideImage
@@ -223,12 +225,15 @@ export default {
                 text-align: right;
                 font-family: 'Playfair Display', serif;
                 font-size: 5vw;
-                line-height: normal;
-                font-weight: normal;
                 letter-spacing: 0;
                 h3 {
                     font-weight: normal;
-                    line-height: 5.5vw;
+                    a {
+                        white-space: pre-wrap;
+                        text-decoration: none;
+                        color: black;
+                        cursor: pointer;
+                    }
                 }
             }
             .date {
@@ -256,6 +261,13 @@ export default {
             width: 100%;
             display: flex;
             justify-content: flex-end;
+        }
+        .chevron-down-svg {
+            width: 32px;
+            height: 32px;
+            cursor: pointer;
+            color: black;
+            transition: 0.5s ease-in-out;
         }
         .little-img {
             width: 100%;

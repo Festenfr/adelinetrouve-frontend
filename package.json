@@ -41,6 +41,7 @@
     "sharp": "^0.25.4",
     "sweetalert2": "^9.15.2",
     "three": "^0.116.1",
+    "vue-scrollto": "^2.18.1",
     "vuetify": "^2.2.18"
   },
   "devDependencies": {
