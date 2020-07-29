@@ -53,7 +53,8 @@ export default {
 <style lang="scss">
 .container-projet {
     width: 100%;
-    height: 100vh;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
     display: flex;
     flex-direction: column;
     justify-content: center;

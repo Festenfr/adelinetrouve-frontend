@@ -14,6 +14,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .card {
+    position: relative;
     background-color: var(--color-2);
     width: 30vw;
     height: 150vh;

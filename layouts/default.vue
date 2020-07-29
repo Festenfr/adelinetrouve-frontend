@@ -16,12 +16,21 @@
             ]"
         ></div>
         <div :class="[isAdminOrClient ? 'classic' : 'viewport']">
-            <div :class="[isAdminOrClient ? 'classic' : 'scroll-container']">
-                <div class="content">
+            <div :class="[isAdminOrClient ? '' : 'scroll-container']">
+                <div :class="[isAdminOrClient ? '' : 'content']">
                     <nuxt />
                 </div>
             </div>
         </div>
+        <div
+            v-if="isAdminOrClient === true"
+            :class="[dark ? 'theme-dark' : 'theme-light']"
+            style="z-index:155; position: fixed; height:100vh;"
+        >
+            <NavAdmin></NavAdmin>
+            <DarkToLight></DarkToLight>
+        </div>
+
         <RondBlanc v-if="isAdminOrClient === false" style="z-index:5" />
         <Notification style="z-index:10"></Notification>
         <ScrollToTop />
@@ -35,12 +44,14 @@ import RondBlanc from '../components/RondBlanc'
 import Notification from '../components/Notification'
 import Preloader from '../components/Preloader'
 import { mapGetters, mapMutations } from 'vuex'
+import NavAdmin from '../components/admin/NavAdmin'
 import ScrollToTop from '../components/ScrollToTop'
 import ls from 'local-storage'
 export default {
     components: {
         ScrollToTop,
         Notification,
+        NavAdmin,
         RondBlanc,
         Preloader,
         CircleProject,
@@ -57,6 +68,7 @@ export default {
     },
     computed: {
         ...mapGetters({
+            dark: 'dark',
             NewProjectIsWhite: 'NewProjectIsWhite',
             pageChange: 'pageChange',
             pageName: 'pageName',
@@ -68,15 +80,8 @@ export default {
         pageChange() {
             setTimeout(() => {
                 if (
-                    this.$route.path === '/admin' ||
-                    this.$route.path === '/admin/projet' ||
-                    this.$route.path === '/admin/client' ||
-                    this.$route.path === '/admin/parametre' ||
-                    this.$route.path === '/client' ||
-                    this.$route.path === '/client/Plans' ||
-                    this.$route.path === '/client/maquette' ||
-                    this.$route.path === '/client/Rendus' ||
-                    this.$route.path === '/client/shoppingList'
+                    this.$route.matched[0].path === '/admin' ||
+                    this.$route.matched[0].path === '/cleint'
                 ) {
                     this.isAdminOrClient = true
                 } else {
@@ -319,10 +324,13 @@ export default {
     z-index: 3;
 }
 .classic {
-    width: 100%;
-    min-height: 100vh;
-    z-index: 5;
     position: relative;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 3;
 }
 .content {
     width: 100%;

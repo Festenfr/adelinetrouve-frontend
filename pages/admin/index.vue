@@ -1,8 +1,6 @@
 <template>
-    <div ref="admin">
-        <div>
-            <p>Tableau de bord</p>
-        </div>
+    <div>
+        <p>Tableau de bord</p>
     </div>
 </template>
 <script>

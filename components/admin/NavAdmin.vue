@@ -1,5 +1,5 @@
 <template>
-    <div class="navAdmin">
+    <div class="nav_admin">
         <div
             :class="[isOpen ? 'position_hamb_open' : 'position_hamb_close']"
             @click="toggleMenu"
@@ -27,13 +27,7 @@
             <div class="separation">
                 <hr />
             </div>
-            <div
-                :class="[
-                    isOpen
-                        ? 'container_nav_item_open'
-                        : 'container_nav_item_close'
-                ]"
-            >
+            <div class="container_nav_item">
                 <nuxt-link
                     v-for="item in items"
                     :key="item.label"
@@ -59,6 +53,7 @@
 
 <script>
 import { mapGetters, mapMutations, mapActions } from 'vuex'
+
 export default {
     data() {
         return {
@@ -67,7 +62,7 @@ export default {
                     icon: `<svg style="width:24px;height:24px" viewBox="0 0 24 24">
                                 <path fill="currentColor" d="M13,3V9H21V3M13,21H21V11H13M3,21H11V15H3M3,13H11V3H3V13Z" />
                             </svg>`,
-                    to: '/admin/',
+                    to: '/admin',
                     label: 'Tableau de bord'
                 },
                 {
@@ -118,6 +113,12 @@ export default {
 </script>
 
 <style lang="scss">
+.nav_admin {
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
 .contaiiner_logo {
     position: relative;
     width: 100%;
@@ -154,15 +155,15 @@ export default {
     flex-direction: column;
     background-color: var(--color-2);
     top: 0;
-    left: 0;
-    width: 0vw;
+    left: -20vw;
+    width: 20vw;
     opacity: 0;
     pointer-events: none;
     height: 100vh;
     transition: 0.5s ease-in-out;
     box-shadow: 0px 0px 25px -6px rgba(0, 0, 0, 0.75);
 }
-.container_nav_item_open {
+.container_nav_item {
     position: relative;
     z-index: 2;
     display: flex;
@@ -172,18 +173,6 @@ export default {
     transition: 0.5s ease-in-out;
     margin-top: 15px;
     height: 90vh;
-}
-.container_nav_item_close {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    transition: 0.5s ease-in-out;
-    margin-top: 15px;
-    height: 90vh;
-    transform: translateX(-20vw);
 }
 .navItem {
     height: 50px;

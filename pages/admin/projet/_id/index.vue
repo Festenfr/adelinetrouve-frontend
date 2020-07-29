@@ -2,7 +2,9 @@
     <div ref="projet" class="container-projet">
         <div class="sous-menu">
             <div
-                :class="[component === 'get-projects' ? 'isActif' : 'carre']"
+                :class="[
+                    component === 'get-image-projects' ? 'isActif' : 'carre'
+                ]"
                 @click="isGet"
             >
                 <svg style="width:50px;height:50px" viewBox="0 0 24 24">
@@ -13,7 +15,9 @@
                 </svg>
             </div>
             <div
-                :class="[component === 'post-project' ? 'isActif' : 'carre']"
+                :class="[
+                    component === 'post-image-project' ? 'isActif' : 'carre'
+                ]"
                 @click="isPost"
             >
                 <svg style="width:50px;height:50px" viewBox="0 0 24 24">
@@ -53,7 +57,6 @@ export default {
 <style lang="scss">
 .container-projet {
     width: 100%;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;

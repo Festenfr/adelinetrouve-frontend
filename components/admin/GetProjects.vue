@@ -94,6 +94,7 @@
                                             </p>
                                         </div>
                                         <v-btn
+                                            class="darken1"
                                             small
                                             @click="
                                                 updateOneItem(
@@ -111,6 +112,7 @@
                                             </v-icon>
                                         </v-btn>
                                         <v-btn
+                                            class="success"
                                             small
                                             @click="
                                                 goTo(
@@ -126,6 +128,7 @@
                                             </v-icon>
                                         </v-btn>
                                         <v-btn
+                                            class="error"
                                             small
                                             @click="deleteOneItem(item._id, i)"
                                         >
@@ -295,8 +298,9 @@ export default {
 </script>
 <style lang="scss">
 .actions {
-    margin: 10px;
+    position: relative;
     display: flex;
+    width: 100%;
     justify-content: space-around;
     align-items: center;
 }

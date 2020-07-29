@@ -139,6 +139,7 @@ export default {
 <style lang="scss">
 .card {
     width: 60%;
+    height: auto;
 }
 .form-post-projet {
     display: flex;

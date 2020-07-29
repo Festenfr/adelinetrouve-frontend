@@ -8,6 +8,9 @@ const ProjetImageSchema = new mongoose.Schema({
         maxlength: 255,
         required: true
     },
+    placement: {
+        type: Number
+    },
     file1: {
         type: String
     },

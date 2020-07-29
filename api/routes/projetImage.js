@@ -31,6 +31,11 @@ router.post('/:titre', isAdmin, upload.array('files'), async (req, res) => {
     const rand2 = Math.round(Math.random() * 1000000)
 
     const projet = await Projet.findOne({ titre: req.params.titre })
+    let projetImageLength = await ProjetImage.find({ ref: projet._id })
+    if (projetImageLength === -1) {
+        projetImageLength = 1
+    }
+    console.log(projetImageLength)
     const result = validate(req.body)
     if (result.error)
         return res.status(400).send(result.error.details[0].message)
@@ -63,12 +68,14 @@ router.post('/:titre', isAdmin, upload.array('files'), async (req, res) => {
                 type: req.body.type,
                 file1: s3res.Location,
                 file2: s3res2.Location,
+                placement: projetImageLength.length,
                 ref: projet._id
             })
         } else {
             projetImage = new ProjetImage({
                 type: req.body.type,
                 file1: s3res.Location,
+                placement: projetImageLength.length,
                 ref: projet._id
             })
         }
@@ -92,7 +99,6 @@ router.put('/:titre/:id', isAdmin, upload.array('files'), async (req, res) => {
     let nameImage = projetImage[0].file1.substring(
         projetImage[0].file1.lastIndexOf('/') + 1
     )
-    console.log(nameImage)
     let keyBucket = decodeURI(nameImage)
     let params = {
         Bucket: `adeline-site-web/projet/${projet.titre}`,
@@ -163,6 +169,39 @@ router.put('/:titre/:id', isAdmin, upload.array('files'), async (req, res) => {
         res.status(200).send(projetImage[0])
     } catch (err) {
         res.status(422).json({ err })
+    }
+})
+router.put('/placement/:id/:topOrBottom', isAdmin, async (req, res) => {
+    let projetImage = await ProjetImage.findOne({ _id: req.params.id })
+
+    if (!projetImage)
+        return res
+            .status(404)
+            .send("le Projet que tu veux déplacer n'existe plus")
+    if (req.params.topOrBottom === 'isTop') {
+        let projetImageTop = await ProjetImage.findOne({
+            placement: projetImage.placement - 1
+        })
+        projetImage.placement = projetImage.placement - 1
+        projetImageTop.placement = projetImageTop.placement + 1
+        projetImage = await projetImage.save()
+        projetImageTop = await projetImageTop.save()
+        res.status(200).json({
+            clickImage: projetImage,
+            SideImage: projetImageTop
+        })
+    } else if (req.params.topOrBottom === 'isBottom') {
+        let projetImageBottom = await ProjetImage.findOne({
+            placement: projetImage.placement + 1
+        })
+        projetImage.placement = projetImage.placement + 1
+        projetImageBottom.placement = projetImageBottom.placement - 1
+        projetImage = await projetImage.save()
+        projetImageBottom = await projetImageBottom.save()
+        res.status(200).json({
+            clickImage: projetImage,
+            SideImage: projetImageBottom
+        })
     }
 })
 router.delete('/:titre/:id', isAdmin, async (req, res) => {

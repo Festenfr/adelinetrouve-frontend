@@ -1,10 +1,12 @@
 export const state = () => ({
     projectItem: [],
-    projectItem1: []
+    projectItem1: [],
+    topOrBottom: ''
 })
 export const getters = {
     projectItem: (state) => state.projectItem,
-    projectItem1: (state) => state.projectItem1
+    projectItem1: (state) => state.projectItem1,
+    topOrBottom: (state) => state.topOrBottom
 }
 export const mutations = {
     setProjectItem: (state, data) => (state.projectItem = data),
@@ -15,6 +17,16 @@ export const mutations = {
             (item) => item._id === data._id
         )
         if (index !== -1) state.projectItem.splice(index, 1, data)
+    },
+    moveItem(state, data) {
+        const index = state.projectItem.findIndex(
+            (item) => item._id === data.clickImage._id
+        )
+        if (index !== -1) state.projectItem.splice(index, 1, data.clickImage)
+        const index2 = state.projectItem.findIndex(
+            (item) => item._id === data.SideImage._id
+        )
+        if (index2 !== -1) state.projectItem.splice(index2, 1, data.SideImage)
     },
     removeItem: (state, id) => {
         const index = state.projectItem.findIndex((item) => item._id === id)
@@ -78,6 +90,21 @@ export const actions = {
             rootState.snackbar = true
             rootState.error = false
             rootState.message = "L'image est modifié"
+        } catch (err) {
+            rootState.error = true
+            rootState.message = err.response.data
+        }
+    },
+    async updatePlacement({ commit, rootState }, { arg1, arg2 }) {
+        try {
+            const { data } = await this.$axios.put(
+                `/projetImage/placement/${arg1}/${arg2}`
+            )
+            commit('moveItem', data)
+
+            rootState.snackbar = true
+            rootState.error = false
+            rootState.message = "Le placement de l'image est modifié"
         } catch (err) {
             rootState.error = true
             rootState.message = err.response.data

@@ -1,30 +1,18 @@
 <template>
     <v-app :class="[dark ? 'theme-dark' : 'theme-light']" style="z-index: 5;">
-        <div
-            class="container_admin"
-            :class="[isOpen ? 'container_admin_little' : 'container_admin_big']"
-        >
-            <NavAdmin></NavAdmin>
-            <DarkToLight></DarkToLight>
-
-            <div
-                :class="[isOpen ? 'contenu_admin_little' : 'contenu_admin_big']"
-            >
-                <nuxt-child />
-            </div>
+        <div :class="[isOpen ? 'contenu_admin_little' : 'contenu_admin_big']">
+            <nuxt-child />
         </div>
     </v-app>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import NavAdmin from '../components/admin/NavAdmin'
+
 import { TweenLite } from 'gsap'
 export default {
     middleware: 'authenticated',
-    components: {
-        NavAdmin
-    },
+
     data() {
         return {}
     },
@@ -55,13 +43,26 @@ export default {
                 }
             )
             TweenLite.fromTo(
+                '.nav_admin',
+                0.2,
+                {
+                    opacity: 0
+                },
+                {
+                    opacity: 1,
+                    ease: 'linear'
+                }
+            )
+            TweenLite.fromTo(
                 '.container_nav_open',
                 1,
                 {
-                    x: '-20vw'
+                    x: '-20vw',
+                    display: 'none'
                 },
                 {
                     x: '0vw',
+                    display: 'flex',
                     ease: 'linear',
                     onComplete: done
                 }
@@ -72,9 +73,11 @@ export default {
                 '.container_nav_open',
                 0.5,
                 {
+                    display: 'flex',
                     x: '0vw'
                 },
                 {
+                    display: 'none',
                     x: '-20vw',
                     ease: 'linear'
                 }
@@ -89,6 +92,17 @@ export default {
                     opacity: 0,
                     ease: 'linear',
                     onComplete: done
+                }
+            )
+            TweenLite.fromTo(
+                '.nav_admin',
+                1,
+                {
+                    opacity: 1
+                },
+                {
+                    opacity: 0,
+                    ease: 'linear'
                 }
             )
             TweenLite.fromTo(
@@ -109,26 +123,14 @@ export default {
             dark: 'dark',
             isOpen: 'isOpen'
         })
+    },
+    mounted() {
+        let body = document.body
+        body.style.height = 'auto'
     }
 }
 </script>
 <style lang="scss" scoped>
-.container_admin_little {
-    position: relative;
-    z-index: 0;
-    background-color: var(--color-1);
-    width: 100vw;
-    min-height: 100vh;
-    transition: 0.5s ease-in-out;
-}
-.container_admin_big {
-    background-color: var(--color-1);
-    z-index: 0;
-    position: relative;
-    width: 100vw;
-    min-height: 100vh;
-    transition: 0.5s ease-in-out;
-}
 .contenu_admin_little {
     position: relative;
     width: 60vw;

@@ -1,52 +1,92 @@
 <template>
     <div>
-        <transition :css="false" tag="div" @enter="enter" @leave="leave">
-            <div v-if="update === false">
-                <div
-                    v-for="(projectImage, index) in projectItem"
-                    :key="projectImage._id"
-                    :data-index="index"
-                    class="card-image"
-                >
-                    <div class="actions">
-                        <v-btn
-                            small
-                            @click="
-                                updateOneItem(
-                                    projectImage._id,
-                                    projectImage.type
-                                )
-                            "
-                        >
-                            <v-icon small icon>
-                                mdi-pen
-                            </v-icon>
-                        </v-btn>
-                        <v-btn small @click="deleteOneItem(projectImage._id)">
-                            <v-icon small icon>
-                                mdi-delete
-                            </v-icon>
-                        </v-btn>
+        <div v-if="update === false">
+            <div
+                v-for="projectImage in sortProjectItem"
+                :key="projectImage._id"
+                :data-index="projectImage.placement"
+                class="card-image"
+            >
+                <div v-if="projectImage.type !== 'duo'" class="image">
+                    <img :src="projectImage.file1" :alt="projectImage.file1" />
+                </div>
+                <div v-if="projectImage.type === 'duo'" class="images_duo">
+                    <div class="image1">
+                        <img
+                            :src="projectImage.file1"
+                            :alt="projectImage.file1"
+                        />
+                    </div>
+                    <div class="image2">
+                        <img
+                            :src="projectImage.file2"
+                            :alt="projectImage.file2"
+                        />
                     </div>
                 </div>
+                <div class="change_index">
+                    <v-btn
+                        v-if="projectImage.placement > 0"
+                        icon
+                        fab
+                        small
+                        @click="topOrBottom('isTop', projectImage._id)"
+                    >
+                        <v-icon>
+                            mdi-chevron-up
+                        </v-icon>
+                    </v-btn>
+
+                    {{ projectImage.placement + 1 }}
+                    <v-btn
+                        v-if="
+                            projectImage.placement < sortProjectItem.length - 1
+                        "
+                        icon
+                        fab
+                        small
+                        @click="topOrBottom('isBottom', projectImage._id)"
+                    >
+                        <v-icon>
+                            mdi-chevron-down
+                        </v-icon>
+                    </v-btn>
+                </div>
+                <div class="actions">
+                    <v-btn
+                        class="darken2"
+                        @click="
+                            updateOneItem(projectImage._id, projectImage.type)
+                        "
+                    >
+                        <v-icon icon>
+                            mdi-pen
+                        </v-icon>
+                    </v-btn>
+                    <v-btn
+                        class="error"
+                        @click="deleteOneItem(projectImage._id)"
+                    >
+                        <v-icon icon>
+                            mdi-delete
+                        </v-icon>
+                    </v-btn>
+                </div>
             </div>
-        </transition>
-        <transition :css="false" @enter="enter" @leave="leave">
-            <UpdateImageProject
-                v-if="update === true"
-                :id="id"
-                :update="update"
-                :type="typeUpdate"
-                @closeUpdate="update = $event"
-            />
-        </transition>
+        </div>
+        <UpdateImageProject
+            v-if="update === true"
+            :id="id"
+            :update="update"
+            :type="typeUpdate"
+            @closeUpdate="update = $event"
+        />
     </div>
 </template>
 <script>
 import { mapGetters } from 'vuex'
 import Swal from 'sweetalert2'
 import UpdateImageProject from './UpdateImageProject'
-import { TweenMax } from 'gsap'
 export default {
     components: {
         UpdateImageProject
@@ -69,46 +109,20 @@ export default {
         ...mapGetters({
             projectItem: 'projetImage/projectItem'
         }),
+        sortProjectItem() {
+            const yo = this.projectItem
+            return yo.sort((v1, v2) => v1.placement - v2.placement)
+        },
         titrePage() {
             return this.$route.params.id
         }
     },
     methods: {
-        enter(el, done) {
-            TweenMax.fromTo(
-                el,
-                0.5,
-                {
-                    opacity: '0',
-                    display: 'none'
-                },
-                {
-                    delay: 0.5,
-                    opacity: '1',
-                    ease: 'sine.out',
-                    display: 'block',
-                    onComplete: () => {
-                        done()
-                    }
-                },
-                0.1
-            )
-        },
-        leave(el, done) {
-            TweenMax.fromTo(
-                el,
-                0.5,
-                {
-                    opacity: '1'
-                },
-                {
-                    opacity: '0',
-                    ease: 'sine.in',
-                    onComplete: () => {
-                        done()
-                    }
-                }
-            )
+        topOrBottom(topOrBottom, id) {
+            this.$store.dispatch('projetImage/updatePlacement', {
+                arg1: id,
+                arg2: topOrBottom
+            })
         },
         goTo(page) {
             $nuxt._router.push(`${page}`)
@@ -142,18 +156,50 @@ export default {
 }
 </script>
 <style lang="scss">
-.actions {
-    margin: 10px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
 .card-image {
-    width: 50vw;
-    height: 10vh;
+    position: relative;
+    margin: 5vh;
+    padding: 5vh;
+    width: 60vw;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: var(--color-1);
+    .image {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 2vw;
+        img {
+            width: 66%;
+        }
+    }
+    .images_duo {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 2vw;
+        .image1 {
+            width: 33%;
+            img {
+                width: 100%;
+            }
+        }
+        .image2 {
+            width: 33%;
+            img {
+                width: 100%;
+            }
+        }
+    }
+    .change_index {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+    }
 }
 </style>
