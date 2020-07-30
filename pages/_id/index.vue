@@ -58,7 +58,7 @@
         </div>
         <div class="serie-gallery">
             <div
-                v-for="image in projectItemImage"
+                v-for="image in sortProjectItem"
                 :key="image._id"
                 class="gallery-item"
                 :class="image.type"
@@ -112,7 +112,11 @@ export default {
             loader: 'loader',
             projectItemImage: 'projetImage/projectItem',
             projectItem: 'projetImage/projectItem1'
-        })
+        }),
+        sortProjectItem() {
+            const yo = this.projectItemImage
+            return yo.sort((v1, v2) => v1.placement - v2.placement)
+        }
     },
     watch: {
         isVisible1() {
@@ -511,424 +515,220 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (min-width: 500px) {
-    .chevron-down-svg {
-        width: 32px;
-        height: 32px;
-        cursor: pointer;
-        color: black;
-        transition: 0.5s ease-in-out;
-    }
-    .serie-wrapper {
-        margin: auto;
-        display: flex;
-        justify-content: space-between;
+.chevron-down-svg {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    color: black;
+    transition: 0.5s ease-in-out;
+}
+.serie-wrapper {
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 3;
+    .serie-image {
+        height: 100vh;
+        width: 70.69555302166477vh;
         position: relative;
-        z-index: 3;
-        .serie-image {
-            height: 100vh;
-            width: 70.69555302166477vh;
-            position: relative;
-            top: 0;
-            left: 0;
-            display: flex;
-            opacity: 0;
-            pointer-events: none;
-            .image-mask {
-                background-color: #fcf9f5;
-                position: absolute;
-                transform: scaleY(1);
-                top: -2px;
-                width: 100%;
-                height: 100%;
-                display: block;
-                z-index: 2;
-            }
-            img {
-                opacity: 0.94;
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                object-fit: cover;
-                object-position: 0% 50%;
-            }
+        top: 0;
+        left: 0;
+        display: flex;
+        opacity: 0;
+        pointer-events: none;
+        .image-mask {
+            background-color: #fcf9f5;
+            position: absolute;
+            transform: scaleY(1);
+            top: -2px;
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 2;
         }
-        .serie-content {
-            position: relative;
-            opacity: 0;
-            display: flex;
-            justify-content: flex-start;
-            color: black;
-            top: 20vh;
-            width: 55vw;
-            height: 80vh;
+        img {
+            opacity: 0.94;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            object-fit: cover;
+            object-position: 0% 50%;
+        }
+    }
+    .serie-content {
+        position: relative;
+        opacity: 0;
+        display: flex;
+        justify-content: flex-start;
+        color: black;
+        top: 20vh;
+        width: 55vw;
+        height: 80vh;
 
-            .serie-right {
-                display: flex;
-                flex-direction: column;
-                .content-text {
-                    .back {
-                        text-decoration: none;
-                        color: black;
-                        font-weight: bold;
-                        text-transform: uppercase;
+        .serie-right {
+            display: flex;
+            flex-direction: column;
+            .content-text {
+                .back {
+                    text-decoration: none;
+                    color: black;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    font-family: 'Montserrat', sans-serif;
+                    font-size: 0.875vw;
+                    line-height: normal;
+                    letter-spacing: 0;
+                    line-height: 1.875vw;
+                    letter-spacing: 0.125vw;
+                }
+                .serie-titre {
+                    flex-direction: column;
+                    max-width: 50vw;
+                    margin-top: 3vw;
+                    z-index: 2;
+                    .titre {
+                        font-family: 'Playfair Display', serif;
+                        font-size: 5vw;
+                        line-height: normal;
+                        letter-spacing: 0;
+                    }
+                    .date {
                         font-family: 'Montserrat', sans-serif;
                         font-size: 0.875vw;
                         line-height: normal;
                         letter-spacing: 0;
-                        line-height: 1.875vw;
+                        margin-top: 1vw;
                         letter-spacing: 0.125vw;
-                    }
-                    .serie-titre {
-                        flex-direction: column;
-                        max-width: 50vw;
-                        margin-top: 3vw;
-                        z-index: 2;
-                        .titre {
-                            font-family: 'Playfair Display', serif;
-                            font-size: 5vw;
-                            line-height: normal;
-                            letter-spacing: 0;
+                        line-height: 1.875vw;
+                        p {
+                            box-sizing: border-box;
+                            color: #121212;
+                            .copyright {
+                                font-size: 1.25vw;
+                                line-height: normal;
+                                letter-spacing: 0;
+                                position: relative;
+                                top: 0.125vw;
+                                padding-right: 0.625vw;
+                            }
                         }
-                        .date {
+                    }
+                }
+                .serie-info {
+                    display: flex;
+                    justify-content: space-between;
+                    max-width: 30vw;
+                    margin-top: 3vw;
+                    z-index: 2;
+                    width: 100%;
+                    .serie-info-description {
+                        span {
+                            font-weight: bold;
+                            display: block;
                             font-family: 'Montserrat', sans-serif;
                             font-size: 0.875vw;
                             line-height: normal;
                             letter-spacing: 0;
-                            margin-top: 1vw;
+                            line-height: 1.3125vw;
                             letter-spacing: 0.125vw;
+                            text-transform: uppercase;
+                            margin-bottom: 0.45vw;
+                        }
+                        p {
+                            white-space: pre-line;
+                            font-family: 'Montserrat', sans-serif;
+                            font-size: 1vw;
+                            line-height: normal;
+                            letter-spacing: 0;
                             line-height: 1.875vw;
-                            p {
-                                box-sizing: border-box;
-                                color: #121212;
-                                .copyright {
-                                    font-size: 1.25vw;
-                                    line-height: normal;
-                                    letter-spacing: 0;
-                                    position: relative;
-                                    top: 0.125vw;
-                                    padding-right: 0.625vw;
-                                }
-                            }
                         }
                     }
-                    .serie-info {
-                        display: flex;
-                        justify-content: space-between;
-                        max-width: 30vw;
-                        margin-top: 3vw;
-                        z-index: 2;
-                        width: 100%;
-                        .serie-info-description {
-                            span {
-                                font-weight: bold;
-                                display: block;
-                                font-family: 'Montserrat', sans-serif;
-                                font-size: 0.875vw;
-                                line-height: normal;
-                                letter-spacing: 0;
-                                line-height: 1.3125vw;
-                                letter-spacing: 0.125vw;
-                                text-transform: uppercase;
-                                margin-bottom: 0.45vw;
-                            }
-                            p {
-                                word-wrap: break-word;
-                                font-family: 'Montserrat', sans-serif;
-                                font-size: 1vw;
-                                line-height: normal;
-                                letter-spacing: 0;
-                                line-height: 1.875vw;
-                            }
-                        }
-                    }
-                    .cache-texte {
-                        position: absolute;
-                        bottom: -10vh;
-                        background-color: #fcf9f5;
-                        opacity: 0.9;
-                        z-index: 1;
-                        width: 30vw;
-                        height: 18vh;
-                    }
-                    .chevron-down {
-                        position: absolute;
-                        bottom: 0;
-                        z-index: 2;
-                    }
                 }
-            }
-        }
-    }
-    .serie-gallery {
-        max-width: 80vw;
-        left: 10vw;
-        position: relative;
-        opacity: 1;
-        .gallery-item.duo {
-            margin-top: 13.438vw;
-            margin-bottom: 12.5vw;
-            display: flex;
-            justify-content: space-around;
-            height: 50vw;
-            width: 100%;
-            .relative-container-first {
-                position: relative;
-                max-width: 100%;
-                width: 100%;
-                overflow: hidden;
-                img {
-                    height: 100%;
+                .cache-texte {
+                    position: absolute;
+                    bottom: -10vh;
+                    background-color: #fcf9f5;
+                    opacity: 0.9;
+                    z-index: 1;
+                    width: 30vw;
+                    height: 18vh;
                 }
-            }
-            .relative-container-second {
-                position: relative;
-                max-width: 100%;
-                width: 100%;
-                transform: translateY(50px);
-                overflow: hidden;
-                img {
-                    height: 100%;
-                }
-            }
-        }
-        .gallery-item.paysage {
-            margin-top: 13.438vw;
-            margin-bottom: 12.5vw;
-            display: flex;
-            justify-content: center;
-            width: 100%;
-            .relative-container-first {
-                position: relative;
-                display: flex;
-                justify-content: center;
-                max-width: 100%;
-                width: 100%;
-                overflow: hidden;
-                img {
-                    max-width: 60vw;
-                }
-            }
-        }
-        .gallery-item.portrait {
-            margin-top: 13.438vw;
-            margin-bottom: 12.5vw;
-            display: flex;
-            justify-content: center;
-            height: 50vw;
-            width: 100%;
-            .relative-container-first {
-                position: relative;
-                display: flex;
-                justify-content: center;
-                max-width: 100%;
-                width: 100%;
-                overflow: hidden;
-                img {
-                    height: 100%;
+                .chevron-down {
+                    position: absolute;
+                    bottom: 0;
+                    z-index: 2;
                 }
             }
         }
     }
 }
-@media screen and (max-width: 500px) {
-    .serie-wrapper {
-        margin: auto;
+.serie-gallery {
+    max-width: 80vw;
+    left: 10vw;
+    position: relative;
+    opacity: 1;
+    .gallery-item.duo {
+        margin-top: 13.438vw;
+        margin-bottom: 12.5vw;
         display: flex;
-        justify-content: space-between;
-        position: relative;
-        z-index: 3;
-        .serie-image {
-            height: 100vh;
-            width: 70.69555302166477vh;
+        justify-content: space-around;
+        height: 50vw;
+        width: 100%;
+        .relative-container-first {
             position: relative;
-            top: 0;
-            left: 0;
-            display: flex;
-            opacity: 0;
-            pointer-events: none;
-            .image-mask {
-                background-color: #fcf9f5;
-                position: absolute;
-                transform: scaleY(1);
-                top: -2px;
-                width: 100%;
-                height: 100%;
-                display: block;
-                z-index: 2;
-            }
+            max-width: 100%;
+            width: 100%;
+            overflow: hidden;
             img {
-                opacity: 0.94;
-                width: 100%;
                 height: 100%;
-                position: absolute;
-                object-fit: cover;
-                object-position: 0% 50%;
             }
         }
-        .serie-content {
+        .relative-container-second {
             position: relative;
-            opacity: 0;
-            display: flex;
-            justify-content: flex-start;
-            color: black;
-            top: 20vh;
-            width: 55vw;
-            height: 80vh;
-
-            .serie-right {
-                display: flex;
-                flex-direction: column;
-                .content-text {
-                    .back {
-                        text-decoration: none;
-                        color: black;
-                        font-weight: bold;
-                        text-transform: uppercase;
-                        font-family: 'Montserrat', sans-serif;
-                        font-size: 0.875vw;
-                        line-height: normal;
-                        letter-spacing: 0;
-                        line-height: 1.875vw;
-                        letter-spacing: 0.125vw;
-                    }
-                    .serie-titre {
-                        flex-direction: column;
-                        max-width: 50vw;
-                        margin-top: 3vw;
-                        z-index: 2;
-                        .titre {
-                            font-family: 'Playfair Display', serif;
-                            font-size: 5vw;
-                            line-height: normal;
-                            letter-spacing: 0;
-                        }
-                        .date {
-                            font-family: 'Montserrat', sans-serif;
-                            font-size: 0.875vw;
-                            line-height: normal;
-                            letter-spacing: 0;
-                            margin-top: 1vw;
-                            letter-spacing: 0.125vw;
-                            line-height: 1.875vw;
-                            p {
-                                box-sizing: border-box;
-                                color: #121212;
-                                .copyright {
-                                    font-size: 1.25vw;
-                                    line-height: normal;
-                                    letter-spacing: 0;
-                                    position: relative;
-                                    top: 0.125vw;
-                                    padding-right: 0.625vw;
-                                }
-                            }
-                        }
-                    }
-                    .serie-info {
-                        display: flex;
-                        justify-content: space-between;
-                        max-width: 30vw;
-                        margin-top: 3vw;
-                        z-index: 2;
-                        width: 100%;
-                        .serie-info-description {
-                            span {
-                                font-weight: bold;
-                                display: block;
-                                font-family: 'Montserrat', sans-serif;
-                                font-size: 0.875vw;
-                                line-height: normal;
-                                letter-spacing: 0;
-                                line-height: 1.3125vw;
-                                letter-spacing: 0.125vw;
-                                text-transform: uppercase;
-                                margin-bottom: 0.45vw;
-                            }
-                            p {
-                                font-family: 'Montserrat', sans-serif;
-                                font-size: 1vw;
-                                line-height: normal;
-                                letter-spacing: 0;
-                                line-height: 1.875vw;
-                            }
-                        }
-                    }
-                    .chevron-down {
-                        position: absolute;
-                        bottom: 0;
-                    }
-                }
+            max-width: 100%;
+            width: 100%;
+            transform: translateY(50px);
+            overflow: hidden;
+            img {
+                height: 100%;
             }
         }
     }
-    .serie-gallery {
-        max-width: 80vw;
-        left: 10vw;
-        position: relative;
-        opacity: 1;
-        .gallery-item.duo {
-            margin-top: 13.438vw;
-            margin-bottom: 12.5vw;
-            display: flex;
-            justify-content: space-around;
-            height: 50vw;
-            width: 100%;
-            .relative-container-first {
-                position: relative;
-                max-width: 100%;
-                width: 100%;
-                overflow: hidden;
-                img {
-                    height: 100%;
-                }
-            }
-            .relative-container-second {
-                position: relative;
-                max-width: 100%;
-                width: 100%;
-                transform: translateY(50px);
-                overflow: hidden;
-                img {
-                    height: 100%;
-                }
-            }
-        }
-        .gallery-item.paysage {
-            margin-top: 13.438vw;
-            margin-bottom: 12.5vw;
+    .gallery-item.paysage {
+        margin-top: 13.438vw;
+        margin-bottom: 12.5vw;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        .relative-container-first {
+            position: relative;
             display: flex;
             justify-content: center;
+            max-width: 100%;
             width: 100%;
-            .relative-container-first {
-                position: relative;
-                display: flex;
-                justify-content: center;
-                max-width: 100%;
-                width: 100%;
-                overflow: hidden;
-                img {
-                    max-width: 60vw;
-                }
+            overflow: hidden;
+            img {
+                max-width: 60vw;
             }
         }
-        .gallery-item.portrait {
-            margin-top: 13.438vw;
-            margin-bottom: 12.5vw;
+    }
+    .gallery-item.portrait {
+        margin-top: 13.438vw;
+        margin-bottom: 12.5vw;
+        display: flex;
+        justify-content: center;
+        height: 50vw;
+        width: 100%;
+        .relative-container-first {
+            position: relative;
             display: flex;
             justify-content: center;
-            height: 50vw;
+            max-width: 100%;
             width: 100%;
-            .relative-container-first {
-                position: relative;
-                display: flex;
-                justify-content: center;
-                max-width: 100%;
-                width: 100%;
-                overflow: hidden;
-                img {
-                    height: 100%;
-                }
+            overflow: hidden;
+            img {
+                height: 100%;
             }
         }
     }

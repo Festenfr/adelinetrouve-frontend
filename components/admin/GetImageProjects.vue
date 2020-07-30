@@ -2,9 +2,8 @@
     <div>
         <div v-if="update === false">
             <div
-                v-for="projectImage in sortProjectItem"
+                v-for="(projectImage, index) in sortProjectItem"
                 :key="projectImage._id"
-                :data-index="projectImage.placement"
                 class="card-image"
             >
                 <div v-if="projectImage.type !== 'duo'" class="image">
@@ -26,7 +25,7 @@
                 </div>
                 <div class="change_index">
                     <v-btn
-                        v-if="projectImage.placement > 0"
+                        v-if="index !== 0"
                         icon
                         fab
                         small
@@ -37,11 +36,9 @@
                         </v-icon>
                     </v-btn>
 
-                    {{ projectImage.placement + 1 }}
+                    {{ index + 1 }}
                     <v-btn
-                        v-if="
-                            projectImage.placement < sortProjectItem.length - 1
-                        "
+                        v-if="index !== sortProjectItem.length - 1"
                         icon
                         fab
                         small
@@ -113,15 +110,18 @@ export default {
             const yo = this.projectItem
             return yo.sort((v1, v2) => v1.placement - v2.placement)
         },
+
         titrePage() {
             return this.$route.params.id
         }
     },
     methods: {
         topOrBottom(topOrBottom, id) {
+            let titreWithSpace = this.titrePage.replace(/-/g, ' ')
             this.$store.dispatch('projetImage/updatePlacement', {
                 arg1: id,
-                arg2: topOrBottom
+                arg2: topOrBottom,
+                arg3: titreWithSpace
             })
         },
         goTo(page) {

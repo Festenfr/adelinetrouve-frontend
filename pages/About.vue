@@ -26,10 +26,10 @@
                                     à Bordeaux et d’une licence d’arts
                                     plastiques et science de l’art à la
                                     Sorbonne, a travaillé comme Architecte
-                                    d’Intérieur dans plusieurs agences, cela lui
-                                    a permis, en plus de l’expérience acquise,
-                                    d’affiner les critères de son avenir
-                                    professionnel. <br />
+                                    d’Intérieur dans plusieurs agences ce qui
+                                    lui a permis, en plus de l’expérience
+                                    acquise, d’affiner les critères de son
+                                    avenir professionnel. <br />
                                     <br />
                                     Ce qui la fait vibrer ? Voir le sourire de
                                     ses clients à qui elle livre leur projet de

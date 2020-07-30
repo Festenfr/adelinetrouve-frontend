@@ -96,10 +96,13 @@ export const mutations = {
         state.pageChange = Math.random()
     },
     setPageName(state, path) {
-        if (path === '/') {
-            path = '/index'
+        const yo = path
+
+        let output = yo.replace(/'/g, '-')
+        if (output === '/') {
+            output = '/index'
         }
-        state.pageName = `https://adeline-site-web.s3.eu-west-3.amazonaws.com/page${path}.jpg`
+        state.pageName = `https://adeline-site-web.s3.eu-west-3.amazonaws.com/page${output}.jpg`
     },
     toggleMenu(state) {
         state.isOpen = !state.isOpen

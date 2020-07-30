@@ -35,7 +35,6 @@ router.post('/:titre', isAdmin, upload.array('files'), async (req, res) => {
     if (projetImageLength === -1) {
         projetImageLength = 1
     }
-    console.log(projetImageLength)
     const result = validate(req.body)
     if (result.error)
         return res.status(400).send(result.error.details[0].message)
@@ -171,36 +170,65 @@ router.put('/:titre/:id', isAdmin, upload.array('files'), async (req, res) => {
         res.status(422).json({ err })
     }
 })
-router.put('/placement/:id/:topOrBottom', isAdmin, async (req, res) => {
+router.put('/placement/:id/:topOrBottom/:titre', isAdmin, async (req, res) => {
+    let projet = await Projet.findOne({ titre: req.params.titre })
+    let images = await ProjetImage.find({ ref: projet._id })
     let projetImage = await ProjetImage.findOne({ _id: req.params.id })
-
+    if (!projet)
+        return res
+            .status(404)
+            .send("le Projet que tu veux déplacer n'existe plus")
+    if (!images)
+        return res
+            .status(404)
+            .send("le Projet que tu veux déplacer n'existe plus")
     if (!projetImage)
         return res
             .status(404)
             .send("le Projet que tu veux déplacer n'existe plus")
+
+    let sortArray = images.map((el) => el.placement).sort((a, b) => a - b)
+
+    let filterArrayLower = sortArray.filter((el) => el < projetImage.placement)
+    const index = filterArrayLower.indexOf(projetImage.placement)
+    if (index > -1) return filterArrayLower.splice(index, 1)
+    let lowerValue = filterArrayLower[filterArrayLower.length - 1]
+
+    let filterArraySup = sortArray.filter((el) => el > projetImage.placement)
+    const index2 = filterArraySup.indexOf(projetImage.placement)
+    if (index2 > -1) return filterArraySup.splice(index2, 1)
+    let superiorValue = filterArraySup[0]
+
+    function getObjectByValue(arr, value) {
+        for (var i = 0, iLen = arr.length; i < iLen; i++) {
+            if (arr[i].placement == value) {
+                return arr[i]
+            }
+        }
+    }
+    //
+
     if (req.params.topOrBottom === 'isTop') {
-        let projetImageTop = await ProjetImage.findOne({
-            placement: projetImage.placement - 1
-        })
-        projetImage.placement = projetImage.placement - 1
-        projetImageTop.placement = projetImageTop.placement + 1
+        let projetImageTop = getObjectByValue(images, lowerValue)
+        let tamponValue = projetImage.placement
+        projetImage.placement = projetImageTop.placement
+        projetImageTop.placement = tamponValue
         projetImage = await projetImage.save()
         projetImageTop = await projetImageTop.save()
         res.status(200).json({
             clickImage: projetImage,
-            SideImage: projetImageTop
+            sideImage: projetImageTop
         })
     } else if (req.params.topOrBottom === 'isBottom') {
-        let projetImageBottom = await ProjetImage.findOne({
-            placement: projetImage.placement + 1
-        })
-        projetImage.placement = projetImage.placement + 1
-        projetImageBottom.placement = projetImageBottom.placement - 1
+        let projetImageBottom = getObjectByValue(images, superiorValue)
+        let tamponValue = projetImage.placement
+        projetImage.placement = projetImageBottom.placement
+        projetImageBottom.placement = tamponValue
         projetImage = await projetImage.save()
         projetImageBottom = await projetImageBottom.save()
         res.status(200).json({
             clickImage: projetImage,
-            SideImage: projetImageBottom
+            sideImage: projetImageBottom
         })
     }
 })

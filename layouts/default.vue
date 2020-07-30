@@ -129,12 +129,10 @@ export default {
                         )
                     }
                 }
-            }, 0.01)
+            }, 0.1)
         },
         isAdminOrClient() {
-            console.log('yoyo')
             this.onLoad()
-            console.log(this.isAdminOrClient)
         }
     },
     created() {
@@ -154,15 +152,8 @@ export default {
     },
     mounted() {
         if (
-            this.$route.path === '/admin' ||
-            this.$route.path === '/admin/projet' ||
-            this.$route.path === '/admin/client' ||
-            this.$route.path === '/admin/parametre' ||
-            this.$route.path === '/client' ||
-            this.$route.path === '/client/Plans' ||
-            this.$route.path === '/client/maquette' ||
-            this.$route.path === '/client/Rendus' ||
-            this.$route.path === '/client/shoppingList'
+            this.$route.matched[0].path === '/admin' ||
+            this.$route.matched[0].path === '/cleint'
         ) {
             this.isAdminOrClient = true
         } else {

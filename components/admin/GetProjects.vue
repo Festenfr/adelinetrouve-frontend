@@ -102,7 +102,7 @@
                                                     item.titre,
                                                     item.description,
                                                     item.surface,
-                                                    item.bujget,
+                                                    item.budget,
                                                     item.date
                                                 )
                                             "
@@ -165,7 +165,7 @@
                 :update="update"
                 :titre="titreUpdate"
                 :description="descriptionUpdate"
-                :bujget="bujgetUpdate"
+                :budget="budgetUpdate"
                 :date="dateUpdate"
                 :surface="surfaceUpdate"
                 @closeUpdate="update = $event"
@@ -197,7 +197,7 @@ export default {
             titreUpdate: '',
             descriptionUpdate: '',
             surfaceUpdate: '',
-            bujgetUpdate: '',
+            budgetUpdate: '',
             dateUpdate: '',
             itemsPerPageArray: [3, 6, 9],
             search: '',
@@ -259,13 +259,13 @@ export default {
         goTo(page) {
             $nuxt._router.push(`${page}`)
         },
-        updateOneItem(id, titre, description, surface, bujget, date) {
+        updateOneItem(id, titre, description, surface, budget, date) {
             this.id = id
             this.update = true
             this.titreUpdate = titre
             this.descriptionUpdate = description
             this.surfaceUpdate = surface
-            this.bujgetUpdate = bujget
+            this.budgetUpdate = budget
             this.dateUpdate = date
         },
         nextPage() {

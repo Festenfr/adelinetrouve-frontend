@@ -19,14 +19,16 @@ export const mutations = {
         if (index !== -1) state.projectItem.splice(index, 1, data)
     },
     moveItem(state, data) {
-        const index = state.projectItem.findIndex(
+        let index = state.projectItem.findIndex(
             (item) => item._id === data.clickImage._id
         )
+        console.log(index)
         if (index !== -1) state.projectItem.splice(index, 1, data.clickImage)
-        const index2 = state.projectItem.findIndex(
-            (item) => item._id === data.SideImage._id
+        let index2 = state.projectItem.findIndex(
+            (item) => item._id === data.sideImage._id
         )
-        if (index2 !== -1) state.projectItem.splice(index2, 1, data.SideImage)
+        console.log(index2)
+        if (index2 !== -1) state.projectItem.splice(index2, 1, data.sideImage)
     },
     removeItem: (state, id) => {
         const index = state.projectItem.findIndex((item) => item._id === id)
@@ -95,10 +97,10 @@ export const actions = {
             rootState.message = err.response.data
         }
     },
-    async updatePlacement({ commit, rootState }, { arg1, arg2 }) {
+    async updatePlacement({ commit, rootState }, { arg1, arg2, arg3 }) {
         try {
             const { data } = await this.$axios.put(
-                `/projetImage/placement/${arg1}/${arg2}`
+                `/projetImage/placement/${arg1}/${arg2}/${arg3}`
             )
             commit('moveItem', data)
 
