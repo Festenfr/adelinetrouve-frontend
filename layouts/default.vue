@@ -27,8 +27,10 @@
             :class="[dark ? 'theme-dark' : 'theme-light']"
             style="z-index:155; position: fixed; height:100vh;"
         >
-            <NavAdmin></NavAdmin>
-            <DarkToLight></DarkToLight>
+            <v-app id="little_app">
+                <NavAdmin></NavAdmin>
+                <DarkToLight></DarkToLight>
+            </v-app>
         </div>
 
         <RondBlanc v-if="isAdminOrClient === false" style="z-index:5" />
@@ -84,6 +86,21 @@ export default {
                     this.$route.matched[0].path === '/cleint'
                 ) {
                     this.isAdminOrClient = true
+                    TweenLite.fromTo(
+                        '.dark_to_light',
+                        1,
+                        {
+                            display: 'none',
+                            y: '10vh',
+                            opacity: 0
+                        },
+                        {
+                            display: 'block',
+                            opacity: 1,
+                            y: '0vh',
+                            ease: 'sine.Out'
+                        }
+                    )
                 } else {
                     this.isAdminOrClient = false
                     this.setPageName(this.$route.path)
@@ -203,6 +220,19 @@ export default {
                     }
                 )
             }
+            TweenLite.fromTo(
+                '.about-issue',
+                0.7,
+                {
+                    display: 'none',
+                    opacity: 0
+                },
+                {
+                    opacity: 1,
+                    display: 'block',
+                    ease: 'linear'
+                }
+            )
 
             TweenLite.set(this.scroller.target, {})
             this.html = document.documentElement

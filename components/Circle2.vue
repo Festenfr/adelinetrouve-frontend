@@ -40,18 +40,6 @@ export default {
         Pen
     },
     mounted() {
-        TweenMax.fromTo(
-            '.about-issue',
-            4,
-            {
-                visibility: 'visible',
-                opacity: 0
-            },
-            {
-                opacity: 1,
-                ease: 'linear'
-            }
-        )
         TweenMax.to('.circle', 60, {
             rotation: 360,
             ease: 'linear'
@@ -61,6 +49,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .about-issue {
+    display: none;
     position: fixed;
     bottom: 2vw;
     left: 2vw;

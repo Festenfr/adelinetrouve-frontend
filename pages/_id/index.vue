@@ -1,5 +1,5 @@
 <template>
-    <div ref="serie" class="page serie ">
+    <div ref="serie" v-scroll="handleScroll" class="page serie ">
         <Nav />
         <div class="serie-wrapper">
             <div class="serie-image">
@@ -39,7 +39,10 @@
                             </div>
                         </div>
                         <div class="cache-texte"></div>
-                        <a class="chevron-down">
+                        <a
+                            :class="[show ? 'opaque' : 'nonopaque']"
+                            class="chevron-down"
+                        >
                             <svg
                                 v-scroll-to="'.serie-gallery'"
                                 style="width:32px;height:32px"
@@ -96,7 +99,6 @@ export default {
         await this.$store.dispatch('projetImage/fetchProjectsItem1', {
             titre: this.$route.params.id.replace(/-/g, ' ')
         })
-        this.getIndex()
     },
     data() {
         return {
@@ -104,7 +106,9 @@ export default {
             isVisible2: false,
             images: '',
             indexMin1: 0,
-            indexMin2: 1
+            indexMin2: 1,
+            scroll: '',
+            show: true
         }
     },
     computed: {
@@ -306,6 +310,9 @@ export default {
         }
     },
     mounted() {
+        if (this.projectItemImage !== 'undefined') {
+            this.getIndex()
+        }
         this.createCursor()
         this.IsWhite()
         function enterPage() {
@@ -393,16 +400,37 @@ export default {
             body.style.height = this.$refs.serie.clientHeight + 'px'
             body.style.backgroundColor = '#fcf9f5'
         }, 1200)
-
-        // const cacheTexte = document
-        //     .querySelector('.cache-texte')
-        //     .getBoundingClientRect()
     },
     methods: {
+        handleScroll() {
+            this.scroll = window.scrollY
+            if (this.scroll <= 50) {
+                this.show = true
+            } else {
+                this.show = false
+            }
+        },
         getIndex() {
             if (typeof document !== 'undefined') {
                 this.images = document.querySelectorAll('.image')
-
+                let cacheTexte = document
+                    .querySelector('.cache-texte')
+                    .getBoundingClientRect()
+                document.querySelector('.cache-texte').style.opacity = 0.9
+                console.log(window.innerHeight - cacheTexte.top)
+                if (
+                    window.innerHeight - cacheTexte.top <
+                    window.innerHeight / 1.5
+                ) {
+                    document.querySelector('.cache-texte').style.opacity = 0.9
+                    let translate = (1.8 * window.innerHeight) / cacheTexte.top
+                    TweenLite.to('.cache-texte', 0.25, {
+                        y: translate + 'vw',
+                        ease: 'none'
+                    })
+                } else {
+                    document.querySelector('.cache-texte').style.opacity = 0
+                }
                 let rect = []
                 this.images.forEach((el) => {
                     rect.push(el.getBoundingClientRect())
@@ -504,7 +532,7 @@ export default {
                     }
                 }
             }
-            requestAnimationFrame(this.getIndex)
+            window.requestAnimationFrame(this.getIndex)
         },
         ...mapMutations({
             createCursor: 'createCursor',
@@ -515,6 +543,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.opaque {
+    opacity: 1;
+    transform: translateY(0px);
+    transition: 0.5s ease-out;
+}
+.nonopaque {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: 0.5s ease-out;
+}
 .chevron-down-svg {
     width: 32px;
     height: 32px;

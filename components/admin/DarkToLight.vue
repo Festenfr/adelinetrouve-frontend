@@ -27,4 +27,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss">
+.dark_to_light {
+    display: none;
+}
+</style>
