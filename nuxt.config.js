@@ -53,13 +53,24 @@ export default {
         { src: '@/plugins/interceptors', ssr: false }
     ],
     robots: {
-        UserAgent: '****',
-        Disallow: '/admin/**'
+        UserAgent: '*',
+        Disallow: ['/admin', '/client']
     },
     sitemap: {
         hostname: 'https://www.adelinetrouve.com',
         gzip: true,
-        exclude: ['/admin/**']
+        exclude: ['/admin', '/client'],
+        routes: [
+            '/',
+            '/about',
+            '/login',
+            '/contact',
+            '/Histoire-contemporaine',
+            "/De-nuit-et--d'eau-!",
+            'Couleur-de-Terre',
+            "/De-l'industriel-au-particulier",
+            '/Lumière-et-transparence'
+        ]
     },
     pwa: {
         manifest: {
@@ -72,9 +83,9 @@ export default {
             name: 'adeline trouvé',
             author: 'Wesley Dorsey',
             description:
-                "Architecte et designer d'intérieur sur  pour particuliers ou professionnels, réalisation de plans, maquette 3d, rendus dernière génération",
+                "Architecte d'intérieur pour particuliers ou professionnels, réalisation de plans, maquette 3d, rendu graphique denier cri, ainsi que le suivi du chantier",
             ogDescription:
-                "Architecte et designer d'intérieur sur  pour particuliers ou professionnels, réalisation de plans, maquette 3d, rendus dernière génération",
+                "Architecte d'intérieur pour particuliers ou professionnels, réalisation de plans, maquette 3d, rendu graphique denier cri, ainsi que le suivi du chantier",
             lang: 'fr'
         }
     },

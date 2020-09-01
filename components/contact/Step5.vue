@@ -172,7 +172,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .wrapper {
     position: relative;
     top: 15vw;

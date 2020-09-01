@@ -12,107 +12,16 @@ import AllProjects from '../components/AllProjects'
 import { TweenLite } from 'gsap/all'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
+    name: 'Accueil',
     components: {
         Carousel,
         AllProjects
-    },
-    transition: {
-        css: false,
-        mode: 'out-in',
-        enter(el, done) {
-            done()
-        },
-        leave(el, done) {
-            TweenLite.fromTo(
-                '.about-issue',
-                0.6,
-                {
-                    opacity: '1'
-                },
-                {
-                    opacity: 0,
-                    ease: 'linear'
-                }
-            )
-            TweenLite.fromTo(
-                '.series-info',
-                0.8,
-                {
-                    opacity: '1',
-                    y: 0
-                },
-                {
-                    opacity: '0',
-                    y: 100,
-                    ease: 'sine.Out'
-                }
-            )
-            TweenLite.fromTo(
-                '.slider-nav',
-                0.8,
-                {
-                    opacity: '1',
-                    y: 0
-                },
-                {
-                    opacity: '0',
-                    y: 50,
-                    ease: 'sine.Out'
-                }
-            )
-            TweenLite.fromTo(
-                '.chevron-down',
-                0.8,
-                {
-                    opacity: '1',
-                    y: 0
-                },
-                {
-                    opacity: '0',
-                    y: 20,
-                    ease: 'sine.Out'
-                }
-            )
-            TweenLite.fromTo(
-                '.nav',
-                0.8,
-                {
-                    opacity: '1',
-                    y: 0
-                },
-                {
-                    opacity: '0',
-                    y: 50,
-                    ease: 'sine.Out',
-                    delay: 0.4
-                }
-            )
-            TweenLite.to('.image-mask', 0.5, {
-                visibility: 'visible',
-                scaleY: 1,
-                ease: 'sine.Out',
-                transformOrigin: '-1% -1%'
-            })
-            TweenLite.to('.image-mask2', 1.2, {
-                visibility: 'visible',
-                scaleY: 1,
-                ease: 'sine.Out',
-                transformOrigin: '-1% -1%',
-                onComplete: done
-            })
-            TweenLite.to('.container2', 1.2, {
-                visibility: 'visible',
-                opacity: 0,
-                ease: 'sine.Out'
-            })
-        }
     },
     data() {
         return {
             cursor: ''
         }
     },
-
     computed: {
         ...mapGetters({
             loader: 'loader'
@@ -242,6 +151,109 @@ export default {
             IsWhite: 'IsWhite',
             createCursor: 'createCursor'
         })
+    },
+    head() {
+        return {
+            title: 'Accueil Adeline trouvé',
+            meta: [
+                {
+                    hid: 'Belletazar Perruche à collier',
+                    name: 'description',
+                    content: `Passioné et diplomé en architecture d'intérieur et design d'espace, adeline trouvé propose ses services de rénovations et de décorations pour particuliers et professionnels`
+                }
+            ]
+        }
+    },
+    transition: {
+        css: false,
+        mode: 'out-in',
+        enter(el, done) {
+            done()
+        },
+        leave(el, done) {
+            TweenLite.fromTo(
+                '.about-issue',
+                0.6,
+                {
+                    opacity: '1'
+                },
+                {
+                    opacity: 0,
+                    ease: 'linear'
+                }
+            )
+            TweenLite.fromTo(
+                '.series-info',
+                0.8,
+                {
+                    opacity: '1',
+                    y: 0
+                },
+                {
+                    opacity: '0',
+                    y: 100,
+                    ease: 'sine.Out'
+                }
+            )
+            TweenLite.fromTo(
+                '.slider-nav',
+                0.8,
+                {
+                    opacity: '1',
+                    y: 0
+                },
+                {
+                    opacity: '0',
+                    y: 50,
+                    ease: 'sine.Out'
+                }
+            )
+            TweenLite.fromTo(
+                '.chevron-down',
+                0.8,
+                {
+                    opacity: '1',
+                    y: 0
+                },
+                {
+                    opacity: '0',
+                    y: 20,
+                    ease: 'sine.Out'
+                }
+            )
+            TweenLite.fromTo(
+                '.nav',
+                0.8,
+                {
+                    opacity: '1',
+                    y: 0
+                },
+                {
+                    opacity: '0',
+                    y: 50,
+                    ease: 'sine.Out',
+                    delay: 0.4
+                }
+            )
+            TweenLite.to('.image-mask', 0.5, {
+                visibility: 'visible',
+                scaleY: 1,
+                ease: 'sine.Out',
+                transformOrigin: '-1% -1%'
+            })
+            TweenLite.to('.image-mask2', 1.2, {
+                visibility: 'visible',
+                scaleY: 1,
+                ease: 'sine.Out',
+                transformOrigin: '-1% -1%',
+                onComplete: done
+            })
+            TweenLite.to('.container2', 1.2, {
+                visibility: 'visible',
+                opacity: 0,
+                ease: 'sine.Out'
+            })
+        }
     }
 }
 </script>

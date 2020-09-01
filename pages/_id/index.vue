@@ -80,15 +80,43 @@
                 </div>
             </div>
         </div>
+        <div class="serie_footer">
+            <nuxt-link class="serie_previous" to="/Couleur-de-Terre">
+                <div class="back_arrow">
+                    <a class="left">
+                        <CarouselArrow />
+                    </a>
+                    <h3>De nuit et d'eau</h3>
+                </div>
+                <div class="date_serie">
+                    <i>
+                        Juillet 2020
+                    </i>
+                </div>
+            </nuxt-link>
+            <nuxt-link class="serie_next" to="/Couleur-de-Terre">
+                <div class="date_serie">
+                    <i>
+                        Juillet 2020
+                    </i>
+                </div>
+                <div class="onward_arrow">
+                    <h3>De nuit et d'eau</h3>
+                    <a class="right">
+                        <CarouselArrow />
+                    </a>
+                </div>
+            </nuxt-link>
+        </div>
     </div>
 </template>
-
 <script>
 import CarouselArrow from '../../static/CarouselArrow'
 import { TweenLite } from 'gsap/all'
 import '../../directive/scroll'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
+    name: 'Projets',
     components: {
         CarouselArrow
     },
@@ -111,6 +139,7 @@ export default {
             show: true
         }
     },
+
     computed: {
         ...mapGetters({
             loader: 'loader',
@@ -127,11 +156,13 @@ export default {
             if (this.isVisible1 === true) {
                 TweenLite.fromTo(
                     this.images[this.indexMin1],
-                    0.7,
+                    0.5,
                     {
+                        scale: 0.95,
                         opacity: 0
                     },
                     {
+                        scale: 1,
                         opacity: 1,
                         ease: 'sine.Out'
                     }
@@ -142,11 +173,13 @@ export default {
                     ]
                     TweenLite.fromTo(
                         image2,
-                        0.7,
+                        0.5,
                         {
+                            scale: 0.95,
                             opacity: 0
                         },
                         {
+                            scale: 1,
                             opacity: 1,
                             ease: 'sine.Out'
                         }
@@ -155,11 +188,13 @@ export default {
             } else if (this.isVisible1 === false) {
                 TweenLite.fromTo(
                     this.images[this.indexMin1],
-                    0.7,
+                    0.5,
                     {
+                        scale: 1,
                         opacity: 1
                     },
                     {
+                        scale: 0.95,
                         opacity: 0,
                         ease: 'sine.Out'
                     }
@@ -171,11 +206,13 @@ export default {
                     ]
                     TweenLite.fromTo(
                         image2,
-                        0.7,
+                        0.5,
                         {
+                            scale: 1,
                             opacity: 1
                         },
                         {
+                            scale: 0.95,
                             opacity: 0,
                             ease: 'sine.Out'
                         }
@@ -187,11 +224,13 @@ export default {
             if (this.isVisible2 === true) {
                 TweenLite.fromTo(
                     this.images[this.indexMin2],
-                    0.7,
+                    0.5,
                     {
-                        opacity: 0
+                        opacity: 0,
+                        scale: 0.95
                     },
                     {
+                        scale: 1,
                         opacity: 1,
                         ease: 'sine.Out'
                     }
@@ -203,11 +242,13 @@ export default {
                     ]
                     TweenLite.fromTo(
                         image2,
-                        0.7,
+                        0.5,
                         {
+                            scale: 0.95,
                             opacity: 0
                         },
                         {
+                            scale: 1,
                             opacity: 1,
                             ease: 'sine.Out'
                         }
@@ -216,11 +257,13 @@ export default {
             } else if (this.isVisible2 === false) {
                 TweenLite.fromTo(
                     this.images[this.indexMin2],
-                    0.7,
+                    0.5,
                     {
+                        scale: 1,
                         opacity: 1
                     },
                     {
+                        scale: 0.95,
                         opacity: 0,
                         ease: 'sine.Out'
                     }
@@ -231,82 +274,19 @@ export default {
                     ]
                     TweenLite.fromTo(
                         image2,
-                        0.7,
+                        0.5,
                         {
+                            scale: 1,
                             opacity: 1
                         },
                         {
+                            scale: 0.95,
                             opacity: 0,
                             ease: 'sine.Out'
                         }
                     )
                 }
             }
-        }
-    },
-    transition: {
-        css: false,
-        mode: 'out-in',
-        enter(el, done) {
-            done()
-        },
-        leave(el, done) {
-            TweenLite.fromTo(
-                '.about-issue',
-                0.6,
-                {
-                    opacity: '1'
-                },
-                {
-                    opacity: 0,
-                    ease: 'linear'
-                }
-            )
-            TweenLite.fromTo(
-                '.serie-gallery',
-                1.2,
-                {
-                    opacity: '1'
-                },
-                {
-                    opacity: '0',
-                    ease: 'sine.Out'
-                }
-            )
-            TweenLite.fromTo(
-                '.serie-content',
-                0.8,
-                {
-                    opacity: 1,
-                    y: 0
-                },
-                {
-                    opacity: 0,
-                    y: 50,
-                    ease: 'sine.Out'
-                }
-            )
-            TweenLite.to('.image-mask', 1.2, {
-                visibility: 'visible',
-                scaleY: 1,
-                ease: 'sine.Out',
-                transformOrigin: '0% 0%'
-            })
-            TweenLite.fromTo(
-                '.nav',
-                0.8,
-                {
-                    opacity: '1',
-                    y: 0
-                },
-                {
-                    opacity: 0,
-                    y: 50,
-                    ease: 'sine.Out',
-                    delay: 0.4,
-                    onComplete: done
-                }
-            )
         }
     },
     mounted() {
@@ -377,7 +357,7 @@ export default {
             )
             TweenLite.fromTo(
                 '.about-issue',
-                0.7,
+                0.5,
                 {
                     opacity: '0'
                 },
@@ -417,7 +397,6 @@ export default {
                     .querySelector('.cache-texte')
                     .getBoundingClientRect()
                 document.querySelector('.cache-texte').style.opacity = 0.9
-                console.log(window.innerHeight - cacheTexte.top)
                 if (
                     window.innerHeight - cacheTexte.top <
                     window.innerHeight / 1.5
@@ -538,6 +517,83 @@ export default {
             createCursor: 'createCursor',
             IsWhite: 'IsWhite'
         })
+    },
+    head() {
+        return {
+            title: `${this.projectItem.titre}`,
+            meta: [
+                {
+                    hid: `${this.projectItem.titre}`,
+                    name: 'description',
+                    content: `${this.projectItem.description}`
+                }
+            ]
+        }
+    },
+    transition: {
+        css: false,
+        mode: 'out-in',
+        enter(el, done) {
+            done()
+        },
+        leave(el, done) {
+            TweenLite.fromTo(
+                '.about-issue',
+                0.6,
+                {
+                    opacity: '1'
+                },
+                {
+                    opacity: 0,
+                    ease: 'linear'
+                }
+            )
+            TweenLite.fromTo(
+                '.serie-gallery',
+                1.2,
+                {
+                    opacity: '1'
+                },
+                {
+                    opacity: '0',
+                    ease: 'sine.Out'
+                }
+            )
+            TweenLite.fromTo(
+                '.serie-content',
+                0.8,
+                {
+                    opacity: 1,
+                    y: 0
+                },
+                {
+                    opacity: 0,
+                    y: 50,
+                    ease: 'sine.Out'
+                }
+            )
+            TweenLite.to('.image-mask', 1.2, {
+                visibility: 'visible',
+                scaleY: 1,
+                ease: 'sine.Out',
+                transformOrigin: '0% 0%'
+            })
+            TweenLite.fromTo(
+                '.nav',
+                0.8,
+                {
+                    opacity: '1',
+                    y: 0
+                },
+                {
+                    opacity: 0,
+                    y: 50,
+                    ease: 'sine.Out',
+                    delay: 0.4,
+                    onComplete: done
+                }
+            )
+        }
     }
 }
 </script>
@@ -768,6 +824,99 @@ export default {
             img {
                 height: 100%;
             }
+        }
+    }
+}
+.serie_footer {
+    margin-top: 42vh;
+    margin-bottom: 42vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    bottom: 3vh;
+    left: 20vw;
+    width: 60vw;
+    height: 18vh;
+    border-top: 1px solid black;
+    .serie_previous {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 8vh;
+        border-bottom: 1px solid black;
+        .back_arrow {
+            h3 {
+                margin-left: 10px;
+                transition: 0.2s ease-in;
+            }
+            display: flex;
+            .left {
+                text-decoration: none;
+                cursor: pointer;
+                svg {
+                    position: relative;
+                    margin-right: 1.25vw;
+                    width: 1.2vw;
+                    margin-top: 4px;
+                }
+            }
+        }
+        &:hover {
+            .back_arrow {
+                h3 {
+                    margin-left: 0px;
+                    transition: 0.2s ease-in;
+                }
+            }
+        }
+        .date_serie {
+            font-size: 12px;
+        }
+    }
+    .serie_next {
+        text-decoration: none;
+        color: black;
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: 8vh;
+        .onward_arrow {
+            h3 {
+                transition: 0.2s ease-in;
+                margin-right: 10px;
+                text-align: center;
+            }
+            display: flex;
+            .right {
+                text-decoration: none;
+                cursor: pointer;
+                svg {
+                    margin-top: 4px;
+                    position: relative;
+                    margin-left: 1.25vw;
+                    transform: rotate(180deg);
+                    width: 1.2vw;
+                }
+            }
+        }
+        &:hover {
+            .onward_arrow {
+                h3 {
+                    margin-right: 0px;
+                    transition: 0.2s ease-in;
+                }
+            }
+        }
+        .date_serie {
+            font-size: 12px;
         }
     }
 }

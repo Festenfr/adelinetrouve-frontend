@@ -15,6 +15,7 @@ import Cursor from '../modules/cursor'
 import { TweenLite } from 'gsap/all'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
+    name: 'Contact',
     components: {
         StepByStep
     },
@@ -22,76 +23,6 @@ export default {
         ...mapGetters({
             loader: 'loader'
         })
-    },
-    transition: {
-        css: false,
-        mode: 'out-in',
-        enter(el, done) {
-            done()
-        },
-        leave(el, done) {
-            TweenLite.fromTo(
-                '.contact-image',
-                0.6,
-                {
-                    opacity: 1,
-                    y: 0
-                },
-                {
-                    opacity: 0,
-                    y: 50,
-                    ease: 'sine.Out',
-                    delay: 0.2
-                }
-            )
-            TweenLite.to('.image-mask', 1.2, {
-                visibility: 'visible',
-                scaleY: 1,
-                ease: 'sine.Out',
-                transformOrigin: '0px 0%'
-            })
-            TweenLite.fromTo(
-                '.nav',
-                0.8,
-                {
-                    opacity: '1',
-                    y: 0
-                },
-                {
-                    opacity: 0,
-                    y: 50,
-                    ease: 'sine.Out',
-                    delay: 0.4,
-                    onComplete: done
-                }
-            )
-            TweenLite.fromTo(
-                '.contact-nav',
-                0.8,
-                {
-                    opacity: '1',
-                    y: 0
-                },
-                {
-                    opacity: 0,
-                    y: 20,
-                    ease: 'sine.Out',
-                    delay: 0.4
-                }
-            )
-            TweenLite.fromTo(
-                '.about-issue',
-                0.7,
-                {
-                    opacity: '1'
-                },
-                {
-                    delay: 0.4,
-                    opacity: 0,
-                    ease: 'linear'
-                }
-            )
-        }
     },
     mounted() {
         this.IsNotWhite()
@@ -198,6 +129,89 @@ export default {
         ...mapMutations({
             IsNotWhite: 'IsNotWhite'
         })
+    },
+
+    head() {
+        return {
+            name: 'Contact adeline trouvé',
+            meta: [
+                {
+                    hid: 'Contact',
+                    name: 'description',
+                    content: `Soumettez votre projet de rénovation ou décoration pour votre espace intérieur`
+                }
+            ]
+        }
+    },
+    transition: {
+        css: false,
+        mode: 'out-in',
+        enter(el, done) {
+            done()
+        },
+        leave(el, done) {
+            TweenLite.fromTo(
+                '.contact-image',
+                0.6,
+                {
+                    opacity: 1,
+                    y: 0
+                },
+                {
+                    opacity: 0,
+                    y: 50,
+                    ease: 'sine.Out',
+                    delay: 0.2
+                }
+            )
+            TweenLite.to('.image-mask', 1.2, {
+                visibility: 'visible',
+                scaleY: 1,
+                ease: 'sine.Out',
+                transformOrigin: '0px 0%'
+            })
+            TweenLite.fromTo(
+                '.nav',
+                0.8,
+                {
+                    opacity: '1',
+                    y: 0
+                },
+                {
+                    opacity: 0,
+                    y: 50,
+                    ease: 'sine.Out',
+                    delay: 0.4,
+                    onComplete: done
+                }
+            )
+            TweenLite.fromTo(
+                '.contact-nav',
+                0.8,
+                {
+                    opacity: '1',
+                    y: 0
+                },
+                {
+                    opacity: 0,
+                    y: 20,
+                    ease: 'sine.Out',
+                    delay: 0.4
+                }
+            )
+            TweenLite.fromTo(
+                '.about-issue',
+                0.7,
+                {
+                    opacity: '1'
+                },
+                {
+                    delay: 0.4,
+                    opacity: 0,
+                    ease: 'linear'
+                }
+            )
+        }
     }
 }
 </script>

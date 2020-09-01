@@ -115,6 +115,7 @@
 import { TweenLite } from 'gsap/all'
 import { mapGetters, mapMutations } from 'vuex'
 export default {
+    name: 'Contact',
     computed: {
         ...mapGetters({
             loader: 'loader',
@@ -286,6 +287,18 @@ export default {
             createCursor: 'createCursor',
             IsNotWhite: 'IsNotWhite'
         })
+    },
+    head() {
+        return {
+            title: 'About',
+            meta: [
+                {
+                    hid: `à propos d'Adeline Trouvé`,
+                    name: 'description',
+                    content: `Passioné et diplomé en Architecture d'intérieur et design d'espace, adeline trouvé propose ses services de rénovations et de décorations pour particuliers et professionnels`
+                }
+            ]
+        }
     }
 }
 </script>

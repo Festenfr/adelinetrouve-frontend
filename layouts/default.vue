@@ -168,6 +168,7 @@ export default {
         }
     },
     mounted() {
+        console.log(this.$nuxt.$router)
         if (
             this.$route.matched[0].path === '/admin' ||
             this.$route.matched[0].path === '/cleint'

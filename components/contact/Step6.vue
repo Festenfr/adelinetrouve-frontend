@@ -16,12 +16,14 @@
 export default {}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .wrapper {
+    position: relative;
+    top: 15vw;
     height: 65%;
-    width: 50%;
-    justify-content: space-around;
+    width: 50vw;
     align-items: center;
+    justify-content: center;
     display: flex;
     .case {
         cursor: pointer;

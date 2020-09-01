@@ -206,8 +206,6 @@ router.put('/placement/:id/:topOrBottom/:titre', isAdmin, async (req, res) => {
             }
         }
     }
-    //
-
     if (req.params.topOrBottom === 'isTop') {
         let projetImageTop = getObjectByValue(images, lowerValue)
         let tamponValue = projetImage.placement

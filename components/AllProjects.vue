@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="project in filterProjectItem" :key="project._id">
+        <div v-for="project in sortProjectItem" :key="project._id">
             <div class="container2">
                 <div class="tile__figure">
                     <a
@@ -39,6 +39,10 @@ export default {
     },
     data() {
         return {
+            opacity: 0,
+            isVisible1: false,
+            isVisible2: false,
+
             titreProject: '',
             titre: '',
             hover: '',
@@ -95,6 +99,10 @@ export default {
         }),
         filterProjectItem() {
             return this.projectItem.filter((el) => el.isCarousel === false)
+        },
+        sortProjectItem() {
+            const yo = this.filterProjectItem
+            return yo.sort((v1, v2) => v1.placement - v2.placement)
         }
     },
     watch: {
@@ -116,6 +124,16 @@ export default {
                 this.imageEnter()
             } else {
                 this.imageLeave()
+            }
+        },
+        isVisible1() {
+            if (this.isVisible1 === true) {
+                this.mesh.material.transparent = true
+
+                setInterval(() => {
+                    this.opacity = this.opacity + 0.05
+                    console.log(this.opacity)
+                }, 100)
             }
         }
     },
@@ -170,7 +188,29 @@ export default {
                     this.indexMin2 = indexRef
                 }
             }
-            requestAnimationFrame(this.getIndex)
+            if (
+                top[this.indexMin1] - window.innerHeight >
+                -window.innerHeight / 10
+            ) {
+                this.isVisible1 = false
+            } else if (
+                top[this.indexMin1] - window.innerHeight <
+                -window.innerHeight / 10
+            ) {
+                this.isVisible1 = true
+            }
+            if (
+                top[this.indexMin2] - window.innerHeight >
+                -window.innerHeight / 10
+            ) {
+                this.isVisible2 = false
+            } else if (
+                top[this.indexMin2] - window.innerHeight <
+                -window.innerHeight / 10
+            ) {
+                this.isVisible2 = true
+            }
+            window.requestAnimationFrame(this.getIndex)
         },
         ...mapMutations({
             imageLeave: 'imageLeave',
@@ -257,6 +297,7 @@ export default {
                 u_mouse: { value: this.mouse },
                 u_time: { value: 0 },
                 u_progressHover: { value: 0 },
+                u_opacity: { value: this.opacity },
                 u_res: {
                     value: new THREE.Vector2(
                         window.innerWidth,

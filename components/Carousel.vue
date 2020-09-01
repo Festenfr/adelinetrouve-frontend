@@ -2,7 +2,7 @@
     <div class="wrapper-slider">
         <div class="left-col">
             <CarouselSlideImage
-                v-for="(project, i) in filterProjectItem"
+                v-for="(project, i) in sortProjectItem"
                 :key="project._id"
                 :index="i"
                 class="little-img image-transition-preload"
@@ -121,6 +121,10 @@ export default {
         }),
         filterProjectItem() {
             return this.projectItem.filter((el) => el.isCarousel === true)
+        },
+        sortProjectItem() {
+            const yo = this.filterProjectItem
+            return yo.sort((v1, v2) => v1.placement - v2.placement)
         },
         slidesCount() {
             return this.filterProjectItem.length

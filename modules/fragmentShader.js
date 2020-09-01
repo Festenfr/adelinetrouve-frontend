@@ -1,6 +1,7 @@
 export const fragmentShader = `
 uniform vec2 u_mouse;
 uniform vec2 u_res;
+uniform vec2 u_opacity;
 uniform float u_progressHover;
 uniform sampler2D u_image;
 uniform sampler2D u_imagehover;

@@ -32,6 +32,9 @@ const projetSchema = new mongoose.Schema({
         minlength: 1,
         maxlength: 255
     },
+    placement: {
+        type: Number
+    },
     isCarousel: {
         type: Boolean,
         required: true

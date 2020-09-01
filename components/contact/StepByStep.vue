@@ -111,7 +111,7 @@ export default {
     },
     data() {
         return {
-            show: false,
+            show: true,
             valid: true,
             infos: {
                 nom: '',
@@ -134,7 +134,7 @@ export default {
             step4: 'register/step4'
         }),
         // eslint-disable-next-line vue/return-in-computed-property
-        nextIsValid: function() {
+        nextIsValid() {
             if (this.index === 0) return true
             else if (this.index === 1) return this.step1
             else if (this.index === 2) return this.step2

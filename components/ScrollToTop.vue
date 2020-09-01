@@ -53,7 +53,7 @@ export default {
 .position {
     position: fixed;
     z-index: 999;
-    bottom: 3vh;
+    bottom: 6vh;
     right: 5vh;
 }
 .menu_text_blanc {

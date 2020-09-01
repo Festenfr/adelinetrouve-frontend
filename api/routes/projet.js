@@ -137,6 +137,60 @@ router.put('/:id', isAdmin, upload.array('files'), async (req, res) => {
         res.status(422).json({ err })
     }
 })
+router.put('/placement/:id/:topOrBottom', isAdmin, async (req, res) => {
+    let projet = await Projet.findById(req.params.id)
+    let images = await Projet.find({})
+    if (!projet)
+        return res
+            .status(404)
+            .send("le Projet que tu veux déplacer n'existe plus")
+    if (!images)
+        return res
+            .status(404)
+            .send("le Projet que tu veux déplacer n'existe plus")
+    let sortArray = images.map((el) => el.placement).sort((a, b) => a - b)
+
+    let filterArrayLower = sortArray.filter((el) => el < projet.placement)
+    const index = filterArrayLower.indexOf(projet.placement)
+    if (index > -1) return filterArrayLower.splice(index, 1)
+    let lowerValue = filterArrayLower[filterArrayLower.length - 1]
+
+    let filterArraySup = sortArray.filter((el) => el > projet.placement)
+    const index2 = filterArraySup.indexOf(projet.placement)
+    if (index2 > -1) return filterArraySup.splice(index2, 1)
+    let superiorValue = filterArraySup[0]
+
+    function getObjectByValue(arr, value) {
+        for (var i = 0, iLen = arr.length; i < iLen; i++) {
+            if (arr[i].placement == value) {
+                return arr[i]
+            }
+        }
+    }
+    if (req.params.topOrBottom === 'isTop') {
+        let projetTop = getObjectByValue(images, lowerValue)
+        let tamponValue = projet.placement
+        projet.placement = projetTop.placement
+        projetTop.placement = tamponValue
+        projet = await projet.save()
+        projetTop = await projetTop.save()
+        res.status(200).json({
+            clickImage: projet,
+            sideImage: projetTop
+        })
+    } else if (req.params.topOrBottom === 'isBottom') {
+        let projetBottom = getObjectByValue(images, superiorValue)
+        let tamponValue = projet.placement
+        projet.placement = projetBottom.placement
+        projetBottom.placement = tamponValue
+        projet = await projet.save()
+        projetBottom = await projetBottom.save()
+        res.status(200).json({
+            clickImage: projet,
+            sideImage: projetBottom
+        })
+    }
+})
 router.delete('/:id', isAdmin, async (req, res) => {
     const s3 = new aws.S3()
     let projet = await Projet.findByIdAndDelete(req.params.id)
