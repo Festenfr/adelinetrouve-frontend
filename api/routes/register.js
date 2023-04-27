@@ -8,8 +8,7 @@ const router = express.Router()
 
 router.post('/', async (req, res) => {
     const result = validate(req.body)
-    if (result.error)
-        return res.status(400).send(result.error.details[0].message)
+    if (result.error) return res.status(400).send(result.error)
 
     let user = await User.findOne({ email: req.body.email })
     if (user)

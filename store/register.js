@@ -6,7 +6,7 @@ export const state = () => ({
     step5: false,
     formData: {},
     type: {},
-    surface: 0,
+    surface: {},
     pieces: [],
     budjet: 0,
     info: {}
@@ -85,6 +85,7 @@ export const mutations = {
 export const actions = {
     async addUser({ state, commit, rootState }) {
         try {
+            console.log(state.form)
             const { data } = await this.$axios.post('/register', state.formData)
             rootState.user = data.user
             rootState.loggedIn = true

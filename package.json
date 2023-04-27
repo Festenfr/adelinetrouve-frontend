@@ -33,7 +33,7 @@
     "lodash": "^4.17.15",
     "mongoose": "^5.9.5",
     "multer": "^1.4.2",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14",
     "nuxt": "^2.13.3",
     "nuxt-webfontloader": "^1.1.0",
     "redirect-ssl": "^1.4.1",

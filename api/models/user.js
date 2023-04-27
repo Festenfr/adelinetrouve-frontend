@@ -7,14 +7,13 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     surface: {
-        type: String,
-        required: true
+        type: String
     },
     pieces: {
         type: Array,
         required: true
     },
-    budget: {
+    budjet: {
         type: String,
         required: true,
         minlength: 1,
@@ -79,15 +78,13 @@ function validateUser(user) {
             }),
         surface: Joi.string()
             .min(1)
-            .max(50)
-            .required()
+            .max(200)
             .messages({
                 'string.base': 'La surface doit être une chaine de caractère',
                 'string.empty': 'Entrer une surface',
                 'string.min': `La surface doit contenir au moins 1 caractères`,
                 'string.max':
-                    'La surface doit contenir au maximum 50 caractères',
-                'any.required': 'la surface est requis'
+                    'La surface doit contenir au maximum 50 caractères'
             }),
         pieces: Joi.array()
             .required()
@@ -95,7 +92,7 @@ function validateUser(user) {
                 'array.empty': 'Ajouter des pieces',
                 'any.required': 'Il faut ajouter au moins une piece'
             }),
-        budget: Joi.string()
+        budjet: Joi.string()
             .min(1)
             .max(50)
             .required()

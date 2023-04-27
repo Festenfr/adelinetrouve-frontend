@@ -15,7 +15,8 @@ if (!process.env.JWT_PRIVATE_KEY) {
 }
 mongoose
     .connect(
-        `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0-zledd.mongodb.net/test?retryWrites=true&w=majority`,
+        `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.ql6bvqn.mongodb.net/?retryWrites=true&w=majority
+        `,
         { useUnifiedTopology: true, useNewUrlParser: true }
     )
     .then(() => console.log('Connected to mongoDb..'))
